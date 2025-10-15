@@ -1,1 +1,1 @@
-# Frontend works Sergei placed here
+# Frontend works of Sergei placed here
