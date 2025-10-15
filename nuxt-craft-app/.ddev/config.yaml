@@ -1,4 +1,4 @@
-name: starter-nuxt
+name: dreams-nuxt-craft
 type: craftcms
 docroot: backend/web
 php_version: "8.2"
@@ -7,7 +7,7 @@ webserver_type: nginx-fpm
 composer_root: backend
 xdebug_enabled: false
 additional_hostnames:
-  - api.starter-nuxt
+  - api.dreams-nuxt-craft
 database:
     type: mysql
     version: "8.0"
@@ -26,7 +26,7 @@ web_extra_exposed_ports:
     http_port: 9310
     https_port: 9311
 web_environment:
-  - VIRTUAL_HOST=starter-nuxt.ddev.site,api.starter-nuxt.ddev.site
+  - VIRTUAL_HOST=dreams-nuxt-craft.ddev.site,api.dreams-nuxt-craft.ddev.site
   - CRAFT_CMD_ROOT=/var/www/html/backend
   - NUXT_DEVTOOLS_HOST=0.0.0.0
 
