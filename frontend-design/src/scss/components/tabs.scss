@@ -1,0 +1,23 @@
+$tab-active-background-color: var(--color-primary);
+$tab-active-color: var(--color-white);
+$tab-border-color: var(--color-secondary);
+
+.tabs {
+  display: flex;
+  gap: 16px;
+}
+
+.tab-button {
+  background: none;
+}
+
+[data-tab-content] {
+  @include tablet {
+    display: block;
+    position: static;
+    overflow: visible;
+    margin: 0;
+    height: auto;
+    clip: auto;
+  }
+}

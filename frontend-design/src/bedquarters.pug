@@ -1,0 +1,17 @@
+extends pug/base
+
+prepend vars
+  - title = 'Bedquarters'
+
+append vars
+
+block content
+  section.hero.hero--bedquarters.wave-bottom
+    img(src="images/bedquarters.jpg" alt="bedquarters")
+    .hero__inner
+      h1 Where big
+      .hero__motto
+        img.hero__images.hidden-desktop(src="images/motto/bedquarters/dreams.svg" alt="dreams")
+        img.hero__images.hidden-desktop(src="images/motto/bedquarters/get-done.svg" alt="get done")
+        img.hero__images.visible-desktop(src="images/motto/bedquarters/dreams-get-done.svg" alt="dreams get done")
+      p Part ideas hub, part problem-solving pitstop — Bedquarters is where the sparks fly and the plans come to life.

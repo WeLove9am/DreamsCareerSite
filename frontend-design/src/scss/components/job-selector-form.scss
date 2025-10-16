@@ -1,0 +1,156 @@
+.retail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include desktop {
+    flex-direction: row;
+    padding-inline: 40px;
+    margin: 0 auto;
+  }
+
+  @include desktop-l {
+    padding-inline: 200px;
+  }
+
+  .container {
+    @include desktop {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.form-location input::placeholder {
+  color: #D8D8D9;
+}
+
+.job-selector-form {
+
+  @include desktop {
+    width: 398px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: #EDEDED;
+    border-radius: 10px;
+    padding: 30px 20px 30px 20px;
+  }
+
+  label {
+    margin-bottom: 20px;
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 22px;
+
+    @include desktop {
+      font-size: 21px;
+      line-height: 28px;
+    }
+  }
+
+  button {
+    margin-right: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+}
+
+.form-location {
+
+  select {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 19px;
+    font-weight: 400;
+    padding: 14px 0 14px 20px;
+    border-radius: 10px;
+    justify-content: center;
+
+    @include tablet {
+      max-width: 300px;
+      margin-right: 10px;
+    }
+
+    @include desktop {
+      max-width: 100%;
+      font-size: 18px;
+      line-height: 23px;
+      letter-spacing: -0.18px;
+      padding: 19px 0 18px 20px;
+    }
+  }
+
+  input {
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 12px;
+    line-height: 19px;
+    font-weight: 400;
+    padding: 14px 0 14px 20px;
+    border-radius: 10px;
+
+    @include tablet {
+      max-width: 300px;
+    }
+
+    @include desktop {
+      max-width: 100%;
+      font-size: 18px;
+      line-height: 23px;
+      letter-spacing: -0.18px;
+      padding: 19px 0 18px 20px;
+    }
+  }
+
+  button {
+    @include desktop {
+      width: 100%;
+    }
+  }
+
+  input::placeholder {
+    padding: 14px auto 14px 20px;
+  }
+}
+
+.form-location--search__jobs {
+  margin-top: 30px;
+
+  @include desktop {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 131px;
+    width: 100%;
+  }
+}
+
+.form-location--search__jobs input {
+  padding: 11px 0 11px 19px;
+  width: 313px;
+  margin-bottom: 10px;
+
+  @include desktop {
+    margin-bottom: 0px;
+    width: 427px;
+  }
+}
+
+.form-location--search__jobs button.button--primary {
+  max-width: 102px;
+  margin-top: 10px;
+  padding: 14px 30px;
+
+  @include desktop {
+    padding: 20px 69px;
+    margin-top: 0px;
+    max-width: 206px;
+  }
+}

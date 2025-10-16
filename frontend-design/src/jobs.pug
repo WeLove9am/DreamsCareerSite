@@ -1,0 +1,18 @@
+extends pug/base
+
+prepend vars
+  - title = 'Jobs'
+
+append vars
+
+block content
+  section.hero.hero--jobs.wave-bottom
+    img(src="images/jobs.jpg" alt="jobs")
+    .hero__inner
+      .hero__motto
+        h2 Our jobs
+      p Because no one should lose sleep over job applications
+      .form-location.form-location--search__jobs
+        input(type="text" placeholder="Search jobs by keyword") 
+        input(type="text" placeholder="Location or postcode") 
+        button(type="submit").button.button--primary Search

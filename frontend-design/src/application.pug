@@ -1,0 +1,17 @@
+extends pug/base
+
+prepend vars
+  - title = 'Application process'
+
+append vars
+
+block content
+  section.hero.hero--application.wave-bottom
+    img(src="images/application.jpg" alt="application")
+    .hero__inner
+      .hero__motto
+        img.hero__images.hidden-desktop(src="images/motto/application/sweet-dreams.svg" alt="sweet dreams")
+        img.hero__images.hidden-desktop(src="images/motto/application/start-with.svg" alt="start with")
+        img.hero__images.hidden-desktop(src="images/motto/application/simple-steps.svg" alt="simple steps.")
+        img.hero__images.visible-desktop(src="images/motto/application/sweet-dreams-start-with-simple-steps.svg" alt="sweet dreams start with simple steps.")
+      p We’re here to make applying easy, so you can focus on your dream role

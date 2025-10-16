@@ -1,0 +1,28 @@
+#image-sequence {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.pin-section {
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+
+.section-content {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 100%;
+  text-align: center;
+
+  color: white;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}

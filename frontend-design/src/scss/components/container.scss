@@ -1,0 +1,82 @@
+.container {
+  width: 100%;
+  margin-inline: auto;
+  max-width: var(--container-max-width);
+  padding-inline: var(--container-padding);
+
+  @include tablet {
+    padding-inline: var(--container-padding-tablet);
+  }
+
+  @include desktop-l {
+    padding-inline: var(--container-padding-desktop);
+  }
+
+  >h2 {
+    font-family: var(--font-primary);
+    font-size: 28px;
+    line-height: 31px;
+    font-weight: 800;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 42px;
+
+    @include desktop {
+      font-size: 55px;
+      line-height: 70px;
+      margin-bottom: 21px;
+      margin-top: 51px;
+
+      br {
+        display: none;
+      }
+    }
+  }
+
+  >p {
+    font-family: var(--font-primary);
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--color-primary);
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 50px;
+
+    @include desktop {
+      font-size: 31px;
+      line-height: 38px;
+    }
+  }
+}
+
+.container--fluid {
+  max-width: 100%;
+}
+
+.container__title {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  flex-shrink: 0;
+  align-items: center;
+  margin-bottom: 30px;
+
+  & img:last-child {
+    display: none;
+
+    @include desktop {
+      display: block;
+    }
+  }
+
+  & img:not(:last-child) {
+    @include desktop {
+      display: none;
+    }
+  }
+
+  & img {
+    height: auto;
+  }
+}

@@ -1,0 +1,161 @@
+.quiz {
+  display: flex;
+  flex-direction: column;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+  min-height: 386px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.quiz__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+
+  @include tablet {
+    justify-content: flex-start;
+  }
+}
+
+.quiz__controls {
+  margin-bottom: 4px;
+}
+
+.quiz__result {
+  display: none;
+
+  &.active {
+    display: block;
+    animation: fadeIn;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+
+  h3 {
+    margin-bottom: 24px;
+  }
+}
+
+.quiz__result-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 30px;
+
+  @include desktop {
+    justify-content: flex-end;
+  }
+}
+
+.quiz__intro {
+  @include laptop {
+    text-align: center;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  h2 {
+    line-height: 36px;
+    margin-bottom: 10px;
+
+    @include laptop {
+      font-size: 30px;
+      line-height: 36px;
+      letter-spacing: 0;
+      margin: 20px;
+    }
+  }
+
+
+  .button {
+    display: block;
+    margin: 0 auto 40px;
+
+    @include laptop {
+      margin-bottom: 80px;
+    }
+  }
+}
+
+.quiz__progress {
+  margin-top: auto;
+  padding-top: 20px;
+
+  @include laptop {
+    padding-top: 0;
+  }
+}
+
+.quiz__question-wrap {
+  display: none;
+  list-style-type: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.quiz__question {
+  display: none;
+  opacity: 0;
+
+  &.active {
+    display: block;
+    animation: fadeIn;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+
+  h3 {
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+
+    @include laptop {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.quiz__question-form {
+  position: relative;
+  padding-top: 20px;
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  @include tablet {
+    padding-top: 0;
+    padding-left: 20px;
+  }
+
+  @include laptop {
+    padding-left: 40px;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+
+    @include tablet {
+      width: 2px;
+      height: 100%;
+      left: -8px;
+    }
+
+    @include desktop {
+      left: 0;
+    }
+  }
+}
