@@ -70,7 +70,7 @@
     "yargs": "17.7.2"
   },
   "dependencies": {
-    "@babel/runtime": "7.22.11",
+    "@babel/runtime": "7.26.10",
     "@floating-ui/dom": "1.6.1",
     "@popperjs/core": "2.11.8",
     "a11y-dialog": "8.1.1",
