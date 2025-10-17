@@ -1,65 +1,79 @@
-section.section.quiz
+section.section.quiz.card
   form#quiz-form(name="quiz-form" action="#" method="post") 
     .quiz__intro
-      h2 Discover where you’ll make the biggest impact
-      h3 Take our 10-question Skills Matcher to uncover which roles best align with your strengths, experience and working style.
+      h3 Discover where you’ll make the biggest impact
+      h4 Take our 10-question Skills Matcher to uncover which roles best align with your strengths, experience and working style.
       p It’s a smart first step to finding a career that’s built around you.
       button.button.button--primary.js-quiz-start(type="button")
         span Start
-
-      b Why are we asking this?
-      p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
+      .question-info
+        b Why are we asking this?
+        p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
 
     ul.quiz__question-wrap
       li.quiz__question
         .container
           .quiz__question-form
-            h2 Skills matcher
+            h3 Skills matcher
 
-            h3 I am comfortable telling people what they need to do
+            h4 I am comfortable telling people what they need to do
             .quiz__controls
               .form-group
-                +radio("Speaking to people in authority is my worst nightmare", "radio1", "value1", true)
+                +radio("Speaking to people in authority is my worst nightmare", "radio1", "value1", true,"images/retail.jpg")
               .form-group
-                +radio("Very. I’m always happy to make myself heard", "radio1", "value2")
+                +radio("Very. I’m always happy to make myself heard", "radio1", "value2","","images/retail.jpg")
+
 
             .quiz__buttons
               button.button.button--primary.text-left.quiz__next(type="button")
                 span Next
 
+            .question-info
+              b Why are we asking this?
+              p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
+
+
       li.quiz__question
         .container
           .quiz__question-form
-            h2 Skills matcher
+            h3 Skills matcher
 
-            h3 How do you like to measure success?
+            h4 How do you like to measure success?
             .quiz__controls
               .form-group
-                +radio("Speaking to people in authority is my worst nightmare", "radio2", "value1", true)
+                +radio("Speaking to people in authority is my worst nightmare", "radio2", "value1", true, "images/retail.jpg")
               .form-group
-                +radio("Very. I’m always happy to make myself heard", "radio2", "value2")
+                +radio("Very. I’m always happy to make myself heard", "radio2", "value2","","images/retail.jpg")
             .quiz__buttons
               button.button.button--primary.text-right.icon-left.quiz__prev(type="button")
                 span Previous
               button.button.button--primary.text-left.quiz__next(type="button")
                 span Next
+            .question-info
+              b Why are we asking this?
+              p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
+
 
       li.quiz__question
         .container
           .quiz__question-form
-            h2 Skills matcher
+            h3 Skills matcher
 
-            h3 How do you like to measure success?
+            h4 How do you like to measure success?
             .quiz__controls
               .form-group
-                +radio("Speaking to people in authority is my worst nightmare", "radio3", "value1", true)
+                +radio("Speaking to people in authority is my worst nightmare", "radio3", "value1", true,"images/retail.jpg")
               .form-group
-                +radio("Very. I’m always happy to make myself heard", "radio3", "value2")
+                +radio("Very. I’m always happy to make myself heard", "radio3", "value2","","images/retail.jpg")
             .quiz__buttons
               button.button.button--primary.text-right.icon-left.quiz__prev(type="button")
                 span Previous
               button.button.button--primary.text-left.quiz__submit(type="submit")
                 span Submit
+            .question-info
+              b Why are we asking this?
+              p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
+
 
   .quiz__result
     .container
@@ -68,6 +82,9 @@ section.section.quiz
         p Here are some current roles you might be interested 
       .quiz__result-actions
         button.button View my roles
+      .question-info
+        b Why are we asking this?
+        p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
   .quiz__progress
     .container
       .progress

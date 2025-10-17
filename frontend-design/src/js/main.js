@@ -7,7 +7,7 @@ import { sliderValues } from "./components/sliderValues.js";
 import { toggle } from "./components/toggle.js";
 import { quiz } from "./components/quiz.js";
 // import { imageScroll } from "./components/imageScroll.js";
-// import { scrollspy } from "./components/scrollspy.js";
+import { scrollspy } from "./components/scrollspy.js";
 // import { slider } from "./components/slider.js";
 
 window.addEventListener(
@@ -22,6 +22,7 @@ window.addEventListener(
     sliderValues.init();
     toggle.init();
     quiz.init();
+    scrollspy.init();
 
     gsap.registerPlugin(ScrollTrigger);
 

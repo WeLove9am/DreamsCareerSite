@@ -30,6 +30,8 @@
   @include desktop {
     grid-area: blocki1;
     max-width: 710px;
+    width: 100%;
+    min-height: 515px;
   }
 }
 
@@ -39,7 +41,9 @@
   @include desktop {
     grid-area: blocki2;
     max-width: 590px;
-    transform: translate(0, -60px);
+    width: 100%;
+    min-height: 428px;
+    margin-top: -60px;
   }
 }
 
@@ -49,7 +53,9 @@
   @include desktop {
     grid-area: blocki3;
     max-width: 470px;
-    transform: translate(0, -120px);
+    width: 100%;
+    min-height: 341px;
+    margin-top: -60px;
   }
 }
 
@@ -69,7 +75,8 @@
     grid-area: blockt2;
     margin-left: 40px;
     max-width: 515px;
-    transform: translate(0, -60px);
+    width: 100%;
+    margin-top: -60px;
   }
 }
 
@@ -103,7 +110,8 @@
     grid-area: blockt3;
     margin-left: 40px;
     max-width: 515px;
-    transform: translate(0, -120px);
+    width: 100%;
+    margin-top: -60px;
   }
 }
 
@@ -142,9 +150,7 @@
     filter: brightness(100%);
     transform: translateX(0);
   }
-
 }
-
 
 .about__text {
   padding: 60px 16px;
