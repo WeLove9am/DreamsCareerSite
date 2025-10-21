@@ -4,8 +4,10 @@ import { sliderJobs } from "./components/sliderJobs.js";
 import { sliderFeatures } from "./components/sliderFeatures.js";
 import { sliderSpotlight } from "./components/sliderSpotlight.js";
 import { sliderValues } from "./components/sliderValues.js";
+import { sliderSteps } from "./components/sliderSteps.js";
 import { toggle } from "./components/toggle.js";
 import { quiz } from "./components/quiz.js";
+import { tabs } from "./components/tabs.js";
 // import { imageScroll } from "./components/imageScroll.js";
 import { scrollspy } from "./components/scrollspy.js";
 // import { slider } from "./components/slider.js";
@@ -18,11 +20,13 @@ window.addEventListener(
     sliderJobs.init();
     sliderFeatures.init();
     sliderSpotlight.init();
+    sliderSteps.init();
     // createSliderManager.init();
     sliderValues.init();
     toggle.init();
     quiz.init();
     scrollspy.init();
+    tabs.init();
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -33,7 +37,6 @@ window.addEventListener(
 
     const resizeCanvas = (canvasElement, updateImageCallback) => {
       const rect = canvasElement.getBoundingClientRect();
-
       canvasElement.width = rect.width;
       canvasElement.height = rect.height;
 
@@ -46,16 +49,14 @@ window.addEventListener(
       return new Array(frameCount)
         .fill()
         .map(
-          (o, i) => `${imagePath}-${(i + 1).toString().padStart(3, "0")}.jpg`
+          (_, i) => `${imagePath}-${(i + 1).toString().padStart(3, "0")}.jpg`
         );
     };
 
     sections.forEach((section, index) => {
       const frameCount = parseInt(section.dataset.frameCount, 10);
       const imagePath = section.dataset.imagePath;
-
       const urls = generateImageUrls(frameCount, imagePath);
-
       const nextSection = sections[index + 1];
 
       const anim = imageSequence({
@@ -67,15 +68,18 @@ window.addEventListener(
           start: "top top",
           end: "bottom top",
           scrub: true,
-          onLeave: () => {
-            if (nextSection) {
-              gsap.to(window, {
-                duration: 0,
-                scrollTo: nextSection,
-              });
-            }
-          },
+          snap: 0.7,
         },
+        onComplete: () => {
+          if (nextSection) {
+            gsap.to(window, {
+              duration: 2,
+              scrollTo: nextSection,
+              overwrite: "auto",
+            });
+          }
+        },
+        effectiveFps: 15,
       });
 
       if (anim && anim.vars.onUpdate) {
@@ -88,9 +92,13 @@ window.addEventListener(
         const activeTrigger = ScrollTrigger.getAll().find(
           (trigger) => trigger.isActive
         );
-
         if (activeTrigger) {
-          updateCallbacks[updateCallbacks.length - 1]();
+          const activeAnim = gsap.getTweensOf({
+            scrollTrigger: activeTrigger,
+          })[0];
+          if (activeAnim && activeAnim.vars.onUpdate) {
+            activeAnim.vars.onUpdate();
+          }
         } else {
           updateCallbacks[0]();
         }
@@ -102,29 +110,23 @@ window.addEventListener(
     );
 
     function imageSequence(config) {
-      let playhead = { frame: 0 },
-        canvasElement =
-          gsap.utils.toArray(config.canvas)[0] ||
-          console.warn("Canvas element not found"),
-        ctx = canvasElement ? canvasElement.getContext("2d") : null,
-        curFrame = -1,
-        onUpdate = config.onUpdate,
-        images;
+      let playhead = { frame: 0 };
+      const canvasElement =
+        gsap.utils.toArray(config.canvas)[0] ||
+        console.warn("Canvas element not found");
+      const ctx = canvasElement ? canvasElement.getContext("2d") : null;
+      let curFrame = -1;
+      const onUpdate = config.onUpdate;
+      const onComplete = config.onComplete;
+      let images;
 
-      if (!ctx) {
-        return;
-      }
+      if (!ctx) return;
 
-      let updateImage = function () {
-        let frame = Math.round(playhead.frame);
-
-        const shouldRedraw = frame !== curFrame;
-
-        if (shouldRedraw) {
+      const updateImage = function () {
+        const frame = Math.round(playhead.frame);
+        if (frame !== curFrame) {
           ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-          let img = images[frame];
-
+          const img = images[frame];
           if (img && img.complete) {
             const canvasW = canvasElement.width;
             const canvasH = canvasElement.height;
@@ -132,15 +134,12 @@ window.addEventListener(
             const imgH = img.height;
 
             const ratio = Math.max(canvasW / imgW, canvasH / imgH);
-
             const scaledW = imgW * ratio;
             const scaledH = imgH * ratio;
-
             const x = (canvasW - scaledW) / 2;
             const y = (canvasH - scaledH) / 2;
 
             ctx.drawImage(img, x, y, scaledW, scaledH);
-
             curFrame = frame;
             onUpdate && onUpdate.call(this, frame, images[frame]);
           }
@@ -148,23 +147,25 @@ window.addEventListener(
       };
 
       images = config.urls.map((url, i) => {
-        let img = new Image();
+        const img = new Image();
         img.src = url;
-
         if (i === 0) {
           img.onload = () => {
             resizeCanvas(canvas, updateImage);
           };
         }
-
         return img;
       });
+
+      const effectiveFps = config.effectiveFps || 15;
+      const duration = images.length / effectiveFps;
 
       return gsap.to(playhead, {
         frame: images.length - 1,
         ease: "none",
         onUpdate: updateImage,
-        duration: images.length / (config.fps || 30),
+        onComplete: onComplete,
+        duration: duration,
         paused: !!config.paused,
         scrollTrigger: config.scrollTrigger,
       });

@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="KEIM" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="./css/main.css?v=1760599289188">
+    <link rel="stylesheet" href="./css/main.css?v=1761035147932">
 </head>
 
 <body>
@@ -190,23 +190,45 @@
         <main class="main"><canvas id="image-sequence" width="1920" height="1080"></canvas>
 
             <section id="section-1" class="pin-section" data-frame-count="75" data-image-path="images/general/dreamscareersite-general">
-                <div class="section-content">
-                    <h1>Scroll Section 1: Image Set A (75 frames)</h1>
-                    <p>This content is now floating above the canvas image!</p>
+                <div class="pin-section__title">
+                    <img class="hidden-desktop" src="images/home-header-1.png" alt="from our big thinkers.">
+                    <img class="visible-desktop" src="images/home-header-1-desktop.svg" alt="from our big thinkers.">
                 </div>
             </section>
 
-            <section id="section-2" class="pin-section" data-frame-count="50" data-image-path="images/bedquarters/dreamscareersite-bedquarters">
-                <div class="section-content">
-                    <h1>Scroll Section 2: Image Set B (50 frames)</h1>
-                    <p>You can add any element here, like buttons or text.</p>
+            <section id="section-2" class="pin-section" data-frame-count="75" data-image-path="images/bedquarters/dreamscareersite-bedquarters">
+                <div class="pin-section__title">
+                    <img class="hidden-desktop" src="images/home-header-2.svg" alt="from our big thinkers.">
+                    <img class="visible-desktop" src="images/home-header-2-desktop.svg" alt="from our big thinkers.">
                 </div>
             </section>
 
-            <section id="section-3" class="pin-section" data-frame-count="90" data-image-path="images/third-set/third-sequence">
-                <div class="section-content">
-                    <h1>Scroll Section 3: Image Set C (90 frames)</h1>
-                    <p>The canvas image will change as you scroll past this section.</p>
+            <section id="section-3" class="pin-section" data-frame-count="75" data-image-path="images/bedfactory/dreamscareersite-bedfactory">
+                <div class="pin-section__title">
+                    <img class="hidden-desktop" src="images/home-header-3.svg" alt="from our big thinkers.">
+                    <img class="visible-desktop" src="images/home-header-3-desktop.svg" alt="from our big thinkers.">
+                </div>
+            </section>
+
+            <section id="section-4" class="pin-section" data-frame-count="87" data-image-path="images/retail/dreamscareersite-retail">
+                <div class="pin-section__title">
+                    <img class="hidden-desktop" src="images/home-header-4.png" alt="from our big thinkers.">
+                    <img class="visible-desktop" src="images/home-header-5-desktop.svg" alt="from our big thinkers.">
+                </div>
+            </section>
+
+            <section id="section-5" class="pin-section" data-frame-count="75" data-image-path="images/distribution/dreamscareersite-distribution">
+                <div class="pin-section__title">
+                    <img class="hidden-desktop" src="images/home-header-5.svg" alt="from our big thinkers.">
+                    <img class="visible-desktop" src="images/home-header-5-desktop.svg" alt="from our big thinkers.">
+                </div>
+            </section>
+
+            <section id="section-6" class="pin-section" data-frame-count="75" data-image-path="images/distribution/dreamscareersite-distribution">
+                <div class="pin-section__title">
+                    <h2>Every role has its part to play in</h2>
+                    <img class="hidden-desktop" src="images/home-header-6.svg" alt="helping the nation sleep better.">
+                    <img class="visible-desktop" src="images/home-header-6-desktop.svg" alt="helping the nation sleep better.">
                 </div>
             </section>
         </main>
@@ -355,82 +377,11 @@
             </div>
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    <script src="./js/vendor.js?v=1760599289188"></script>
-    <script src="./js/main.js?v=1760599289188"></script>
-    <script>
-			gsap.registerPlugin(ScrollTrigger);
-			
-			const frameCount = 147;
-			const canvasWidth = 1158;
-			const canvasHeight = 770;
-			
-			// Generate image URL for frame index
-			const getImageURL = (index) =>
-			  `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${(index + 1).toString().padStart(4, '0')}.jpg`;
-			
-			// === Load all frames once and share between sections ===
-			const images = [];
-			for (let i = 0; i < frameCount; i++) {
-			  const img = new Image();
-			  img.src = getImageURL(i);
-			  images.push(img);
-			}
-			
-			// Array of canvases and contexts
-			const canvases = [
-			  document.getElementById("canvas-1"),
-			  document.getElementById("canvas-2"),
-			  document.getElementById("canvas-3")
-			];
-			
-			const contexts = canvases.map(canvas => canvas.getContext("2d"));
-			
-			// Shared render function factory
-			function createRender(ctx) {
-			  return function(frameIndex) {
-			    const idx = Math.floor(frameIndex);
-			    if (idx >= 0 && idx < frameCount && images[idx].complete) {
-			      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-			      ctx.drawImage(images[idx], 0, 0, canvasWidth, canvasHeight);
-			    }
-			  };
-			}
-			
-			// --- Wait for first image to load before rendering anything ---
-			images[0].onload = () => {
-			  console.log("First frame loaded – starting animations.");
-			  
-			  // Now initialize GSAP animations
-			  canvases.forEach((canvas, sectionIndex) => {
-			    const ctx = contexts[sectionIndex];
-			    const anim = { frame: 0 }; // Start at frame 0 for each section
-			
-			    const render = createRender(ctx);
-			
-			    gsap.to(anim, {
-			      frame: frameCount - 1,
-			      ease: "none",
-			      onUpdate: render,
-			      scrollTrigger: {
-			        trigger: ".section",           // All sections use same selector
-			        start: "top top",              // Pin when top hits top
-			        end: "+=100%",                 // Duration = height of .section
-			        scrub: 0.5,                    // Smooth scrub like original
-			        pin: true,                     // Lock scroll here!
-			        anticipatePin: true,
-			        invalidateOnRefresh: true,
-			        // markers: sectionIndex === 0  // Uncomment for debugging
-			      }
-			    });
-			  });
-			};
-			
-			// Optional: Handle errors
-			images[0].onerror = () => {
-			  console.error("Failed to load first image. Check network or URL.");
-			};
-		</script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js"></script>
+    <script src="./js/vendor.js?v=1761035147933"></script>
+    <script src="./js/main.js?v=1761035147933"></script>
 </body>
 </html>

@@ -4,8 +4,7 @@ section.section.quiz.card
       h3 Discover where you’ll make the biggest impact
       h4 Take our 10-question Skills Matcher to uncover which roles best align with your strengths, experience and working style.
       p It’s a smart first step to finding a career that’s built around you.
-      button.button.button--primary.js-quiz-start(type="button")
-        span Start
+      button.button.button--primary.js-quiz-start(type="button") Start
       .question-info
         b Why are we asking this?
         p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
@@ -19,14 +18,13 @@ section.section.quiz.card
             h4 I am comfortable telling people what they need to do
             .quiz__controls
               .form-group
-                +radio("Speaking to people in authority is my worst nightmare", "radio1", "value1", true,"images/retail.jpg")
+                +radio("Yes, I feel confident in this task", "radio1", "value1", true,"images/retail.jpg")
               .form-group
-                +radio("Very. I’m always happy to make myself heard", "radio1", "value2","","images/retail.jpg")
+                +radio("I have no experience in this", "radio1", "value2","","images/retail.jpg")
 
 
             .quiz__buttons
-              button.button.button--primary.text-left.quiz__next(type="button")
-                span Next
+              button.button.button--primary.quiz__next(type="button") Next
 
             .question-info
               b Why are we asking this?
@@ -41,14 +39,12 @@ section.section.quiz.card
             h4 How do you like to measure success?
             .quiz__controls
               .form-group
-                +radio("Speaking to people in authority is my worst nightmare", "radio2", "value1", true, "images/retail.jpg")
+                +radio("Yes, I feel confident in this task", "radio2", "value1", true, "images/retail.jpg")
               .form-group
-                +radio("Very. I’m always happy to make myself heard", "radio2", "value2","","images/retail.jpg")
+                +radio("I have no experience in this", "radio2", "value2","","images/retail.jpg")
             .quiz__buttons
-              button.button.button--primary.text-right.icon-left.quiz__prev(type="button")
-                span Previous
-              button.button.button--primary.text-left.quiz__next(type="button")
-                span Next
+              button.button.button--primary.text-right.icon-left.quiz__prev(type="button") Previous
+              button.button.button--primary.quiz__next(type="button") Next
             .question-info
               b Why are we asking this?
               p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
@@ -66,10 +62,8 @@ section.section.quiz.card
               .form-group
                 +radio("Very. I’m always happy to make myself heard", "radio3", "value2","","images/retail.jpg")
             .quiz__buttons
-              button.button.button--primary.text-right.icon-left.quiz__prev(type="button")
-                span Previous
-              button.button.button--primary.text-left.quiz__submit(type="submit")
-                span Submit
+              button.button.button--primary.text-right.icon-left.quiz__prev(type="button") Previous
+              button.button.button--primary.quiz__submit(type="submit") Submit
             .question-info
               b Why are we asking this?
               p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.
@@ -81,7 +75,7 @@ section.section.quiz.card
         h3.h3.text-primary Great! It sounds like you've got what it takes for a career in care.
         p Here are some current roles you might be interested 
       .quiz__result-actions
-        button.button View my roles
+        a(href="/").button.button--primary View my roles
       .question-info
         b Why are we asking this?
         p We know choosing the right career is a really important decision, so we’d love to help you choose a pathway that suits you and your unique skill set. You more information you give us the more tailored your results.

@@ -50,10 +50,11 @@
   }
 }
 
-.hero h1 {
+.hero__motto h1 {
   font-family: var(--font-primary);
   font-size: 28px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
+  letter-spacing: 0;
 
   @include desktop {
     font-weight: 900;
@@ -63,19 +64,8 @@
   }
 }
 
-.hero h2 {
-  font-size: 59px;
-  margin-bottom: 5px;
-  line-height: 47px;
 
-  @include desktop {
-    font-size: 128px;
-    line-height: 128px;
-    width: 120%;
-  }
-}
-
-.hero p {
+.hero__motto p {
   font-family: var(--font-primary);
   font-size: 18px;
   line-height: 24px;
@@ -90,22 +80,9 @@
   }
 }
 
-.hero__motto {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  @include desktop {
-
-    flex-direction: row;
-    gap: 30px;
-    align-items: flex-end;
-    width: 90vw;
-  }
-}
-
 .hero__motto img {
+  margin: 0 auto;
+
   @include desktop {
     height: auto;
     width: auto;
@@ -149,15 +126,15 @@
   height: auto;
 }
 
-.hero.hero--jobs__listing .wave.wave--white,
-.hero.hero--jobs .wave.wave--white {
-  transform: translateY(-100%);
-  height: auto;
+// .hero.hero--jobs__listing .wave.wave--white,
+// .hero.hero--jobs .wave.wave--white {
+//   transform: translateY(-100%);
+//   height: auto;
 
-  @include desktop {
-    transform: translateY(-50%);
-  }
-}
+//   @include desktop {
+//     transform: translateY(-50%);
+//   }
+// }
 
 .hero__info {
   margin-top: 76px;

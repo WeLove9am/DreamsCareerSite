@@ -47,3 +47,12 @@ $checkbox-color-focus: var(--color-black);
   height: 10px;
   background-color: $checkbox-color;
 }
+
+label.button:has(input[type="checkbox"]:checked) {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.checkbox.button {
+  display: inline-flex;
+}

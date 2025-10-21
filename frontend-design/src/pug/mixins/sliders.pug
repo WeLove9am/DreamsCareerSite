@@ -3,13 +3,13 @@ mixin slider()
   .swiper.slider
     .swiper-wrapper
       .swiper-slide
-        h2 Slide 1
+        h3 Slide 1
         img(src="http://placekitten.com/500/300" alt="")
       .swiper-slide
-        h2 Slide 2
+        h3 Slide 2
         img(src="http://placekitten.com/500/300" alt="")
       .swiper-slide
-        h2 Slide 3
+        h3 Slide 3
         img(src="http://placekitten.com/500/300" alt="")
     .swiper-pagination
     button.swiper-button-prev
@@ -20,16 +20,16 @@ mixin slider-thumbs()
   .swiper.slider-thumbs
     .swiper-wrapper
       .swiper-slide
-        h2 Slide 1
+        h3 Slide 1
         img(src="http://placekitten.com/500/300" alt="")
       .swiper-slide
-        h2 Slide 2
+        h3 Slide 2
         img(src="http://placekitten.com/500/300" alt="")
       .swiper-slide
-        h2 Slide 3
+        h3 Slide 3
         img(src="http://placekitten.com/500/300" alt="")
       .swiper-slide
-        h2 Slide 4
+        h3 Slide 4
         img(src="http://placekitten.com/500/300" alt="")
     button.swiper-button-prev
     button.swiper-button-next
@@ -141,7 +141,6 @@ mixin slider-features()
     .slider-features__progress
       .slider-features__progress-bar
         .slider-features__progress-fill
-    //- TODO запросить новые иконки с fill, а не stroke, svgo удаляет stroke: none. Либо потестить конфиг svgo. Или найти похожие иконки.
     .slider-features__navigation
       button.swiper-button-prev.slider-features__nav-btn.slider-features__nav-btn--prev
         +svg('chevron-circle-left')

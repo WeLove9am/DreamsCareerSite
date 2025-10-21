@@ -74,3 +74,14 @@
     width: calc(50% - 10px);
   }
 }
+
+.intro ul {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 23px;
+  padding-left: 15px;
+}
+
+.intro ul li + li {
+  margin-top: 23px;
+}

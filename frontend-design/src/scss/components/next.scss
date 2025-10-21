@@ -11,6 +11,7 @@
   width: 100%;
   margin-inline: auto;
   padding-inline: 20px;
+  max-width: 1920px;
 
   @include tablet {
     flex-direction: row;
@@ -117,9 +118,11 @@
   width: 393px;
   height: 333px;
   object-fit: cover;
+  margin-inline: auto;
 
   @include tablet {
     height: 360px;
+    margin-top: auto;
   }
 
   @include desktop {

@@ -1,11 +1,11 @@
 .section {
-  padding-top: var(--section-padding-vertical);
-  padding-bottom: var(--section-padding-vertical);
+  // padding-top: var(--section-padding-vertical);
+  // padding-bottom: var(--section-padding-vertical);
 
-  @include desktop {
-    padding-top: var(--section-padding-vertical-desktop);
-    padding-bottom: var(--section-padding-vertical-desktop);
-  }
+  // @include desktop {
+  //   padding-top: var(--section-padding-vertical-desktop);
+  //   padding-bottom: var(--section-padding-vertical-desktop);
+  // }
 }
 
 .section-title {

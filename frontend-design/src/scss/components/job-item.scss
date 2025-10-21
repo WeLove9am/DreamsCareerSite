@@ -1,4 +1,4 @@
-.job-item__container {
+.job-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -18,8 +18,8 @@
   text-align: left;
   color: var(--color-primary);
 
-
   @include desktop {
+    padding: 40px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -99,4 +99,9 @@
       width: 100%;
     }
   }
+}
+
+.jobs__pagination {
+  width: 100%;
+  text-align: center;
 }

@@ -1,5 +1,5 @@
 :root {
-  --fsb-border: 1px solid #E72A33;
+  --fsb-border: 1px solid var(--color-primary);
   --fsb-radius: 10px;
   --fsb-color: inherit;
   --fsb-background: #fff;
@@ -56,7 +56,7 @@ select[disabled]+.fsb-select {
 .fsb-original-select {
   width: 100%;
   min-width: 0;
-  border: 1px solid #E72A33;
+  border: 1px solid var(--color-primary);
   border: var(--fsb-border);
   border-radius: 10px;
   border-radius: var(--fsb-radius);

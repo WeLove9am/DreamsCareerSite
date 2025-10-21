@@ -9,10 +9,11 @@ block content
   section.hero.wave-bottom
     img(src="images/values/hero-background.png" alt="retail.")
     .hero__inner
+      .hero__motto 
         h1 The rules
         .hero__sleep
-          img(src="images/values/hero-mobile.svg" alt="hero-mobile-title")
-          img(src="images/values/hero-desktop.svg" alt="hero-desktop.")
+          img.hidden-desktop(src="images/values-header.png" alt="we live (and sleep by).")
+          img.visible-desktop(src="images/values-header.svg" alt="we live (and sleep by).")
         p From putting customers first to celebrating every win, these values keep us on the right side of the duvet.
   section
     .container
@@ -24,7 +25,7 @@ block content
             .swiper-slide
               .slider-values-slide 
                 .slider-values-slide__top
-                  img(src="images/values/slider/hand.svg" alt="hand")
+                  img(src="images/hand.svg" alt="hand" width="120" height="120")
                   p 
                     | Customer
                     br
@@ -40,14 +41,14 @@ block content
             .swiper-slide
               .slider-values-slide 
                 .slider-values-slide__top
-                  img(src="images/values/slider/hand.svg" alt="hand")
+                  img(src="images/clap.svg" alt="hand clap." width="120" height="120")
                   p 
-                    | Customer
+                    | Celebrate
                     br
-                    | first
+                    | success
                 .slider-values-slide__header
                   h3 
-                    |Lorem ipsum dolor sit amet consectetur adipiscing elit. 
+                    | Lorem ipsum dolor sit amet consectetur adipiscing elit. 
                     br
                     | Conubia nostra inceptos.
                 p.slider-values-slide__body
@@ -56,14 +57,14 @@ block content
             .swiper-slide
               .slider-values-slide 
                 .slider-values-slide__top
-                  img(src="images/values/slider/hand.svg" alt="hand")
+                  img(src="images/shield.svg" alt="shield." width="120" height="120")
                   p 
-                    | Customer
+                    | Always
                     br
-                    | first
+                    | authentic
                 .slider-values-slide__header
                   h3 
-                    |Lorem ipsum dolor sit amet consectetur adipiscing elit. 
+                    | Lorem ipsum dolor sit amet consectetur adipiscing elit. 
                     br
                     | Conubia nostra inceptos.
                 p.slider-values-slide__body
@@ -72,11 +73,11 @@ block content
             .swiper-slide
               .slider-values-slide 
                 .slider-values-slide__top
-                  img(src="images/values/slider/hand.svg" alt="hand")
+                  img(src="images/thumb-up.svg" alt="thumb up." width="120" height="120")
                   p 
-                    | Customer
+                    | Do the right
                     br
-                    | first
+                    | things first
                 .slider-values-slide__header
                   h3 
                     |Lorem ipsum dolor sit amet consectetur adipiscing elit. 
@@ -94,4 +95,12 @@ block content
               button.swiper-button-prev.slider-values__nav-btn.slider-values__nav-btn--prev
                 +svg('chevron-circle-left')
               button.swiper-button-next.slider-values__nav-btn.slider-values__nav-btn--next
-                +svg('chevron-circle-right')        
+                +svg('chevron-circle-right')
+  section.section
+    .container
+      .section-header
+        h2 Behind every bed is a story.
+        h3 Here are a few of ours.
+      +slider-features
+  section.section
+    +next
