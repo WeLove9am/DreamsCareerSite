@@ -17,13 +17,12 @@ const props = defineProps({
 </script>
 
 <template>
-  <NuxtLink to="/" class="text-red-600 block">
+  <NuxtLink to="/" class="header__logo">
     <template v-if="logo.length > 0">
-      <span class="sr-only">{{ siteName }}</span>
       <img 
         :src="logo[0].url" 
         :alt="logo[0].alt" 
-        class="w-10 h-10" 
+        class="w-10 h-10" width="187" height="67"
       />
     </template>
     <template v-else>

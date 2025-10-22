@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dreams | Dreams</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="/js/main.js?version=1.0.0"></script>
+    <script src="/js/vendor.js?version=1.0.0"></script>
+    <script src="/js/footer.js?version=1.0.0"></script>
+    <link
+      rel="modulepreload"
+      as="script"
+      crossorigin
+      href="/_nuxt/var/www/html/frontend/node_modules/nuxt/dist/app/entry.js"
+    />
+    <link
+      rel="preload"
+      as="fetch"
+      fetchpriority="low"
+      crossorigin="anonymous"
+      href="/_nuxt/builds/meta/dev.json"
+    />
+    <script type="module" src="/_nuxt/@vite/client" crossorigin></script>
+    <script
+      type="module"
+      src="/_nuxt/var/www/html/frontend/node_modules/nuxt/dist/app/entry.js"
+      crossorigin
+    ></script>
+    <script id="unhead:payload" type="application/json">
+      { "title": "Dreams", "titleTemplate": "%s | Dreams" }
+    </script>
+    <script>
+      if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
+        Object.defineProperty(window, "__NUXT_DEVTOOLS_TIME_METRIC__", {
+          value: {},
+          enumerable: false,
+          configurable: true,
+        });
+      }
+      window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now();
+    </script>
+  </head>
+  <body>
+    <div id="__nuxt">
+      <div>
+        <header class="header">
+          <div class="header__inner">
+            <a
+              aria-current="page"
+              href="/"
+              class="router-link-active router-link-exact-active header__logo"
+              ><img
+                src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/logo.svg"
+                class="w-10 h-10"
+                width="187"
+                height="67"
+            /></a>
+            <div class="header__menu">
+              <nav class="menu">
+                <ul class="menu__list">
+                  <!--[-->
+                  <li class="menu__item">
+                    <button
+                      class="menu__link"
+                      data-collapse-target="menu1"
+                      data-collapse-group="menu"
+                    >
+                      Our teams
+                    </button>
+                    <ul class="menu__content">
+                      <li data-collapse-content="menu1">
+                        <div class="swiper slider-menu slider-menu1">
+                          <div class="swiper-wrapper">
+                            <!--[-->
+                            <div class="swiper-slide">
+                              <a
+                                href="/our-teams/retail"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="Retail"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    "
+                                /></picture>
+                                <h3>Retail</h3></a
+                              >
+                            </div>
+                            <div class="swiper-slide">
+                              <a
+                                href="/our-teams/bedquarters"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="Bedquarters"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    "
+                                /></picture>
+                                <h3>Bedquarters</h3></a
+                              >
+                            </div>
+                            <div class="swiper-slide">
+                              <a
+                                href="/our-teams/distribution"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="Distribution"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    "
+                                /></picture>
+                                <h3>Distribution</h3></a
+                              >
+                            </div>
+                            <div class="swiper-slide">
+                              <a
+                                href="/our-teams/bed-factory"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="Bed Factory"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    "
+                                /></picture>
+                                <h3>Bed Factory</h3></a
+                              >
+                            </div>
+                            <!--]-->
+                          </div>
+                          <div class="swiper-pagination"></div>
+                          <div class="swiper-navigation">
+                            <button class="swiper-button-prev">
+                              <svg>
+                                <use
+                                  xlink:href="/_nuxt/assets/images/sprites.svg#chevron-left"
+                                ></use>
+                              </svg></button
+                            ><button class="swiper-button-next">
+                              <svg>
+                                <use
+                                  xlink:href="/_nuxt/assets/images/sprites.svg#chevron-right"
+                                ></use>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu__item">
+                    <button
+                      class="menu__link"
+                      data-collapse-target="menu1"
+                      data-collapse-group="menu"
+                    >
+                      About us
+                    </button>
+                    <ul class="menu__content">
+                      <li data-collapse-content="menu1">
+                        <div class="swiper slider-menu slider-menu1">
+                          <div class="swiper-wrapper">
+                            <!--[-->
+                            <div class="swiper-slide">
+                              <a
+                                href="/about-us/history"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="About us &amp; History"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    "
+                                /></picture>
+                                <h3>About us &amp; History</h3></a
+                              >
+                            </div>
+                            <div class="swiper-slide">
+                              <a
+                                href="/about-us/values"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="Values"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    "
+                                /></picture>
+                                <h3>Values</h3></a
+                              >
+                            </div>
+                            <div class="swiper-slide">
+                              <a
+                                href="/about-us/landd-staff-networks"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="L&amp;D Staff Networks"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    "
+                                /></picture>
+                                <h3>L&amp;D Staff Networks</h3></a
+                              >
+                            </div>
+                            <div class="swiper-slide">
+                              <a
+                                href="/about-us/benefits-and-wellbeing"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="benefits-and-wellbeing"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    "
+                                /></picture>
+                                <h3>benefits-and-wellbeing</h3></a
+                              >
+                            </div>
+                            <!--]-->
+                          </div>
+                          <div class="swiper-pagination"></div>
+                          <div class="swiper-navigation">
+                            <button class="swiper-button-prev">
+                              <svg>
+                                <use
+                                  xlink:href="/_nuxt/assets/images/sprites.svg#chevron-left"
+                                ></use>
+                              </svg></button
+                            ><button class="swiper-button-next">
+                              <svg>
+                                <use
+                                  xlink:href="/_nuxt/assets/images/sprites.svg#chevron-right"
+                                ></use>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu__item">
+                    <button
+                      class="menu__link"
+                      data-collapse-target="menu1"
+                      data-collapse-group="menu"
+                    >
+                      How to apply
+                    </button>
+                    <ul class="menu__content">
+                      <li data-collapse-content="menu1">
+                        <div class="swiper slider-menu slider-menu1">
+                          <div class="swiper-wrapper">
+                            <!--[-->
+                            <div class="swiper-slide">
+                              <a
+                                href="/how-to-apply/application-process"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="Application Process"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg 3072w
+                                    "
+                                /></picture>
+                                <h3>Application Process</h3></a
+                              >
+                            </div>
+                            <div class="swiper-slide">
+                              <a
+                                href="/how-to-apply/faqs"
+                                class="menu__content-link"
+                                ><picture
+                                  ><!--[-->
+                                  <source
+                                    type="image/webp"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    " />
+                                  <!--]--><img
+                                    alt="FAQs"
+                                    loading="lazy"
+                                    onerror="this.setAttribute(&#39;data-error&#39;, 1)"
+                                    data-nuxt-pic
+                                    src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png"
+                                    sizes="(max-width: 640px) 320px, (max-width: 768px) 640px, (max-width: 1024px) 768px, (max-width: 1280px) 1024px, (max-width: 1536px) 1280px, 1536px"
+                                    srcset="
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  320w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  640w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png  768w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1024w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1280w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 1536w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2048w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 2560w,
+                                      https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png 3072w
+                                    "
+                                /></picture>
+                                <h3>FAQs</h3></a
+                              >
+                            </div>
+                            <!--]-->
+                          </div>
+                          <div class="swiper-pagination"></div>
+                          <div class="swiper-navigation">
+                            <button class="swiper-button-prev">
+                              <svg>
+                                <use
+                                  xlink:href="/_nuxt/assets/images/sprites.svg#chevron-left"
+                                ></use>
+                              </svg></button
+                            ><button class="swiper-button-next">
+                              <svg>
+                                <use
+                                  xlink:href="/_nuxt/assets/images/sprites.svg#chevron-right"
+                                ></use>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <!--]-->
+                </ul>
+              </nav>
+            </div>
+            <div class="header__links">
+              <a class="header__link" href="/">View jobs</a
+              ><a class="header__link" href=""
+                ><svg>
+                  <use
+                    xlink:href="/_nuxt/assets/images/sprites.svg#search"
+                  ></use></svg
+              ></a>
+            </div>
+            <a class="header__login" href="/">Login</a>
+            <div class="header__menu-toggle">
+              <button class="menu-toggle js-toggle-menu" type="button">
+                <div class="menu-icon">
+                  <div class="menu-icon__line"></div>
+                  <div class="menu-icon__line"></div>
+                  <div class="menu-icon__line"></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </header>
+        <!---->
+        <main class="page min-h-screen" id="main" tabindex="-1">
+          <div>
+            <figure>
+              <img
+                src="https://api.dreams-nuxt-craft.ddev.site/uploads/img/transforms/_hero/88/3-403x257.webp"
+              />
+            </figure>
+            <header class="container mx-auto pt-12 pb-6 px-2 text-2xl">
+              <h1 class="font-bold text-4xl sm:text-6xl lg:text-9xl">Home</h1>
+              <!---->
+            </header>
+            <section class="page__content">
+              <div class="container mx-auto py-12 px-2 text-balance">
+                <p
+                  class="p-4 border-2 border-slate-300 border-dashed rounded-sm bg-slate-100 text-center"
+                >
+                  <!--[-->Add content to the homepage by visiting Entries →
+                  Default Pages in the control panel!<!--]-->
+                </p>
+              </div>
+            </section>
+          </div>
+        </main>
+        <footer class="bg-slate-50 py-6 px-2 text-sm">
+          <div class="container mx-auto">
+            <p
+              class="p-4 border-2 border-slate-300 border-dashed rounded-sm bg-slate-100 text-center"
+            >
+              <!--[-->Add an address by visiting Entries → Globals in the
+              control panel!<!--]-->
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <div id="teleports"></div>
+    <script type="application/json" data-nuxt-logs="nuxt-app">
+      [
+        [1],
+        {
+          "date": 2,
+          "args": 3,
+          "type": 86,
+          "level": 87,
+          "tag": 88,
+          "filename": 89,
+          "stack": 90
+        },
+        ["Date", "2025-10-21T16:53:12.362Z"],
+        [4, 5],
+        "Header navigation:",
+        ["Reactive", 6],
+        [7, 40, 69],
+        { "id": 8, "title": 9, "pageLink": 10, "image": 11, "children": 12 },
+        "121",
+        "Our teams",
+        "#",
+        [],
+        [13, 21, 28, 34],
+        { "id": 14, "title": 15, "pageLink": 16, "image": 17 },
+        "122",
+        "Retail",
+        "our-teams/retail",
+        [18],
+        { "url": 19, "alt": 20 },
+        "https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg",
+        null,
+        { "id": 22, "title": 23, "pageLink": 24, "image": 25 },
+        "123",
+        "Bedquarters",
+        "our-teams/bedquarters",
+        [26],
+        { "url": 27, "alt": 20 },
+        "https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png",
+        { "id": 29, "title": 30, "pageLink": 31, "image": 32 },
+        "124",
+        "Distribution",
+        "our-teams/distribution",
+        [33],
+        { "url": 19, "alt": 20 },
+        { "id": 35, "title": 36, "pageLink": 37, "image": 38 },
+        "125",
+        "Bed Factory",
+        "our-teams/bed-factory",
+        [39],
+        { "url": 27, "alt": 20 },
+        { "id": 41, "title": 42, "pageLink": 10, "image": 43, "children": 44 },
+        "126",
+        "About us",
+        [],
+        [45, 51, 57, 63],
+        { "id": 46, "title": 47, "pageLink": 48, "image": 49 },
+        "136",
+        "About us & History",
+        "about-us/history",
+        [50],
+        { "url": 27, "alt": 20 },
+        { "id": 52, "title": 53, "pageLink": 54, "image": 55 },
+        "137",
+        "Values",
+        "about-us/values",
+        [56],
+        { "url": 19, "alt": 20 },
+        { "id": 58, "title": 59, "pageLink": 60, "image": 61 },
+        "138",
+        "L&D Staff Networks",
+        "about-us/landd-staff-networks",
+        [62],
+        { "url": 27, "alt": 20 },
+        { "id": 64, "title": 65, "pageLink": 66, "image": 67 },
+        "139",
+        "benefits-and-wellbeing",
+        "about-us/benefits-and-wellbeing",
+        [68],
+        { "url": 19, "alt": 20 },
+        { "id": 70, "title": 71, "pageLink": 10, "image": 72, "children": 73 },
+        "140",
+        "How to apply",
+        [],
+        [74, 80],
+        { "id": 75, "title": 76, "pageLink": 77, "image": 78 },
+        "141",
+        "Application Process",
+        "how-to-apply/application-process",
+        [79],
+        { "url": 19, "alt": 20 },
+        { "id": 81, "title": 82, "pageLink": 83, "image": 84 },
+        "142",
+        "FAQs",
+        "how-to-apply/faqs",
+        [85],
+        { "url": 27, "alt": 20 },
+        "log",
+        2,
+        "",
+        "file://app.vue",
+        [91, 96],
+        { "function": 92, "source": 93, "line": 94, "column": 95 },
+        "setup",
+        "/var/www/html/frontend/app.vue",
+        43,
+        9,
+        { "function": 97, "source": 98, "line": 99, "column": 100 },
+        "process.processTicksAndRejections",
+        "node:internal/process/task_queues",
+        105,
+        5
+      ]
+    </script>
+    <script
+      type="application/json"
+      data-nuxt-data="nuxt-app"
+      data-ssr="true"
+      id="__NUXT_DATA__"
+    >
+      [
+        ["ShallowReactive", 1],
+        {
+          "data": 2,
+          "state": 103,
+          "once": 108,
+          "_errors": 109,
+          "serverRendered": 111,
+          "path": 112
+        },
+        ["ShallowReactive", 3],
+        { "globals": 4, "home": 97 },
+        { "global": 5, "pages": 13, "headernav": 18 },
+        { "id": 6, "title": 7, "logo": 8, "address": 12 },
+        "7",
+        "Global",
+        [9],
+        { "url": 10, "alt": 11 },
+        "https://api.dreams-nuxt-craft.ddev.site/uploads/img/logo.svg",
+        null,
+        [],
+        [14],
+        { "id": 15, "title": 16, "uri": 17 },
+        "127",
+        "Page1",
+        "page1",
+        [19, 51, 80],
+        { "id": 20, "title": 21, "pageLink": 22, "image": 23, "children": 24 },
+        "121",
+        "Our teams",
+        "#",
+        [],
+        [25, 32, 39, 45],
+        { "id": 26, "title": 27, "pageLink": 28, "image": 29 },
+        "122",
+        "Retail",
+        "our-teams/retail",
+        [30],
+        { "url": 31, "alt": 11 },
+        "https://api.dreams-nuxt-craft.ddev.site/uploads/img/retail.jpg",
+        { "id": 33, "title": 34, "pageLink": 35, "image": 36 },
+        "123",
+        "Bedquarters",
+        "our-teams/bedquarters",
+        [37],
+        { "url": 38, "alt": 11 },
+        "https://api.dreams-nuxt-craft.ddev.site/uploads/img/staff.png",
+        { "id": 40, "title": 41, "pageLink": 42, "image": 43 },
+        "124",
+        "Distribution",
+        "our-teams/distribution",
+        [44],
+        { "url": 31, "alt": 11 },
+        { "id": 46, "title": 47, "pageLink": 48, "image": 49 },
+        "125",
+        "Bed Factory",
+        "our-teams/bed-factory",
+        [50],
+        { "url": 38, "alt": 11 },
+        { "id": 52, "title": 53, "pageLink": 22, "image": 54, "children": 55 },
+        "126",
+        "About us",
+        [],
+        [56, 62, 68, 74],
+        { "id": 57, "title": 58, "pageLink": 59, "image": 60 },
+        "136",
+        "About us & History",
+        "about-us/history",
+        [61],
+        { "url": 38, "alt": 11 },
+        { "id": 63, "title": 64, "pageLink": 65, "image": 66 },
+        "137",
+        "Values",
+        "about-us/values",
+        [67],
+        { "url": 31, "alt": 11 },
+        { "id": 69, "title": 70, "pageLink": 71, "image": 72 },
+        "138",
+        "L&D Staff Networks",
+        "about-us/landd-staff-networks",
+        [73],
+        { "url": 38, "alt": 11 },
+        { "id": 75, "title": 76, "pageLink": 77, "image": 78 },
+        "139",
+        "benefits-and-wellbeing",
+        "about-us/benefits-and-wellbeing",
+        [79],
+        { "url": 31, "alt": 11 },
+        { "id": 81, "title": 82, "pageLink": 22, "image": 83, "children": 84 },
+        "140",
+        "How to apply",
+        [],
+        [85, 91],
+        { "id": 86, "title": 87, "pageLink": 88, "image": 89 },
+        "141",
+        "Application Process",
+        "how-to-apply/application-process",
+        [90],
+        { "url": 31, "alt": 11 },
+        { "id": 92, "title": 93, "pageLink": 94, "image": 95 },
+        "142",
+        "FAQs",
+        "how-to-apply/faqs",
+        [96],
+        { "url": 38, "alt": 11 },
+        {
+          "id": 98,
+          "title": 99,
+          "pageSubheading": 11,
+          "pageContent": 11,
+          "image": 100
+        },
+        "3",
+        "Home",
+        [101],
+        { "url": 102, "alt": 11 },
+        "https://api.dreams-nuxt-craft.ddev.site/uploads/img/transforms/_hero/88/3-403x257.webp",
+        ["Reactive", 104],
+        { "$s__nuxt_devtools__": 105, "$sflashes": 107 },
+        { "timeSsrStart": 106 },
+        1761065592288,
+        [],
+        ["Set"],
+        ["ShallowReactive", 110],
+        { "globals": 11, "home": 11 },
+        true,
+        "/"
+      ]
+    </script>
+    <script>
+      window.__NUXT__ = {};
+      window.__NUXT__.config = {
+        public: {
+          GRAPHQL_TOKEN: "z1zmVidySu-L0pT6xvEonQZxD_5s6Q5f",
+          CRAFT_URL: "https://api.dreams-nuxt-craft.ddev.site",
+          BASE_URL: "https://dreams-nuxt-craft.ddev.site",
+          SITE_NAME: "Dreams",
+        },
+        app: {
+          baseURL: "/",
+          buildId: "dev",
+          buildAssetsDir: "/_nuxt/",
+          cdnURL: "",
+        },
+      };
+    </script>
+  </body>
+</html>

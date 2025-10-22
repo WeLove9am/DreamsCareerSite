@@ -2,7 +2,7 @@ name: dreams-nuxt-craft
 type: craftcms
 docroot: backend/web
 php_version: "8.2"
-nodejs_version: "20"
+nodejs_version: "22"
 webserver_type: nginx-fpm
 composer_root: backend
 xdebug_enabled: false

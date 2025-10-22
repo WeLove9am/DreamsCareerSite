@@ -1,4 +1,4 @@
-dateModified: 1751444004
+dateModified: 1761057036
 elementSources:
   craft\elements\Entry:
     -
@@ -15,12 +15,31 @@ elementSources:
       defaultSort:
         - title
         - asc
+      defaultViewMode: ''
       key: 'custom:6d0e2f9b-417a-4d0c-b23f-affe43c388c0'
       label: Global
       tableAttributes: '-'
       type: custom
     -
+      heading: Navigation
+      key: 'heading:2e062a52-4735-442b-82ed-24d1592ec63d'
+      type: heading
+    -
+      defaultSort:
+        - structure
+        - asc
+      defaultViewMode: ''
+      disabled: false
+      key: 'section:dcaa0ee7-4e88-4a5d-b2b6-31612b8fe049' # Header
+      tableAttributes:
+        - status
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
       heading: Pages
+      key: 'heading:91fe0f5c-b887-4e6f-b9d7-141a39b5e4a0'
       type: heading
     -
       condition:
@@ -39,6 +58,7 @@ elementSources:
       defaultSort:
         - title
         - asc
+      defaultViewMode: ''
       key: 'custom:bef75f27-face-4b86-af9e-61d96538bfed'
       label: 'Default pages'
       tableAttributes: '-'
@@ -47,6 +67,7 @@ elementSources:
       defaultSort:
         - structure
         - asc
+      defaultViewMode: ''
       disabled: false
       key: 'section:c4b4f50d-7d62-4a4c-bbf8-7aae00fd82c7' # Pages
       tableAttributes:
@@ -57,7 +78,21 @@ elementSources:
       type: native
     -
       heading: Channels
+      key: 'heading:0a97a4c6-0ee9-4d82-8408-53899b6624ce'
       type: heading
+    -
+      defaultSort:
+        - postDate
+        - desc
+      defaultViewMode: ''
+      disabled: false
+      key: 'section:fbbb92d3-4375-421b-a1af-fdd3cd361813' # Jobs
+      tableAttributes:
+        - status
+        - postDate
+        - expiryDate
+        - link
+      type: native
     -
       defaultSort:
         - postDate
@@ -77,6 +112,7 @@ elementSources:
       defaultSort:
         - postDate
         - desc
+      defaultViewMode: ''
       disabled: false
       key: 'section:3e2a1a6f-88ea-477b-936d-39393f2d594f' # Guestbook Posts
       tableAttributes:
@@ -87,6 +123,7 @@ elementSources:
       type: native
     -
       heading: Everything
+      key: 'heading:92b70d76-bc95-4055-b67b-401fc487f061'
       type: heading
     -
       defaultSort:
@@ -111,9 +148,6 @@ elementSources:
         - expiryDate
         - link
       type: native
-    -
-      heading: ''
-      type: heading
 email:
   fromEmail: travis@pixelandtonic.com
   fromName: 'Starter starter'
@@ -131,26 +165,33 @@ fs:
     type: craft\cloud\fs\AssetsFs
 meta:
   __names__:
+    0a2ff051-736b-48c1-ac3a-c63f1ae0256e: 'Blog Post' # Blog Post
     0a58e287-e038-4eb7-ab2a-cf4cbdbe013d: 'Page content' # Page content
     2b829e15-a7bd-4ab0-9050-dcdfe44499cf: 'Public Schema' # Public Schema
     2bae9725-9546-4f55-a889-56102191aa89: Navigation # Navigation
     3e2a1a6f-88ea-477b-936d-39393f2d594f: 'Guestbook Posts' # Guestbook Posts
     5dd08fc8-3ea4-4582-952f-4c0f7ebf409e: Category # Category
+    5f37d002-3f3a-48e9-a457-d812a6deefcb: 'Job Description' # Job Description
     6ba54824-1c3f-454f-8830-f6cea379bee4: 'Blog Posts' # Blog Posts
     6c819fc7-3f73-4873-8f0c-5ea322fef1f9: 'Divider type' # Divider type
     6c9778b8-507c-4108-937d-6ceeabf35047: Image # Image
     6d0d3aa4-84be-441d-8fcc-2ab2d6db2503: Starters # Starters
     6d2e5577-5ded-43c9-96e2-d4fc4c770fe9: Text # Text
     7b9364bd-2215-495a-8b0b-2280df887a8b: Media # Media
+    7d051421-3444-4499-97af-58a7d6bc40b7: Posts # Posts
     7dac7ab3-08a0-4af8-ba7c-cbecd0726f08: Simple # Simple
+    7dd94d6f-21a4-42cd-9adc-7b048932ddcc: 'Page Subheading' # Page Subheading
     9d082133-4710-4468-ab39-80db8c9fcf59: Code # Code
     9d42aa56-4a66-4d0b-b8a9-84a4cb387788: 'Text block' # Text block
     25b2446d-c1d2-4aa1-8184-3147e617f069: Text # Text
-    58ccb571-6c72-449f-8e7b-6f43c5d416b3: 'Nuxt Starter' # Nuxt Starter
+    58ccb571-6c72-449f-8e7b-6f43c5d416b3: Dreams # Dreams
     70b2614b-639a-4de2-8c11-3851d36d6f8c: 'Blog Categories' # Blog Categories
+    94ec3c0b-7127-41c2-8e45-7b0362eca0c0: 'Page link' # Page link
     163c895f-0c05-4845-80e2-043b2346d830: Address # Address
     0413e9dc-1c8a-4221-b81d-c9f6c0594cbd: Hero # Hero
-    697da4c2-e02f-4f49-9d76-e22609ceda25: Page # Page
+    421c7bf4-a6b0-469b-88bc-4c5ecdbd6322: 'Job ID' # Job ID
+    697da4c2-e02f-4f49-9d76-e22609ceda25: Pages # Pages
+    0822bb59-0159-4bee-bdec-e1b149228d3e: 'Job Link' # Job Link
     998bf681-e007-4f7e-a525-863e01a38560: Blog # Blog
     5358db38-27c0-49b4-b9d3-e68326e79da2: Image # Image
     0922209d-2911-419e-82cf-b05113a35f6e: Wide # Wide
@@ -160,21 +201,28 @@ meta:
     b579b454-12bd-4710-a436-c26907141957: Full # Full
     bd99645a-4524-40e4-83dc-c6b12e023bab: Global # Global
     c4b4f50d-7d62-4a4c-bbf8-7aae00fd82c7: Pages # Pages
-    c7d2eb61-cdde-4a76-88a9-eb30ddcf155b: Guestbook # Guestbook
     cdad2202-5d55-49ba-995e-962503f5887f: Home # Home
     d4f0917b-edcf-4ef0-a98b-661ff27384ad: Page # Page
     d55d172f-8b8f-4bb7-b680-31249981c350: Global # Global
     d390347a-09cf-4b70-a3b4-bc3cca520623: Category # Category
+    dcaa0ee7-4e88-4a5d-b2b6-31612b8fe049: Header # Header
+    ef31258f-9c1b-4511-8577-7fcad6acf72a: Header # Header
+    f7c0962f-7ca6-47d6-bab3-1dfe60037bb3: Salary # Salary
     f7576aa3-c155-4b54-82c9-8cb8c93495c9: Callout # Callout
+    fbbb92d3-4375-421b-a1af-fdd3cd361813: Jobs # Jobs
 plugins:
   ckeditor:
     edition: standard
     enabled: true
     schemaVersion: 3.0.0.0
+  feed-me:
+    edition: standard
+    enabled: true
+    schemaVersion: 5.1.1
 system:
   edition: solo
   live: true
-  name: 'Nuxt Starter'
+  name: Dreams
   retryDuration: null
   schemaVersion: 5.8.0.3
   timeZone: America/Los_Angeles

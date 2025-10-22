@@ -26,5 +26,29 @@ export const GLOBALS_QUERY = `
         uri
       }
     }
-  }
+    headerEntries(level: 1) { 
+      ... on header_Entry { # <--- Querying fields ONLY inside the fragment
+        id                  # <--- Now valid
+        title
+        pageLink
+        image {
+          url
+          alt
+        }
+        # Recursive fragment for children is also correct
+        children {
+          ... on header_Entry {
+            id
+            title
+            pageLink
+            image {
+              url
+              alt
+            }
+          }
+        }
+      }
+    }
+   
+}
 `
