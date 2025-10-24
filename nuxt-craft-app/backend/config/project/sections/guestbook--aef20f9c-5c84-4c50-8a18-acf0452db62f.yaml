@@ -1,7 +1,7 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - 697da4c2-e02f-4f49-9d76-e22609ceda25 # Page
+  - 697da4c2-e02f-4f49-9d76-e22609ceda25 # Pages
 handle: guestbook
 maxAuthors: 1
 name: Guestbook
@@ -19,7 +19,7 @@ previewTargets:
         - "{{ alias('@preview') }}/{uri}"
 propagationMethod: all
 siteSettings:
-  58ccb571-6c72-449f-8e7b-6f43c5d416b3: # Nuxt Starter
+  58ccb571-6c72-449f-8e7b-6f43c5d416b3: # Dreams
     enabledByDefault: true
     hasUrls: true
     template: null

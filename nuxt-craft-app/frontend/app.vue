@@ -8,27 +8,24 @@ const graphql = useGraphQL()
 const { data: globalsData } = await useAsyncData('globals', async () => {
   try {
     const result = await graphql.query(GLOBALS_QUERY)
+
     return {
       global: result?.globalEntries?.[0] || {},
-      pages: result?.pagesEntries || []
+      pages: result?.pagesEntries || [],
+      headernav: result?.headerEntries || []
     }
   } catch (err) {
     console.error('Error fetching globals:', err)
     throw err
   }
 })
+
+// Provide to all child components
+provide('globalsData', globalsData)
 </script>
 
 <template>
-  <div>
-    <Header 
-      :globalData="globalsData?.global" 
-      :pages="globalsData?.pages"
-    />
-    <Alert />
-    <main class="page min-h-screen" id="main" tabindex="-1">
-      <NuxtPage />
-    </main>
-    <Footer :globalData="globalsData?.global" />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
