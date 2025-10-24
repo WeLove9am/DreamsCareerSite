@@ -26,7 +26,7 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
 <template>
   <header class="header">
 				<div class="header__inner">
-          <Logo :siteName="siteName" :logo="globalData.logo" />
+                <Logo :siteName="siteName" :logo="globalData.logo" />
 					<div class="header__menu">
 						<nav class="menu">
 							<ul class="menu__list">
@@ -40,7 +40,7 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
                             <NuxtLink class="menu__content-link" 
                             :to="child.pageLink.startsWith('/') ? child.pageLink : `/${child.pageLink}`"
                             >
-                              <NuxtPicture
+                              <NuxtImg
                                 v-if="child.image?.[0]?.url" 
                                 :src="child.image[0].url" 
                                 :alt="child.image[0].alt || child.title"

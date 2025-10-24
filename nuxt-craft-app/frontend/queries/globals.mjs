@@ -17,6 +17,19 @@ export const GLOBALS_QUERY = `
           postalCode
           title
         }
+        subTitle
+        caption
+        copy
+        image {
+          url
+          alt
+        }
+        links{
+          ... on links_Entry {
+            title
+            pageLink
+          }
+        }
       }
     }
     pagesEntries(level: 1) {
@@ -27,8 +40,8 @@ export const GLOBALS_QUERY = `
       }
     }
     headerEntries(level: 1) { 
-      ... on header_Entry { # <--- Querying fields ONLY inside the fragment
-        id                  # <--- Now valid
+      ... on header_Entry { 
+        id                  
         title
         pageLink
         image {

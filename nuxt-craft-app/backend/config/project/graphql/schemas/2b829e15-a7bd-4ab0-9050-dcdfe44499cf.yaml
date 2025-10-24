@@ -9,6 +9,7 @@ scope:
   - 'sections.bd99645a-4524-40e4-83dc-c6b12e023bab:read' # Global
   - 'sections.aef20f9c-5c84-4c50-8a18-acf0452db62f:read' # Guestbook
   - 'sections.cdad2202-5d55-49ba-995e-962503f5887f:read' # Home
+  - 'sections.dcfd7935-89a7-4875-9a64-85f2997c1faf:read' # Retail
   - 'sections.70b2614b-639a-4de2-8c11-3851d36d6f8c:read' # Blog Categories
   - 'sections.6ba54824-1c3f-454f-8830-f6cea379bee4:read' # Blog Posts
   - 'sections.3e2a1a6f-88ea-477b-936d-39393f2d594f:read' # Guestbook Posts
@@ -16,12 +17,17 @@ scope:
   - 'sections.fbbb92d3-4375-421b-a1af-fdd3cd361813:read' # Jobs
   - 'sections.c4b4f50d-7d62-4a4c-bbf8-7aae00fd82c7:read' # Pages
   - 'nestedentryfields.0a58e287-e038-4eb7-ab2a-cf4cbdbe013d:read' # Page content
+  - 'nestedentryfields.f2e68e8a-c205-4429-83ab-2f1cc5881665:read' # Features
+  - 'nestedentryfields.84916481-ed70-4176-8885-dea5ae59515b:read' # Links
   - 'nestedentryfields.2bae9725-9546-4f55-a889-56102191aa89:read' # Navigation
+  - 'nestedentryfields.5a5fa410-1538-4bbf-9075-6a61b61a3107:read' # Promises
+  - 'nestedentryfields.4e1db615-ebd1-4a2a-96e2-08ee5904e5a3:read' # Quiz
   - 'volumes.7b9364bd-2215-495a-8b0b-2280df887a8b:read' # Media
   - 'sections.998bf681-e007-4f7e-a525-863e01a38560:save' # Blog
   - 'sections.bd99645a-4524-40e4-83dc-c6b12e023bab:save' # Global
   - 'sections.aef20f9c-5c84-4c50-8a18-acf0452db62f:save' # Guestbook
   - 'sections.cdad2202-5d55-49ba-995e-962503f5887f:save' # Home
+  - 'sections.dcfd7935-89a7-4875-9a64-85f2997c1faf:save' # Retail
   - 'sections.70b2614b-639a-4de2-8c11-3851d36d6f8c:edit' # Blog Categories
   - 'sections.70b2614b-639a-4de2-8c11-3851d36d6f8c:create' # Blog Categories
   - 'sections.70b2614b-639a-4de2-8c11-3851d36d6f8c:save' # Blog Categories
@@ -50,10 +56,26 @@ scope:
   - 'nestedentryfields.0a58e287-e038-4eb7-ab2a-cf4cbdbe013d:create' # Page content
   - 'nestedentryfields.0a58e287-e038-4eb7-ab2a-cf4cbdbe013d:save' # Page content
   - 'nestedentryfields.0a58e287-e038-4eb7-ab2a-cf4cbdbe013d:delete' # Page content
+  - 'nestedentryfields.f2e68e8a-c205-4429-83ab-2f1cc5881665:edit' # Features
+  - 'nestedentryfields.f2e68e8a-c205-4429-83ab-2f1cc5881665:create' # Features
+  - 'nestedentryfields.f2e68e8a-c205-4429-83ab-2f1cc5881665:save' # Features
+  - 'nestedentryfields.f2e68e8a-c205-4429-83ab-2f1cc5881665:delete' # Features
+  - 'nestedentryfields.84916481-ed70-4176-8885-dea5ae59515b:edit' # Links
+  - 'nestedentryfields.84916481-ed70-4176-8885-dea5ae59515b:create' # Links
+  - 'nestedentryfields.84916481-ed70-4176-8885-dea5ae59515b:save' # Links
+  - 'nestedentryfields.84916481-ed70-4176-8885-dea5ae59515b:delete' # Links
   - 'nestedentryfields.2bae9725-9546-4f55-a889-56102191aa89:edit' # Navigation
   - 'nestedentryfields.2bae9725-9546-4f55-a889-56102191aa89:create' # Navigation
   - 'nestedentryfields.2bae9725-9546-4f55-a889-56102191aa89:save' # Navigation
   - 'nestedentryfields.2bae9725-9546-4f55-a889-56102191aa89:delete' # Navigation
+  - 'nestedentryfields.5a5fa410-1538-4bbf-9075-6a61b61a3107:edit' # Promises
+  - 'nestedentryfields.5a5fa410-1538-4bbf-9075-6a61b61a3107:create' # Promises
+  - 'nestedentryfields.5a5fa410-1538-4bbf-9075-6a61b61a3107:save' # Promises
+  - 'nestedentryfields.5a5fa410-1538-4bbf-9075-6a61b61a3107:delete' # Promises
+  - 'nestedentryfields.4e1db615-ebd1-4a2a-96e2-08ee5904e5a3:edit' # Quiz
+  - 'nestedentryfields.4e1db615-ebd1-4a2a-96e2-08ee5904e5a3:create' # Quiz
+  - 'nestedentryfields.4e1db615-ebd1-4a2a-96e2-08ee5904e5a3:save' # Quiz
+  - 'nestedentryfields.4e1db615-ebd1-4a2a-96e2-08ee5904e5a3:delete' # Quiz
   - 'volumes.7b9364bd-2215-495a-8b0b-2280df887a8b:edit' # Media
   - 'volumes.7b9364bd-2215-495a-8b0b-2280df887a8b:create' # Media
   - 'volumes.7b9364bd-2215-495a-8b0b-2280df887a8b:save' # Media

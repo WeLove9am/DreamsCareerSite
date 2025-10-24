@@ -1,4 +1,6 @@
 *.yaml
+# Ignore all .yaml files everywhere
+**/*.yaml
 *.swp
 *.swo
 *.swx
@@ -13,3 +15,4 @@
 *.orig
 *.rej
 *.env
+*.DS_Store

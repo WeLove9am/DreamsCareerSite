@@ -1,4 +1,4 @@
-dateModified: 1761057036
+dateModified: 1761256253
 elementSources:
   craft\elements\Entry:
     -
@@ -50,9 +50,8 @@ elementSources:
             operator: in
             uid: 5690305a-9541-42b2-9e20-e0f68d6f7e30
             values:
-              - 998bf681-e007-4f7e-a525-863e01a38560 # Blog
-              - aef20f9c-5c84-4c50-8a18-acf0452db62f # Guestbook
               - cdad2202-5d55-49ba-995e-962503f5887f # Home
+              - dcfd7935-89a7-4875-9a64-85f2997c1faf # Retail
         elementType: craft\elements\Entry
         fieldContext: global
       defaultSort:
@@ -64,19 +63,6 @@ elementSources:
       tableAttributes: '-'
       type: custom
     -
-      defaultSort:
-        - structure
-        - asc
-      defaultViewMode: ''
-      disabled: false
-      key: 'section:c4b4f50d-7d62-4a4c-bbf8-7aae00fd82c7' # Pages
-      tableAttributes:
-        - status
-        - postDate
-        - expiryDate
-        - link
-      type: native
-    -
       heading: Channels
       key: 'heading:0a97a4c6-0ee9-4d82-8408-53899b6624ce'
       type: heading
@@ -87,6 +73,19 @@ elementSources:
       defaultViewMode: ''
       disabled: false
       key: 'section:fbbb92d3-4375-421b-a1af-fdd3cd361813' # Jobs
+      tableAttributes:
+        - status
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      defaultSort:
+        - structure
+        - asc
+      defaultViewMode: ''
+      disabled: false
+      key: 'section:c4b4f50d-7d62-4a4c-bbf8-7aae00fd82c7' # Pages
       tableAttributes:
         - status
         - postDate
@@ -139,6 +138,7 @@ elementSources:
       defaultSort:
         - postDate
         - desc
+      defaultViewMode: ''
       disabled: false
       key: '*'
       tableAttributes:
@@ -167,11 +167,20 @@ meta:
   __names__:
     0a2ff051-736b-48c1-ac3a-c63f1ae0256e: 'Blog Post' # Blog Post
     0a58e287-e038-4eb7-ab2a-cf4cbdbe013d: 'Page content' # Page content
+    00ba828a-6e2a-4209-97c6-7ce700fa87ce: Quiz # Quiz
+    0efe70ed-ba74-4ad8-a53a-0dc7b7d2488d: 'Button Caption' # Button Caption
     2b829e15-a7bd-4ab0-9050-dcdfe44499cf: 'Public Schema' # Public Schema
     2bae9725-9546-4f55-a889-56102191aa89: Navigation # Navigation
+    2dfef842-fa41-444b-bcbd-bf17b904be23: 'Job Title' # Job Title
+    3ba4174c-7a35-4b31-93b1-c267fc712caa: 'Sub Title' # Sub Title
     3e2a1a6f-88ea-477b-936d-39393f2d594f: 'Guestbook Posts' # Guestbook Posts
+    3f9763aa-b45e-4bc6-bf8b-afedd122fed4: Promises # Promises
+    4bc8719b-6bb7-432b-a4ee-054244ef5658: 'Full Name' # Full Name
+    4e1db615-ebd1-4a2a-96e2-08ee5904e5a3: Quiz # Quiz
+    5a5fa410-1538-4bbf-9075-6a61b61a3107: Promises # Promises
     5dd08fc8-3ea4-4582-952f-4c0f7ebf409e: Category # Category
     5f37d002-3f3a-48e9-a457-d812a6deefcb: 'Job Description' # Job Description
+    5f993979-4832-482b-8ee4-f468aef4b118: 'Meta Title' # Meta Title
     6ba54824-1c3f-454f-8830-f6cea379bee4: 'Blog Posts' # Blog Posts
     6c819fc7-3f73-4873-8f0c-5ea322fef1f9: 'Divider type' # Divider type
     6c9778b8-507c-4108-937d-6ceeabf35047: Image # Image
@@ -183,33 +192,55 @@ meta:
     7dd94d6f-21a4-42cd-9adc-7b048932ddcc: 'Page Subheading' # Page Subheading
     9d082133-4710-4468-ab39-80db8c9fcf59: Code # Code
     9d42aa56-4a66-4d0b-b8a9-84a4cb387788: 'Text block' # Text block
+    0017c480-953d-43b3-9ff9-bfd47a1a5f4b: 'SEO & Sharing' # SEO & Sharing
     25b2446d-c1d2-4aa1-8184-3147e617f069: Text # Text
+    33fdabe3-3b79-4972-b47a-e0b9b23d0bf7: 'Mobile Image' # Mobile Image
     58ccb571-6c72-449f-8e7b-6f43c5d416b3: Dreams # Dreams
     70b2614b-639a-4de2-8c11-3851d36d6f8c: 'Blog Categories' # Blog Categories
+    85a70d64-69fd-448d-8795-b1e49f9f52e1: Copy # Copy
+    85ecdf95-4273-44ad-8b18-78e44b9a5c2f: 'Default Robots' # Default Robots
     94ec3c0b-7127-41c2-8e45-7b0362eca0c0: 'Page link' # Page link
+    99c77938-7302-42be-b130-b8f449edc85f: 'Second Option' # Second Option
     163c895f-0c05-4845-80e2-043b2346d830: Address # Address
+    254e54a5-a05e-45ed-8619-c3d968b283c4: Links # Links
     0413e9dc-1c8a-4221-b81d-c9f6c0594cbd: Hero # Hero
     421c7bf4-a6b0-469b-88bc-4c5ecdbd6322: 'Job ID' # Job ID
     697da4c2-e02f-4f49-9d76-e22609ceda25: Pages # Pages
     0822bb59-0159-4bee-bdec-e1b149228d3e: 'Job Link' # Job Link
+    985d0583-2f1a-4879-acb3-536142591873: Features # Features
     998bf681-e007-4f7e-a525-863e01a38560: Blog # Blog
     5358db38-27c0-49b4-b9d3-e68326e79da2: Image # Image
+    24346e00-75da-4cc8-8597-d845e7e156ef: Caption # Caption
     0922209d-2911-419e-82cf-b05113a35f6e: Wide # Wide
+    983083b3-32c9-4e0f-9493-2de35820ac8d: 'Meta Description' # Meta Description
+    84916481-ed70-4176-8885-dea5ae59515b: Links # Links
     a06e695e-af7f-4a1b-84a7-575ec935e293: Video # Video
+    a8d78218-943e-4075-b4c1-901a5284a3c2: 'Desktop Image' # Desktop Image
+    a97bcce3-2a70-4113-bbe0-6528eda461c3: 'Sharing Description' # Sharing Description
     aef20f9c-5c84-4c50-8a18-acf0452db62f: Guestbook # Guestbook
+    af902687-bfd2-4617-b119-c2da37952ed5: 'Sub Heading 2' # Sub Heading 2
     b5b7bfc5-a39e-4d1a-89be-51f0afeb5ce0: Avatar # Avatar
     b579b454-12bd-4710-a436-c26907141957: Full # Full
     bd99645a-4524-40e4-83dc-c6b12e023bab: Global # Global
+    c3a77217-26ce-4fe0-865b-7a57af62904d: 'Button Link' # Button Link
     c4b4f50d-7d62-4a4c-bbf8-7aae00fd82c7: Pages # Pages
     cdad2202-5d55-49ba-995e-962503f5887f: Home # Home
     d4f0917b-edcf-4ef0-a98b-661ff27384ad: Page # Page
     d55d172f-8b8f-4bb7-b680-31249981c350: Global # Global
     d390347a-09cf-4b70-a3b4-bc3cca520623: Category # Category
+    dc4aa7bd-526a-4a1f-9865-9be002152afe: 'Sharing Title' # Sharing Title
     dcaa0ee7-4e88-4a5d-b2b6-31612b8fe049: Header # Header
+    dcfd7935-89a7-4875-9a64-85f2997c1faf: Retail # Retail
+    eb265b24-ae84-4f61-989d-49cdca0f6ff9: 'Hero Image' # Hero Image
     ef31258f-9c1b-4511-8577-7fcad6acf72a: Header # Header
+    f0836636-3628-473e-bca3-b405e4e753d9: Retail # Retail
+    f2e68e8a-c205-4429-83ab-2f1cc5881665: Features # Features
     f7c0962f-7ca6-47d6-bab3-1dfe60037bb3: Salary # Salary
     f7576aa3-c155-4b54-82c9-8cb8c93495c9: Callout # Callout
+    f924449c-5425-462e-b67d-346aef25d322: Information # Information
     fbbb92d3-4375-421b-a1af-fdd3cd361813: Jobs # Jobs
+    fc41a90c-a3b4-4d3e-8534-063b2aac210c: 'Sharing Image' # Sharing Image
+    fcc529d4-4f54-493e-a560-de0e2ec6f7a6: 'First Option' # First Option
 plugins:
   ckeditor:
     edition: standard

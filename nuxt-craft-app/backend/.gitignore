@@ -1,9 +1,11 @@
 /.env
 /.idea
 /vendor
-/config
+/config/
 .DS_Store
 /web/uploads
 *.yaml
 *.log
 *.sql
+# Ignore all .yaml files everywhere
+**/*.yaml

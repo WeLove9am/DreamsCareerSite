@@ -1,4 +1,6 @@
 <script setup>
+import Wheretonext from '../components/wheretonext.vue';
+
 const globalsData = inject('globalsData')
 </script>
 
@@ -10,9 +12,10 @@ const globalsData = inject('globalsData')
       :headernav="globalsData?.headernav"
     />
     <Alert />
-    <main class="page min-h-screen" id="main" tabindex="-1">
+    <main class="main">
       <slot />
+      <Wheretonext :globalData="globalsData?.global"/>
     </main>
-    <Footer :globalData="globalsData?.global" />
+    <Footer :globalData="globalsData?.global"/>
   </div>
 </template>
