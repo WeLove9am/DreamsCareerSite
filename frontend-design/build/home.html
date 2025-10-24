@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="KEIM" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="./css/main.css?v=1761035147932">
+    <link rel="stylesheet" href="./css/main.css?v=1761291877000">
 </head>
 
 <body>
@@ -187,7 +187,11 @@
             </div>
         </header>
 
-        <main class="main"><canvas id="image-sequence" width="1920" height="1080"></canvas>
+        <main class="main">
+            <div class="image-sequence-loading">
+                <div class="loader"></div>
+                <img class="image-sequence-loading__logo" src="images/logo.svg" alt="logo Dreams." width="187" height="67">
+            </div><canvas id="image-sequence" width="1920" height="1080"></canvas>
 
             <section id="section-1" class="pin-section" data-frame-count="75" data-image-path="images/general/dreamscareersite-general">
                 <div class="pin-section__title">
@@ -213,7 +217,7 @@
             <section id="section-4" class="pin-section" data-frame-count="87" data-image-path="images/retail/dreamscareersite-retail">
                 <div class="pin-section__title">
                     <img class="hidden-desktop" src="images/home-header-4.png" alt="from our big thinkers.">
-                    <img class="visible-desktop" src="images/home-header-5-desktop.svg" alt="from our big thinkers.">
+                    <img class="visible-desktop" src="images/home-header-4-desktop.svg" alt="from our big thinkers.">
                 </div>
             </section>
 
@@ -226,8 +230,8 @@
 
             <section id="section-6" class="pin-section" data-frame-count="75" data-image-path="images/distribution/dreamscareersite-distribution">
                 <div class="pin-section__title">
-                    <h2>Every role has its part to play in</h2>
-                    <img class="hidden-desktop" src="images/home-header-6.svg" alt="helping the nation sleep better.">
+                    <h3>Every role has its part to play in</h3>
+                    <img class="hidden-desktop" src="images/home-header-6.png" alt="helping the nation sleep better.">
                     <img class="visible-desktop" src="images/home-header-6-desktop.svg" alt="helping the nation sleep better.">
                 </div>
             </section>
@@ -381,7 +385,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js"></script>
-    <script src="./js/vendor.js?v=1761035147933"></script>
-    <script src="./js/main.js?v=1761035147933"></script>
+    <script src="./js/vendor.js?v=1761291877001"></script>
+    <script src="./js/main.js?v=1761291877001"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="KEIM" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="./css/main.css?v=1761035147874">
+    <link rel="stylesheet" href="./css/main.css?v=1761291876945">
 </head>
 
 <body>
@@ -199,11 +199,13 @@
                 </div>
             </section>
 
-            <section>
+            <section class="section">
                 <div class="container">
-                    <h2>Got questions?</h2>
-                    <h3>We’ve got answers.</h3>
-                    <p>Think of this as your bedside guide to the application process – short, helpful and with a smile along the way.</p>
+                    <div class="section-header">
+                        <h2>Got questions?</h2>
+                        <h3>We’ve got answers.</h3>
+                        <p>Think of this as your bedside guide to the application process – short, helpful and with a smile along the way.</p>
+                    </div>
                     <div class="tabs" data-tabs="tabs">
                         <button class="button is-active" data-tab="tab1">General Application Process</button>
                         <button class="button" data-tab="tab2">Interview Process</button>
@@ -215,52 +217,64 @@
                         <div class="tab-slide is-active" data-tab-content="tab1">
                             <div class="tab-slide-wrapper">
                                 <div class="tab-slide__top">
-                                    <div class="tab-slide__card">
-                                        <h4>How do I apply for <br> a role?</h4>
-                                        <h5>Ready to dream big with us?</h5>
+                                    <div class="card">
+                                        <h3>How do I apply for <br> a role?</h3>
+                                        <h4>Ready to dream big with us?</h4>
                                         <p>Just follow a few simple steps to set up your account and upload your CV. Easy as fluffing a pillow.</p>
                                     </div>
-                                    <div class="tab-slide__card">
-                                        <h4>Can I apply <br> for more than one <br> position at a time?</h4>
-                                        <h5>Absolutely – you can apply for more than one role</h5>
+                                    <div class="card">
+                                        <h3>Can I apply <br> for more than one <br> position at a time?</h3>
+                                        <h4>Absolutely – you can apply for more than one role</h4>
                                         <p>Just not the same one twice (we know you’re keen, but one dream at a time).</p>
                                     </div>
-                                    <div class="tab-slide__card">
-                                        <h4>What happens <br> after I submit my <br> application?</h4>
-                                        <h5>You’ll get an email confirming we’ve received it.</h5>
+                                    <div class="card">
+                                        <h3>What happens <br> after I submit my <br> application?</h3>
+                                        <h4>You’ll get an email confirming we’ve received it.</h4>
                                         <p>Then we’ll review it and if it’s a dream match, a hiring manager will be in touch.</p>
                                     </div>
                                 </div>
-                                <div class="tab-slide__bot">
-                                    <div class="tab-slide__card">
-                                        <h4>How long does the <br> recruitment process <br> take?</h4>
-                                        <h5>We try to respond as quickly as possible, but it may take up to 21 days.</h5>
+                                <div class="tab-slide__bottom">
+                                    <div class="card">
+                                        <h3>How long does the <br> recruitment process <br> take?</h3>
+                                        <h4>We try to respond as quickly as possible, but it may take up to 21 days.</h4>
                                         <p>Hang tight – we’re working through the pile like a stack of cosy duvets.</p>
                                     </div>
-                                    <div class="tab-slide__card">
-                                        <h4>Have a <br> question for us?</h4>
-                                        <h5>We’re here to help</h5>
+                                    <div class="card">
+                                        <h3>Have a <br> question for us?</h3>
+                                        <h4>We’re here to help</h4>
                                         <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Quisque faucibus ex sapien vitae pellentesque.</p>
                                         <form class="tab-slide__form" action="" method="post">
-                                            <input class="tab-slide__input" type="text" name="first-name" placeholder="First Name" id="tab-slide-first-name">
-                                            <input class="tab-slide__input" type="text" name="last-name" placeholder="Last Name" id="tab-slide-second-name">
-                                            <input class="tab-slide__input" type="mail" name="mail" placeholder="Email adress" id="tab-slide-mail">
-                                            <textarea class="tab-slide__input" type="textarea" name="comment" placeholder="Write your question(s) here" rows="6" id="tab-slide-areatext"></textarea>
+                                            <input class="input" type="text" name="first-name" placeholder="First Name" id="tab-slide-first-name">
+                                            <input class="input" type="text" name="last-name" placeholder="Last Name" id="tab-slide-second-name">
+                                            <input class="input" type="email" name="mail" placeholder="Email adress" id="tab-slide-mail">
+                                            <textarea class="input" type="textarea" name="comment" placeholder="Write your question(s) here" rows="6" id="tab-slide-areatext"></textarea>
                                             <div class="tab-slide__checkboxes">
-                                                <div class="tab-slide__checkbox tab-slide__checkbox-1">
-                                                    <input type="checkbox" id="permission">
-                                                    <label for="permission">I acknowledge and give permission for my data to be held by Dreams and WeLove9am in accordance with the General Data Protection Regulation</label>
-                                                </div>
-                                                <div class="tab-slide__checkbox tab-slide__checkbox-2">
-                                                    <input type="checkbox" id="policy">
-                                                    <label for="policy">I have read and agree to the privacy policy</label>
-                                                </div>
+                                                <label class="checkbox">
+                                                    <input class="checkbox-input" type="checkbox" name="checkbox" />
+                                                    <div class="checkbox-box"><span class="checkbox-box__label">I acknowledge and give permission for my data to be held by Dreams and WeLove9am in accordance with the General Data Protection Regulation</span></div>
+                                                </label>
+                                                <label class="checkbox">
+                                                    <input class="checkbox-input" type="checkbox" name="checkbox" />
+                                                    <div class="checkbox-box"><span class="checkbox-box__label">I have read and agree to the privacy policy</span></div>
+                                                </label>
                                             </div>
-                                            <input class="tab-slide__submit" type="submit" value="Submit">
+                                            <input class="button button--primary" type="submit" value="Submit">
                                         </form>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="tab-slide" data-tab-content="tab2">
+                            <div>Tab 2</div>
+                        </div>
+                        <div class="tab-slide" data-tab-content="tab3">
+                            <div>Tab 3</div>
+                        </div>
+                        <div class="tab-slide" data-tab-content="tab4">
+                            <div>Tab 4</div>
+                        </div>
+                        <div class="tab-slide" data-tab-content="tab5">
+                            <div>Tab 5</div>
                         </div>
                         <div class="tab-slide" data-tab-content="tab2">
                             <div>Tab 2</div>
@@ -591,7 +605,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js"></script>
-    <script src="./js/vendor.js?v=1761035147874"></script>
-    <script src="./js/main.js?v=1761035147874"></script>
+    <script src="./js/vendor.js?v=1761291876946"></script>
+    <script src="./js/main.js?v=1761291876946"></script>
 </body>
 </html>

@@ -121,22 +121,7 @@
   }
 }
 
-.wave.wave--white {
-  transform: translateY(-100%);
-  height: auto;
-}
-
-// .hero.hero--jobs__listing .wave.wave--white,
-// .hero.hero--jobs .wave.wave--white {
-//   transform: translateY(-100%);
-//   height: auto;
-
-//   @include desktop {
-//     transform: translateY(-50%);
-//   }
-// }
-
-.hero__info {
+.hero__tags {
   margin-top: 76px;
   display: flex;
   width: 100%;
@@ -147,6 +132,11 @@
   @include desktop {
     margin-top: 173px;
   }
+}
+
+.hero__tags .button {
+  backdrop-filter: blur(30px) brightness(120%);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .hero--retail .hero__motto img:nth-child(1) {
