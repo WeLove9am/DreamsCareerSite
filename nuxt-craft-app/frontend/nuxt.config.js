@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '~/assets/css/main.css?version=1.0.1'
+    '~/assets/css/main.css?version=1.0.2'
   ],
 
   app: {
@@ -20,15 +20,25 @@ export default defineNuxtConfig({
       titleTemplate: '%s | ' + process.env.SITE_NAME,
       title: process.env.SITE_NAME,
       script: [
-        { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js' },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js' },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js' },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js' },
-        { src: '/js/main.js?version=1.0.1' },  
-        { src: '/js/vendor.js?version=1.0.1' }
+        { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js', defer: true},
+        { src: '/js/main.js?version=1.0.2', defer: true },  
+        { src: '/js/vendor.js?version=1.0.2', defer: true }
       ]
     }
   },
+
+  // plugins: [
+  //   '~/plugins/delayed-scripts.client.ts'
+  // ],
+
+  //debug: true,
+
+  // build: {
+  //   transpile: ['gsap'],
+  // },
 
   devServer: {
     host: '0.0.0.0',

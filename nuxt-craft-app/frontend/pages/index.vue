@@ -9,7 +9,8 @@ const graphql = useGraphQL()
 
 // Disable SSR for preview mode
 if (isPreview.value) {
-  definePageMeta({ ssr: false })
+  //definePageMeta({ ssr: false })
+  refresh()
 }
 
 // Fetch data function
@@ -39,29 +40,80 @@ watch([isPreview, previewToken], () => {
     refresh()
   }
 })
+// Use a custom layout for the homepage 
+definePageMeta({
+  layout: 'home'
+  // ,
+  // ssr: false
+})
+
+const homeData = `<div class="image-sequence-wrapper">
+      <div class="image-sequece-wrapper__scroll">Scroll to explore</div>
+      <div class="image-sequence-loading">
+        <div class="loader"></div>
+        <img 
+          class="image-sequence-loading__logo" 
+          src="/images/home/logo.svg" 
+          alt="logo Dreams." 
+          width="187" 
+          height="67"
+        />
+      </div>
+      <section class="pin-section" id="section-1" data-frame-count="75" data-image-path="images/home/general/dreamscareersite-general">
+        <canvas class="image-sequence-canvas"></canvas>
+        <div class="pin-section__title">
+          <img 
+          class="hidden-desktop" 
+          src="/images/home/home-header-1.png" 
+          alt="from our big thinkers."
+          />
+          <img class="visible-desktop" src="/images/home/home-header-1-desktop.svg" alt="from our big thinkers."/>
+        </div>
+      </section>
+      <section class="pin-section" id="section-2" data-frame-count="75" data-image-path="images/home/bedquarters/dreamscareersite-bedquarters">
+        <canvas class="image-sequence-canvas"></canvas>
+        <div class="pin-section__title">
+          <img class="hidden-desktop" src="/images/home/home-header-2.svg" alt="from our big thinkers."/>
+          <img class="visible-desktop" src="/images/home/home-header-2-desktop.svg" alt="from our big thinkers."/>
+        </div>
+      </section>
+      <section class="pin-section" id="section-3" data-frame-count="75" data-image-path="images/home/bedfactory/dreamscareersite-bedfactory">
+        <canvas class="image-sequence-canvas"></canvas>
+        <div class="pin-section__title">
+          <img class="hidden-desktop" src="/images/home/home-header-3.svg" alt="from our big thinkers."/>
+          <img class="visible-desktop" src="/images/home/home-header-3-desktop.svg" alt="from our big thinkers."/>
+        </div>
+      </section>
+      <section class="pin-section" id="section-4" data-frame-count="87" data-image-path="images/home/retail/dreamscareersite-retail">
+        <canvas class="image-sequence-canvas"></canvas>
+        <div class="pin-section__title">
+          <img class="hidden-desktop" src="/images/home/home-header-4.png" alt="from our big thinkers."/>
+          <img class="visible-desktop" src="/images/home/home-header-4-desktop.svg" alt="from our big thinkers."/>
+        </div>
+      </section>
+      <section class="pin-section" id="section-5" data-frame-count="75" data-image-path="images/home/distribution/dreamscareersite-distribution">
+        <canvas class="image-sequence-canvas"></canvas>
+        <div class="pin-section__title">
+          <img class="hidden-desktop" src="/images/home/home-header-5.svg" alt="from our big thinkers."/>
+          <img class="visible-desktop" src="/images/home/home-header-5-desktop.svg" alt="from our big thinkers."/>
+        </div>
+      </section>
+      <section class="pin-section" id="section-6" data-frame-count="75" data-image-path="images/home/distribution/dreamscareersite-distribution">
+        <canvas class="image-sequence-canvas"></canvas>
+        <div class="pin-section__title">
+          <h3>${data.value.pageSubheading}</h3>
+          <img class="hidden-desktop" src="/images/home/home-header-6.png" alt="helping the nation sleep better."/>
+          <img class="visible-desktop" src="/images/home/home-header-6-desktop.svg" alt="helping the nation sleep better."/>
+        </div>
+      </section>
+    </div>`
+
 </script>
 
 <template>
-  <div :key="previewTimestamp">
-    <figure v-if="data.image && data.image.length > 0">
-      <img :src="data.image[0].url" :alt="data.image[0].alt" />
-    </figure>
-    <header class="container mx-auto pt-12 pb-6 px-2 text-2xl">
-      <h1 class="font-bold text-4xl sm:text-6xl lg:text-9xl">
-        {{ data.title }}
-      </h1>
-      <p v-if="data.pageSubheading" class="mt-4">
-        {{ data.pageSubheading }}
-      </p>
-    </header>
-    <section class="page__content">
-      <div class="container mx-auto py-12 px-2 text-balance">
-        <div
-          v-if="data.pageContent"
-          v-html="data.pageContent"
-        ></div>
-        <tip v-else>Add content to the homepage by visiting Entries &rarr; Default Pages in the control panel!</tip>
-      </div>
-    </section>
-  </div>
+<div :key="previewTimestamp">
+
+    <div v-html="homeData"></div>
+
+</div>  
 </template>
