@@ -12,11 +12,11 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    caption2: {
-        type: String,
-        default: ''
-    },
     heroImage: {
+        type: Array,
+        default: () => []
+    },
+    list: {
         type: Array,
         default: () => []
     }
@@ -31,7 +31,9 @@ const props = defineProps({
                 <h2>{{ subHeading }}</h2>
                 <h3>{{ subHeading2 }}</h3>
                 <p>{{ caption }}</p>
-                <p>{{ caption2 }}</p>
+                <ul> 
+                    <li v-for="item in list" :key="item.id"><b>{{ item.title }}</b> – {{ item.caption }}</li>
+                </ul>
             </div>
             <NuxtImg
                     v-if="heroImage?.[0]?.url" 

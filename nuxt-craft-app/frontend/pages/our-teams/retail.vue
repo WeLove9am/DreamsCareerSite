@@ -45,13 +45,7 @@ watch([isPreview, previewToken], () => {
   }
 })
 
-// Force refresh on mount (client-side navigation)
-onMounted(() => {
-  if (!data.value || !data.value.retail) {
-    console.log('No data on mount, forcing refresh...')
-    refresh()
-  }
-})
+
 </script>
 
 <template>

@@ -27,16 +27,21 @@ export const BEDQUARTERS_QUERY = `
         subHeading2
         subHeading3
         caption2
-        caption3
         image {
             url
             alt
         }
+        list {
+            ... on list_Entry
+            {
+                title
+                caption
+            }
+      }
 
         #Bedquarters Features Fields
 
         subHeading4
-        subHeading5
         features {
             ... on features_Entry
             {

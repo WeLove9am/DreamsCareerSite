@@ -4,27 +4,6 @@ import { useGraphQL } from '@/composables/useGraphQL'
 import { BEDQUARTERS_QUERY } from '@/queries/bedquarters.mjs'
 import { useAsyncData } from '#app'
 
-
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-// Clean up before leaving
-router.beforeEach((to, from, next) => {
-  if (from.path === '/' && to.path !== '/') {
-    // Leaving home page, clean up
-    cleanupAnimations()
-  }
-  next()
-})
-
-function cleanupAnimations() {
-  if (process.client && window.ScrollTrigger) {
-    const { ScrollTrigger } = useGsap()
-    ScrollTrigger.getAll().forEach(st => st.kill())
-  }
-}
-
 const { isPreview, previewToken, previewTimestamp } = usePreview()
 const graphql = useGraphQL()
 
@@ -66,7 +45,7 @@ watch([isPreview, previewToken], () => {
   }
 })
 //console.log('Global Data:', JSON.stringify(data.value?.global, null, 2))
-//console.log('Retail Page Data:', JSON.stringify(data.value, null, 2))
+//console.log('bedquarters Page Data:', JSON.stringify(data.value, null, 2))
 //console.log(data.value?.global?.subTitle2);
 </script>
 
@@ -80,25 +59,24 @@ watch([isPreview, previewToken], () => {
       :desktopImage="data.bedquarters.desktopImage"
       :heroImage="data.bedquarters.heroImage"
       />
-    <!--<RetailIntro
-      :subHeading="data.retail.subHeading2"
-      :subHeading2="data.retail.subHeading3"
-      :caption="data.retail.caption2"
-      :caption2="data.retail.caption3"
-      :heroImage="data.retail.image"
+    <BedquartersIntro
+      :subHeading="data.bedquarters.subHeading2"
+      :subHeading2="data.bedquarters.subHeading3"
+      :caption="data.bedquarters.caption2"
+      :list="data.bedquarters.list"
+      :heroImage="data.bedquarters.image"
       />
-    <RetailFeatures
-      :features="data.retail.features"
-      :subHeading="data.retail.subHeading4"
-      :subHeading2="data.retail.subHeading5"
+    <BedquartersFeatures
+      :features="data.bedquarters.features"
+      :subHeading="data.bedquarters.subHeading4"
+    />
+    <BedquartersPromises
+      :subHeading="data.bedquarters.subHeading6"
+      :subHeading2="data.bedquarters.subHeading7"
+      :promises="data.bedquarters.promises"
       />
-      <RetailPromises
-        :subHeading="data.retail.subHeading6"
-        :subHeading2="data.retail.subHeading7"
-        :promises="data.retail.promises"
-        />
-      <RetailMap/>
-      <RetailQuiz
+      <BedquartersMap/>
+      <BedquartersQuiz
         :subHeading="data.global.subTitle2"
         :subHeading2="data.global.subTitle3"
         :copy="data.global.copy2"
@@ -112,6 +90,5 @@ watch([isPreview, previewToken], () => {
         :buttonLink="data.global.buttonLink"
         :quizEntries="data.global.quiz"
         />
-      <RetailJobcard/>-->
     </div>
 </template>

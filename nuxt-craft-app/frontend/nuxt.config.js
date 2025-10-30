@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '~/assets/css/main.css?version=1.0.2'
+    '~/assets/css/main.css?version=1.0.3'
   ],
 
   app: {
@@ -24,8 +24,8 @@ export default defineNuxtConfig({
         { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js', defer: true },
         { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js', defer: true },
         { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js', defer: true},
-        { src: '/js/main.js?version=1.0.2', defer: true },  
-        { src: '/js/vendor.js?version=1.0.2', defer: true }
+        { src: '/js/main.js?version=1.0.3', defer: true },  
+        { src: '/js/vendor.js?version=1.0.3', defer: true }
       ]
     }
   },
@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   //   '~/plugins/delayed-scripts.client.ts'
   // ],
 
-  //debug: true,
+  debug: true,
 
   // build: {
   //   transpile: ['gsap'],
@@ -82,5 +82,5 @@ export default defineNuxtConfig({
     payloadExtraction: false
   },
 
-  modules: ['@nuxt/image']
+  modules: ['@nuxt/image',]
 });
