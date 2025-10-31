@@ -27,10 +27,10 @@ const { data, refresh } = await useAsyncData(
         global: result.globalEntries[0]
       }));
     } catch (error) {
-      console.error('Failed to fetch Retail data:', error)
+      console.error('Failed to fetch Bedquarters data:', error)
       throw createError({ 
         statusCode: 404,
-        message: 'Retail page not found'
+        message: 'Bedquarters page not found'
       })
     }
   },

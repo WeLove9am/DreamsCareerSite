@@ -18,8 +18,8 @@ const props = defineProps({
 <section class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2 v-if="subHeading">{{ subHeading }}</h2>
-                    <h3 v-if="subHeading2">{{ subHeading2 }}</h3>
+                    <h2>{{ subHeading }}</h2>
+                    <h3>{{ subHeading2 }}</h3>
                 </div>
             </div>
             <div class="container">
@@ -28,8 +28,8 @@ const props = defineProps({
                         <div class="swiper-wrapper">
                             <div class="swiper-slide slider-spotlight__thumb-slide" data-duration="5" v-for="item in promises" :key="item.id">
                                 <div class="slider-spotlight__thumb-content">
-                                    <h4 v-if="item.title">{{ item.title }}</h4>
-                                    <p v-if="item.copy">{{ item.copy }}</p>
+                                    <h4>{{ item.title }}</h4>
+                                    <p>{{ item.copy }}</p>
                                 </div>
                                 <div class="slider-spotlight__progress">
                                     <div class="slider-spotlight__progress-fill"></div>

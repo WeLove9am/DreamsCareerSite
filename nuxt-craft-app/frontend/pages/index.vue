@@ -4,6 +4,51 @@ import { useGraphQL } from '@/composables/useGraphQL'
 import { HOME_QUERY } from '@/queries/home.mjs'
 import { useAsyncData } from '#app'
 
+//Added for image sequnce preloading
+import { onMounted, ref } from 'vue';// Vue composition API
+import { preloadImageSequence } from '@/utils/preloadImageSequence'; // The utility above
+
+const allCriticalFramesReady = ref(false);
+
+const sectionsData = [
+  // Define sections needed immediately (e.g., Sections 1 & 2)
+  { count: 75, path: '/images/home/general/dreamscareersite-general' }, 
+  { count: 75, path: '/images/home/bedquarters/dreamscareersite-bedquarters' }
+];
+
+// Run setup immediately during component initialization
+(async () => {
+    // Await ONLY the critical frames (e.g., the first 150 frames)
+    const criticalLoads = [
+        preloadImageSequence(sectionsData[0].count, sectionsData[0].path),
+        preloadImageSequence(sectionsData[1].count, sectionsData[1].path)
+    ];
+    
+    await Promise.all(criticalLoads);
+    
+    allCriticalFramesReady.value = true;
+    console.log("Critical animation frames are now in cache.");
+    
+    // Kick off deferred loading for the remaining 4 sections during browser idle time
+    if (window.requestIdleCallback) {
+        window.requestIdleCallback(() => {
+            // Start preloading remaining sections (3, 4, 5, 6) now
+            // ... preloadImageSequence(sectionsData[2].count, sectionsData[2].path);
+        });
+    }
+
+    // You must manually trigger the global initialization function 
+    // that your main.js code expects.
+    if (window.initAppFeatures) {
+        window.initAppFeatures();
+    }
+})();
+
+onMounted(() => {
+    // Final check or setup runs here
+});
+//End image sequence preloading
+
 const { isPreview, previewToken, previewTimestamp } = usePreview()
 const graphql = useGraphQL()
 
