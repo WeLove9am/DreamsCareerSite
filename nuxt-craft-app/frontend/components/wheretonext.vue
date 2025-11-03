@@ -23,11 +23,11 @@ const props = defineProps({
                 <h4>{{ globalData.caption }}</h4>
                 <p>{{ globalData.copy }}</p>
                 <div class="next__actions">
-                    <NuxtLink v-for="link in globalData.links" :key="link.id"
+                    <a v-for="link in globalData.links" :key="link.id"
                             class="button button--primary" 
-                            :to="link.pageLink.startsWith('/') ? link.pageLink : `/${link.pageLink}`">
+                            :href="link.pageLink.startsWith('/') ? link.pageLink : `/${link.pageLink}`">
                             {{ link.title }}
-                    </NuxtLink>
+                    </a>
                 </div>
             </div>
             <NuxtImg
