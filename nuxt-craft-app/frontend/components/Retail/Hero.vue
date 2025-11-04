@@ -43,6 +43,7 @@ const props = defineProps({
             :src="heroImage[0].url" 
             :alt="heroImage[0]?.alt || title"
             loading="lazy"
+            width="1920" height="1080"
         />
         <div class="hero__inner">
             <div class="hero__motto">

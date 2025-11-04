@@ -12,6 +12,10 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    vimeoVideoId: {
+        type: String,
+        default: ''
+    },
     mobileImage: {
         type: Array,
         default: () => []
@@ -26,18 +30,9 @@ const props = defineProps({
     }
     
 })
-// Print all data to console
-// console.log('=== HERO COMPONENT - ALL PROPS ===')
-// console.log('title:', props.title)
-// console.log('subHeading:', props.subHeading)
-// console.log('caption:', props.caption)
-// console.log('mobileImage:', JSON.stringify(props.mobileImage, null, 2))
-// console.log('desktopImage:', JSON.stringify(props.desktopImage, null, 2))
-// console.log('heroImage:', JSON.stringify(props.heroImage, null, 2))
-// console.log('=== END PROPS ===')
 </script>
 <template>
-    <section class="hero hero--distribution wave-bottom">
+    <section class="section hero hero--video wave-bottom">
         <NuxtImg
             v-if="heroImage?.[0]?.url" 
             :src="heroImage[0].url" 
@@ -47,7 +42,7 @@ const props = defineProps({
         />
         <div class="hero__inner">
             <div class="hero__motto">
-                <h1>{{ subHeading }}</h1>
+                <h2>{{ subHeading }}
                 <NuxtImg
                     v-if="mobileImage?.[0]?.url" 
                     :src="mobileImage[0].url" 
@@ -60,8 +55,15 @@ const props = defineProps({
                     :alt="desktopImage[0]?.alt || subHeading"
                     loading="lazy"
                     class="hero__images visible-desktop"/>
+                </h2>
+                <button v-if="vimeoVideoId" class="button button--primary text-uppercase" id="openVideoBtn" :data-vimeo-id="vimeoVideoId">{{ caption }}</button>
             </div>
-            <p>{{ caption }}</p>
+            <dialog id="videoModal">
+                <div class="modal-video-container">
+                    <div class="loader"></div>
+                </div>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </dialog>
         </div>
     </section>
 </template>
