@@ -26,6 +26,10 @@ return [
     'id' => App::env('CRAFT_APP_ID') ?: 'CraftCMS',
     'modules' => [
         'authorinfo' => modules\authorinfo\Module::class,
+        'freeform-module' => [
+            'class' => \modules\freeform\FreeformModule::class,
+        ],
+        'geocode' => \modules\geocode\GeocodeModule::class,
     ],
-    'bootstrap' => ['authorinfo'],
+    'bootstrap' => ['authorinfo','freeform-module','geocode'],
 ];
