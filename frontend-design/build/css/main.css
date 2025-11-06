@@ -1908,7 +1908,7 @@ body {
 .wave-top::before {
   content: "";
   position: absolute;
-  top: 0;
+  top: -1px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -1922,7 +1922,7 @@ body {
 .wave-bottom:after {
   content: "";
   position: absolute;
-  top: 0;
+  top: 1px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -2168,6 +2168,46 @@ h3,
 
 [data-scrollspy=animate__fadeInDownBefore]::before {
   opacity: 0;
+}
+
+@keyframes stackCardsDown {
+  from {
+    transform: translateY(-95%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes stackCardsDown2 {
+  from {
+    transform: translateY(-190%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate__stackCardsDown {
+  opacity: 1;
+}
+
+.animate__stackCardsDown .wellbeing__card:nth-of-type(3) {
+  animation-name: stackCardsDown;
+  animation-duration: 1.5s;
+  z-index: 1;
+}
+
+.animate__stackCardsDown .wellbeing__card:nth-of-type(4) {
+  animation-name: stackCardsDown2;
+  animation-duration: 2s;
+  z-index: 1;
 }
 
 .partners {
@@ -2734,7 +2774,7 @@ details[open] > summary:first-of-type .details__icon-opened {
   font-size: 28px;
   font-weight: 900;
   line-height: 31px;
-  letter-spacing: -0.84px;
+  letter-spacing: 0;
   margin: 0;
 }
 
@@ -2767,11 +2807,14 @@ details[open] > summary:first-of-type .details__icon-opened {
   display: flex;
   flex-direction: column;
   width: 100%;
+  z-index: 1;
+  border-radius: 20px;
 }
 
 .wellbeing__card img {
   z-index: 1;
-  aspect-ratio: 1.1/1;
+  -o-object-fit: cover;
+  object-fit: cover;
   border-radius: 10px;
   width: 100%;
 }
@@ -2782,12 +2825,13 @@ details[open] > summary:first-of-type .details__icon-opened {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
   width: calc(100% - 30px);
   margin-inline: auto;
   margin: -40px auto 0 auto;
   padding: 20px;
   z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .wellbeing__card-body p {
@@ -3491,6 +3535,15 @@ label.button:has(input[type=checkbox]:checked) {
   margin: 0 auto;
 }
 
+.map__card .control {
+  width: 100%;
+  max-width: 350px;
+}
+
+.map__card .control input {
+  width: 100%;
+}
+
 .map__inner {
   position: absolute;
   top: 0;
@@ -3641,6 +3694,14 @@ label.button:has(input[type=checkbox]:checked) {
   width: 100%;
 }
 
+.menu.active * {
+  transition: none;
+}
+
+.menu.active [data-collapse-content] {
+  transition: none;
+}
+
 .menu__list {
   position: relative;
   display: flex;
@@ -3691,6 +3752,7 @@ label.button:has(input[type=checkbox]:checked) {
 
 .menu__link.active + .menu__content {
   opacity: 1;
+  transition: none;
 }
 
 .menu.menu--open {
@@ -4475,7 +4537,7 @@ label.button:has(input[type=checkbox]:checked) {
   opacity: 1;
   visibility: visible;
   margin-top: 0;
-  transition: all 1s;
+  transition: opacity 1s;
 }
 
 .swiper-slide-thumb-active .slider-feature-slide__bottom span {
@@ -5401,6 +5463,15 @@ label.button:has(input[type=checkbox]:checked) {
   right: 0;
   left: 0;
   margin: 0 auto;
+}
+
+.map__card .control {
+  width: 100%;
+  max-width: 350px;
+}
+
+.map__card .control input {
+  width: 100%;
 }
 
 .map__inner {
@@ -6987,14 +7058,13 @@ dialog[open] {
   }
 
   .wellbeing__card img {
-    aspect-ratio: 1.12/1;
     width: 50%;
     order: 2;
     border-radius: 20px;
   }
 
   .wellbeing__card-body {
-    padding: 30px 50px 30px 50px;
+    padding: 60px;
     justify-content: center;
     width: 50%;
     border-radius: 20px 0 0 20px;
