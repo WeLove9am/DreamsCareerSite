@@ -1,11 +1,11 @@
-export const RETAIL_QUERY = `
-  query Retail {
-    entry(section: "retail", limit: 1) {
-      ... on retail_Entry {
+export const BENEFITS_QUERY = `
+  query Benefits {
+    entry(section: "benefits", limit: 1) {
+      ... on benefits_Entry {
         id
         title
 
-        #Retail Hero Fields
+        #Benefits Hero Fields
 
         subHeading
         caption
@@ -22,39 +22,17 @@ export const RETAIL_QUERY = `
             alt
         }
 
-        #Retail Intro Fields
+        #Benefits Intro Fields
 
         subHeading2
         subHeading3
         caption2
+
+        #Benefits Promises & Perks Fields
+
+        subTitle
         caption3
-        image {
-            url
-            alt
-        }
-
-        #Retail Features Fields
-
-        subHeading4
-        subHeading5
-        features {
-            ... on features_Entry
-            {
-                title
-                image {
-                    url
-                    alt
-                }
-                copy
-                fullName
-                jobTitle
-            }
-        }
-
-        #Retail Promises & Perks Fields
-
-        subHeading6
-        subHeading7
+        caption4
         promises {
             ... on promises_Entry
             {
@@ -71,9 +49,30 @@ export const RETAIL_QUERY = `
                 }
             }
         }
-        subTitle
-        copy
-        copy2
+
+        #Benefits Wellbeing Fields
+
+        subHeading4
+        subHeading5
+        subHeading6
+        wellbeing{
+          ... on wellbeing_Entry{
+            title
+            image{
+              url
+              alt
+            }
+            subTitle
+            copy
+            list {
+                ... on list_Entry
+                {
+                    title
+                    caption
+                }
+            }
+          }
+        }
 
       }
     }
@@ -103,20 +102,6 @@ export const RETAIL_QUERY = `
                 url
                 alt
             }
-          }
-        }
-      }
-    }
-    jobListEntries{
-      ... on jobList_Entry {
-        title
-        uri
-        location
-        postCode
-        postcodesCat{
-          ... on postcodesCat_Category{
-            longitude
-            latitude
           }
         }
       }

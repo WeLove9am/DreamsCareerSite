@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   //   '~/plugins/delayed-scripts.client.ts'
   // ],
 
-  debug: true,
+  //debug: true,
 
   // build: {
   //   transpile: ['gsap'],
@@ -50,7 +50,9 @@ export default defineNuxtConfig({
       GRAPHQL_TOKEN: process.env.GRAPHQL_TOKEN,
       CRAFT_URL: process.env.CRAFT_URL,
       BASE_URL: process.env.BASE_URL,
-      SITE_NAME: process.env.SITE_NAME
+      SITE_NAME: process.env.SITE_NAME,
+      googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+      mapboxAccessToken: process.env.NUXT_PUBLIC_MAPBOX_ACCESS_TOKEN
     }
   },
 
