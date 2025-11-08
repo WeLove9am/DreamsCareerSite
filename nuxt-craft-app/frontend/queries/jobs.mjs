@@ -33,8 +33,35 @@ export const JOB_POSTS_QUERY = `
         jobLink
         location
         postCode
+        salary
         postDate @formatDateTime(format: "F j, Y")
         jobDescription
+        postcodesCat {
+          ... on postcodesCat_Category {
+            id
+            title
+            longitude
+            latitude
+          }
+        }
+        sector {
+          ... on sector_Category {
+            id
+            title
+          }
+        }
+        contractType {
+          ... on contractType_Category {
+            id
+            title
+          }
+        }
+        contractHours {
+          ... on contractHours_Category {
+            id
+            title
+          }
+        }
       }
     }
     entryCount(section: "jobList")

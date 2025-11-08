@@ -1,7 +1,7 @@
 import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from '#app'
 
-export function usePaginatedData(fetchData, initialItemsPerPage = 4) {
+export function usePaginatedData(fetchData, initialItemsPerPage = 10) {
   const route = useRoute()
   const router = useRouter()
   

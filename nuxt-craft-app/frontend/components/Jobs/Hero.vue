@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
     title: {
         type: String,
@@ -27,6 +29,21 @@ const props = defineProps({
     
 })
 
+// 👇 Define emit
+const emit = defineEmits(['search'])
+
+// Local refs for form inputs
+const keyword = ref('')
+const locationCode = ref('')
+
+// Handle form submission
+const handleSearch = (e) => {
+  e.preventDefault()
+  emit('search', {
+    keyword: keyword.value.trim(),
+    location: locationCode.value.trim()
+  })
+}
 </script>
 <template>
     <section class="hero hero--jobs wave-bottom">
@@ -55,9 +72,19 @@ const props = defineProps({
                         class="hero__images visible-desktop"/>
                     <p v-if="caption">{{ caption }}</p>
                 </div>
-                <form class="form-location form-location--search" action="#" method="post">
-                    <input type="text" placeholder="Search jobs by keyword" name="search">
-                    <input type="text" placeholder="Location or postcode" name="location-code">
+                <form class="form-location form-location--search" @submit.prevent="handleSearch">
+                    <input
+                    type="text"
+                    v-model="keyword"
+                    placeholder="Search jobs by keyword"
+                    name="search"
+                    />
+                    <input
+                    type="text"
+                    v-model="locationCode"
+                    placeholder="Location or postcode"
+                    name="location-code"
+                    />
                     <button class="button button--primary" type="submit">Search</button>
                 </form>
         </div>
