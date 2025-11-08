@@ -76,6 +76,9 @@ export const BEDQUARTERS_QUERY = `
                 }
             }
         }
+        subTitle
+        copy
+        copy2
 
       }
     }
@@ -109,5 +112,21 @@ export const BEDQUARTERS_QUERY = `
         }
       }
     }
+
+    jobListEntries{
+      ... on jobList_Entry {
+        title
+        uri
+        location
+        postCode
+        postcodesCat{
+          ... on postcodesCat_Category{
+            longitude
+            latitude
+          }
+        }
+      }
+    }
+
   }
 `;

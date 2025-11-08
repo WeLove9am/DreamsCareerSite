@@ -76,7 +76,11 @@ watch([isPreview, previewToken], () => {
     :subHeading2="data.bedfactory.subHeading7"
     :promises="data.bedfactory.promises"
     />
-    <BedfactoryMap/><!--Static now-->
+    <BedfactoryMap 
+    :subTitle="data.bedfactory.subTitle"
+    :copy="data.bedfactory.copy"
+    :copy2="data.bedfactory.copy2"
+  />
     <BedfactoryQuiz
     :subHeading="data.global.subTitle2"
     :subHeading2="data.global.subTitle3"

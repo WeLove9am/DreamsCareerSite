@@ -24,7 +24,8 @@ const { data, refresh } = await useAsyncData(
       //return { bedquarters: result.entry, global: result.globalEntries[0] }
       return JSON.parse(JSON.stringify({
         bedquarters: result.entry,
-        global: result.globalEntries[0]
+        global: result.globalEntries[0],
+        jobs: result.jobListEntries
       }));
     } catch (error) {
       console.error('Failed to fetch Bedquarters data:', error)
@@ -44,6 +45,34 @@ watch([isPreview, previewToken], () => {
     refresh()
   }
 })
+
+// --- 1. Map Data Transformation ---
+const mapMarkers = computed(() => {
+    // Access data.value?.jobs, which contains the jobListEntries array
+    const jobEntries = data.value?.jobs || [];
+    
+    return jobEntries
+        .map(job => {
+            const coords = job.postcodesCat?.[0];
+
+            // Ensure coordinates exist and are valid numbers
+            if (coords && coords.latitude && coords.longitude) {
+                return {
+                    id: job.id,
+                    title: job.title,
+                    uri: job.uri,
+                    locationName: job.location,
+                    postCode: job.postCode,
+                    postcodesCat: [{
+                        longitude: parseFloat(coords.longitude),
+                        latitude: parseFloat(coords.latitude)
+                    }]
+                };
+            }
+            return null; // Skip invalid jobs
+        })
+        .filter(job => job !== null);
+});
 //console.log('Global Data:', JSON.stringify(data.value?.global, null, 2))
 //console.log('bedquarters Page Data:', JSON.stringify(data.value, null, 2))
 //console.log(data.value?.global?.subTitle2);
@@ -75,7 +104,12 @@ watch([isPreview, previewToken], () => {
       :subHeading2="data.bedquarters.subHeading7"
       :promises="data.bedquarters.promises"
       />
-      <BedquartersMap/>
+      <BedquartersMap 
+        :jobs="mapMarkers"
+        :subTitle="data.bedquarters.subTitle"
+        :copy="data.bedquarters.copy"
+        :copy2="data.bedquarters.copy2"
+      />
       <BedquartersQuiz
         :subHeading="data.global.subTitle2"
         :subHeading2="data.global.subTitle3"

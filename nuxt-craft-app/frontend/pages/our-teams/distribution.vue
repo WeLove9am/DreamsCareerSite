@@ -24,7 +24,8 @@ const { data, refresh } = await useAsyncData(
       //return { distribution: result.entry, global: result.globalEntries[0] }
       return JSON.parse(JSON.stringify({
         distribution: result.entry,
-        global: result.globalEntries[0]
+        global: result.globalEntries[0],
+        jobs: result.jobListEntries
       }));
     } catch (error) {
       console.error('Failed to fetch Distribution data:', error)
@@ -45,7 +46,33 @@ watch([isPreview, previewToken], () => {
   }
 })
 
+// --- 1. Map Data Transformation ---
+const mapMarkers = computed(() => {
+    // Access data.value?.jobs, which contains the jobListEntries array
+    const jobEntries = data.value?.jobs || [];
+    
+    return jobEntries
+        .map(job => {
+            const coords = job.postcodesCat?.[0];
 
+            // Ensure coordinates exist and are valid numbers
+            if (coords && coords.latitude && coords.longitude) {
+                return {
+                    id: job.id,
+                    title: job.title,
+                    uri: job.uri,
+                    locationName: job.location,
+                    postCode: job.postCode,
+                    postcodesCat: [{
+                        longitude: parseFloat(coords.longitude),
+                        latitude: parseFloat(coords.latitude)
+                    }]
+                };
+            }
+            return null; // Skip invalid jobs
+        })
+        .filter(job => job !== null);
+});
 </script>
 
 <template>
@@ -76,7 +103,12 @@ watch([isPreview, previewToken], () => {
     :subHeading2="data.distribution.subHeading7"
     :promises="data.distribution.promises"
     />
-    <DistributionMap/><!--Static now-->
+    <DistributionMap 
+        :jobs="mapMarkers"
+        :subTitle="data.distribution.subTitle"
+        :copy="data.distribution.copy"
+        :copy2="data.distribution.copy2"
+      />
     <DistributionQuiz
     :subHeading="data.global.subTitle2"
     :subHeading2="data.global.subTitle3"

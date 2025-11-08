@@ -78,6 +78,9 @@ export const DISTRIBUTION_QUERY = `
                 }
             }
         }
+        subTitle
+        copy
+        copy2
 
       }
     }
@@ -111,5 +114,21 @@ export const DISTRIBUTION_QUERY = `
         }
       }
     }
+
+    jobListEntries{
+      ... on jobList_Entry {
+        title
+        uri
+        location
+        postCode
+        postcodesCat{
+          ... on postcodesCat_Category{
+            longitude
+            latitude
+          }
+        }
+      }
+    }
+      
   }
 `;

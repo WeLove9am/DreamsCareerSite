@@ -79,6 +79,10 @@ export const BEDFACTORY_QUERY = `
             }
         }
 
+        subTitle
+        copy
+        copy2
+
       }
     }
       globalEntries(limit: 1) {
