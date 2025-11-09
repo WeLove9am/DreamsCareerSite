@@ -98,7 +98,7 @@ useHead({
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #251163 0%, #6f5f9c 100%);
 }
 
 .error-content {
@@ -114,6 +114,12 @@ useHead({
 .error-icon {
   color: #e53e3e;
   margin-bottom: 20px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.error-icon svg {
+  max-width: 64px;
 }
 
 .error-title {
@@ -179,12 +185,12 @@ useHead({
 }
 
 .btn-primary {
-  background: #4299e1;
   color: white;
+  background: #6f5f9c;
 }
 
 .btn-primary:hover {
-  background: #3182ce;
+  background: #251163;
 }
 
 .btn-secondary {

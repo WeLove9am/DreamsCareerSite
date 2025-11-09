@@ -84,10 +84,3 @@ const goToPage = async (page) => {
     </ul>
   </nav>
 </template>
-
-<style scoped>
-.pagination__ellipsis {
-  cursor: default;
-  opacity: 0.6;
-}
-</style>
