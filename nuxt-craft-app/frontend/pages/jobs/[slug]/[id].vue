@@ -3,6 +3,7 @@ import { useRoute } from '#app'
 import { useGraphQL } from '@/composables/useGraphQL'
 import { usePreview } from '@/composables/usePreview'
 import { JOB_POSTS_QUERY } from '@/queries/jobPosts.mjs'
+import { STORES_QUERY } from '@/queries/stores.mjs'
 import { watch, computed } from 'vue'
 import { useHead } from '#imports'
 
@@ -62,6 +63,25 @@ const hasPost = computed(() => !!currentPost.value)
 useHead(() => ({
   title: currentPost.value?.title || ''
 }))
+
+// Fetch store address based on job post postcode
+const storeAddress = ref(null)
+const storeName = ref(null)
+
+
+if (currentPost.value?.postCode) {
+try {
+    const response = await graphql.query(STORES_QUERY, {
+      postCode: [currentPost.value.postCode]
+    })
+    storeAddress.value = response?.storesEntries?.[0]?.fullAddressLine || null
+    storeName.value = response?.storesEntries?.[0]?.title || null
+
+  } catch (error) {
+    console.error('Store lookup failed:', error)
+  }
+}
+
 </script>
 
 <template>
@@ -98,12 +118,14 @@ useHead(() => ({
         <JobadvertMap 
     :subTitle="content.subTitle4"
     :copy="content.caption2"
-    :copy2="currentPost.location"
-  />
+    :address="storeAddress || currentPost.location"  
+    :store="storeName"  
+    :postcode="currentPost.postCode"
+    />
       <JobadvertFeatures
       :features="content.features"
       :subHeading="content.subHeading4"
-      :subHeading2="content.subHeading5"
+      :address="content.subHeading5"
       />
 
 

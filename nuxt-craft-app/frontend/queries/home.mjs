@@ -5,6 +5,7 @@ export const HOME_QUERY = `
         id
         title
         pageSubheading
+        pageSubheading2
         pageContent
         image {
           url @transform(handle: "hero")
