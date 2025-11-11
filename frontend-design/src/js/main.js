@@ -10,7 +10,6 @@ import { quiz } from "./components/quiz.js";
 import { tabs } from "./components/tabs.js";
 import { scrollspy } from "./components/scrollspy.js";
 import { heroScroll } from "./components/heroScroll.js";
-// import { headerScroll } from "./components/headerScroll.js";
 
 window.addEventListener(
   "load",
@@ -27,7 +26,6 @@ window.addEventListener(
     scrollspy.init();
     tabs.init();
     heroScroll.init();
-    // headerScroll.init();
 
     const loaderContainer = document.querySelector(".image-sequence-loading");
 
