@@ -39,6 +39,10 @@
     z-index: 11;
     width: 141px;
   }
+
+  svg {
+    width: inherit;
+  }
 }
 
 .header__links {
@@ -128,4 +132,12 @@
     max-width: 100%;
 
   }
+}
+
+// .logo-text-1 {
+//   fill: #f5f5f5;
+// }
+
+.logo-text-2 {
+  fill: #dba5ba;
 }

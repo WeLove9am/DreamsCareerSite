@@ -50,6 +50,7 @@
   padding: 0 40px;
   margin-right: -40px;
   width: calc(100% + 60px);
+  transition: all 0.5s;
 
   @include desktop {
     opacity: 0;
@@ -57,7 +58,7 @@
     right: 0;
     left: 0;
     top: -40px;
-    transition: all var(--transition-duration);
+    transition: all 0.5s;
     backdrop-filter: blur(100px);
   }
 
@@ -66,13 +67,13 @@
   }
 }
 
-.menu.active * {
-  transition: none;
-}
+// .menu.active * {
+//   transition: none;
+// }
 
-.menu.active [data-collapse-content] {
-  transition: none;
-}
+// .menu.active [data-collapse-content] {
+//   transition: none;
+// }
 
 .menu__content .slider-menu .swiper-wrapper {
   @include desktop {
@@ -180,7 +181,6 @@
 
 .menu__link.active+.menu__content {
   opacity: 1;
-  transition: none;
 }
 
 .menu.menu--open {

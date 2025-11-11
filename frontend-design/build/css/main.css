@@ -3259,6 +3259,10 @@ label.button:has(input[type=checkbox]:checked) {
   flex-shrink: 0;
 }
 
+.header__logo svg {
+  width: inherit;
+}
+
 .header__links {
   display: flex;
   gap: 10px;
@@ -3314,6 +3318,10 @@ label.button:has(input[type=checkbox]:checked) {
 .header__menu {
   width: 100%;
   max-width: 50%;
+}
+
+.logo-text-2 {
+  fill: #dba5ba;
 }
 
 .input-file {
@@ -3432,6 +3440,16 @@ label.button:has(input[type=checkbox]:checked) {
   width: 20px;
   height: 20px;
   color: var(--color-primary);
+}
+
+input[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .inclusion {
@@ -3688,18 +3706,11 @@ label.button:has(input[type=checkbox]:checked) {
   padding: 0 40px;
   margin-right: -40px;
   width: calc(100% + 60px);
+  transition: all 0.5s;
 }
 
 .menu__content > li {
   width: 100%;
-}
-
-.menu.active * {
-  transition: none;
-}
-
-.menu.active [data-collapse-content] {
-  transition: none;
 }
 
 .menu__list {
@@ -3752,7 +3763,6 @@ label.button:has(input[type=checkbox]:checked) {
 
 .menu__link.active + .menu__content {
   opacity: 1;
-  transition: none;
 }
 
 .menu.menu--open {
@@ -3841,9 +3851,12 @@ label.button:has(input[type=checkbox]:checked) {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
+  margin-inline: auto;
   background-color: rgba(0, 0, 0, 0.2);
+  transition: all 1s;
 }
 
 .hero > img {
@@ -3854,6 +3867,7 @@ label.button:has(input[type=checkbox]:checked) {
   object-position: top;
   margin-inline: auto;
   width: 100%;
+  transition: all 1s;
 }
 
 .hero__inner {
@@ -3996,14 +4010,24 @@ label.button:has(input[type=checkbox]:checked) {
 .hero__video iframe {
   width: 100vw;
   height: 56.25vw;
-  /* Given a 16:9 aspect ratio, 9/16*100 = 56.25 */
   min-height: 100vh;
   min-width: 177.77vh;
-  /* Given a 16:9 aspect ratio, 16/9*100 = 177.77 */
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.hero.narrowed > img {
+  width: 90%;
+  margin-top: 130px;
+  border-radius: 20px;
+}
+
+.hero.narrowed:before {
+  width: 90%;
+  padding-top: 130px;
+  border-radius: 20px;
 }
 
 .pagination__list {
@@ -7418,7 +7442,7 @@ dialog[open] {
     right: 0;
     left: 0;
     top: -40px;
-    transition: all var(--transition-duration);
+    transition: all 0.5s;
     backdrop-filter: blur(100px);
   }
 

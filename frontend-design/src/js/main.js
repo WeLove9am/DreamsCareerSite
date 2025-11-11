@@ -8,9 +8,9 @@ import { sliderSteps } from "./components/sliderSteps.js";
 import { toggle } from "./components/toggle.js";
 import { quiz } from "./components/quiz.js";
 import { tabs } from "./components/tabs.js";
-// import { imageScroll } from "./components/imageScroll.js";
 import { scrollspy } from "./components/scrollspy.js";
-// import { slider } from "./components/slider.js";
+import { heroScroll } from "./components/heroScroll.js";
+// import { headerScroll } from "./components/headerScroll.js";
 
 window.addEventListener(
   "load",
@@ -26,6 +26,8 @@ window.addEventListener(
     quiz.init();
     scrollspy.init();
     tabs.init();
+    heroScroll.init();
+    // headerScroll.init();
 
     const loaderContainer = document.querySelector(".image-sequence-loading");
 
