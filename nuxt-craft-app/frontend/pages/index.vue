@@ -107,6 +107,7 @@ const homeData = `<div class="image-sequence-wrapper">
       <section class="pin-section" id="section-1" data-frame-count="75" data-image-path="images/home/general/dreamscareersite-general">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
+          <h3>${data.value.pageSubheading2}</h3>
           <img 
           class="hidden-desktop" 
           src="/images/home/home-header-1-v1.svg" 

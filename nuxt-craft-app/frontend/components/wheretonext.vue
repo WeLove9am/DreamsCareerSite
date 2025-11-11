@@ -36,6 +36,7 @@ const props = defineProps({
                 :alt="globalData.image[0].alt || globalData.subTitle"
                 loading="lazy"
                 width="393px" height="333px"
+                class="next__image"
             />
         </div>
     </div>

@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '~/assets/css/main.css?version=1.0.6', '~/assets/css/custom.css?version=1.0.6'
+    '~/assets/css/main.css?version=1.0.71', '~/assets/css/custom.css?version=1.0.71'
   ],
 
   app: {
@@ -24,8 +24,8 @@ export default defineNuxtConfig({
         { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js', defer: true },
         { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js', defer: true },
         { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js', defer: true},
-        { src: '/js/main.js?version=1.0.6', type:'module', defer: true },  
-        { src: '/js/vendor.js?version=1.0.6', type:'module', defer: true }
+        { src: '/js/main.js?version=1.0.71', type:'module', defer: true },  
+        { src: '/js/vendor.js?version=1.0.71', type:'module', defer: true }
       ]
     }
   },

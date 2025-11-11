@@ -30,3 +30,5 @@
   cursor: default;
   opacity: 0.6;
 }
+#section-1 .pin-section__title{ flex-direction: column;}
+.form-location--search input{color: var(--color-black);}
