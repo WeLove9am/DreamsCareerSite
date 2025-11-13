@@ -47,18 +47,16 @@
   top: 150px;
   left: 0;
   right: 0;
-  padding: 0 40px;
   margin-right: -40px;
   width: calc(100% + 60px);
-  transition: all 0.5s;
+  transition: opacity, max-height, height, width 0.5s;
 
   @include desktop {
     opacity: 0;
-    padding: 135px 130px 50px;
     right: 0;
     left: 0;
     top: -40px;
-    transition: all 0.5s;
+    transition: opacity, max-height, height, width 0.5s;
     backdrop-filter: blur(100px);
   }
 
@@ -67,9 +65,13 @@
   }
 }
 
-// .menu.active * {
-//   transition: none;
-// }
+.menu.active .menu__content {
+  padding: 0 40px;
+
+  @include desktop {
+    padding: 135px 130px 50px;
+  }
+}
 
 // .menu.active [data-collapse-content] {
 //   transition: none;
