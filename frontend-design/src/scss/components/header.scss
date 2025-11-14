@@ -119,6 +119,7 @@
   .menu-active & {
     z-index: 10;
     background: none;
+    backdrop-filter: none;
   }
 }
 

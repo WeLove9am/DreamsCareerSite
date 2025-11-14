@@ -3315,6 +3315,8 @@ label.button:has(input[type=checkbox]:checked) {
 .menu-active .header__menu-toggle {
   z-index: 10;
   background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .header__menu {
