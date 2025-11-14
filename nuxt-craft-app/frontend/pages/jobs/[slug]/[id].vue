@@ -82,6 +82,10 @@ try {
   }
 }
 
+function nl2br(text) {
+  if (!text) return ''
+  return text.replace(/\n/g, '<br/><br/>')
+}
 </script>
 
 <template>
@@ -102,11 +106,11 @@ try {
     <div class="container container-sm">
         <article class="card">
             <h4>{{ content.subTitle }}</h4>
-            <p v-html="currentPost.jobDescription"></p>
+            <p v-html="nl2br(currentPost.jobDescription)"></p>
             <h4>{{ content.subTitle2 }}</h4>
-            <p v-html="currentPost.person"></p>
+            <p v-html="nl2br(currentPost.person)"></p>
             <h4>{{ content.subTitle3 }}</h4>
-            <p v-html="currentPost.about"></p>
+            <p v-html="nl2br(currentPost.about)"></p>
         </article>
     </div>
 </section>

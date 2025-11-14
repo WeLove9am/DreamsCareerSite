@@ -32,3 +32,11 @@
 }
 #section-1 .pin-section__title{ flex-direction: column;}
 .form-location--search input{color: var(--color-black);}
+.form-success {
+  color: #1d8a34;
+  margin-top: 1rem;
+}
+.form-error {
+  color: #c00;
+  margin-top: 1rem;
+}

@@ -1,5 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from '#app'
+const route = useRoute()
+// Read ?search from URL (SSR safe)
+const initialQuerySearch = computed(() => route.query.search ?? '')
+
 
 const props = defineProps({
     title: {
@@ -25,8 +30,8 @@ const props = defineProps({
     heroImage: {
         type: Array,
         default: () => []
-    }
-    
+    },
+    reset: Boolean
 })
 
 // 👇 Define emit
@@ -44,6 +49,27 @@ const handleSearch = (e) => {
     location: locationCode.value.trim()
   })
 }
+
+// Fire search manually (same as form submit)
+const triggerSearch = () => {
+  emit('search', {
+    keyword: keyword.value.trim(),
+    location: locationCode.value.trim()
+  })
+}
+
+onMounted(() => {
+  if (initialQuerySearch.value) {
+    keyword.value = initialQuerySearch.value
+    triggerSearch()
+  }
+})
+
+// Reset inputs when reset prop changes
+watch(() => props.reset, () => {
+  keyword.value = ''
+  locationCode.value = ''
+})
 </script>
 <template>
     <section class="hero hero--jobs wave-bottom">

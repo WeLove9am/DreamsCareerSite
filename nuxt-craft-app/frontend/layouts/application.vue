@@ -2,6 +2,8 @@
 import Wheretonext from '../components/wheretonext.vue';
 
 const globalsData = inject('globalsData')
+const footerData = inject('footerData')
+const footer2Data = inject('footer2Data')
 </script>
 
 <template>
@@ -15,6 +17,10 @@ const globalsData = inject('globalsData')
     <main class="main">
       <slot />
     </main>
-    <Footer :globalData="globalsData?.global"/>
+    <Footer 
+    :globalData="globalsData?.global"
+    :footerData="footerData"
+    :footer2Data="footer2Data"
+    />
   </div>
 </template>

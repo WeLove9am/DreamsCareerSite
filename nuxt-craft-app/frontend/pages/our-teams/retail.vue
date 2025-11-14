@@ -106,6 +106,15 @@ const mapMarkers = computed(() => {
 //     // Returns an empty array if the job list is empty or coordinates are missing.
 //     return []; 
 // });
+
+//Get 10 random jobs
+const randomJobs = computed(() => {
+  const allJobs = data.value?.jobs || []
+  return [...allJobs]
+    .sort(() => Math.random() - 0.5) // shuffle
+    .slice(0, 10) // take first 10
+})
+
 // --- CONSOLE LOGS START HERE ---
 // console.log('--- Full Data Payload ---', JSON.stringify(data.value, null, 2));
 // console.log('FAQs Entry Data:', JSON.stringify(data.value?.retail, null, 2));
@@ -113,7 +122,6 @@ const mapMarkers = computed(() => {
 // console.log('Jobs Data:', JSON.stringify(data.value?.jobs, null, 2));
 //console.log('--- Map Markers Data ---', JSON.stringify(mapMarkers.value, null, 2));
 // --- CONSOLE LOGS END HERE ---
-
 </script>
 
 <template>
@@ -163,6 +171,9 @@ const mapMarkers = computed(() => {
         :buttonLink="data.global.buttonLink"
         :quizEntries="data.global.quiz"
         />
-      <RetailJobcard/><!--Static now-->
+      <RetailJobcard 
+      :jobs="randomJobs"
+      :subTitle="data.retail.subTitle2"
+      />
     </div>
 </template>
