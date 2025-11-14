@@ -21,28 +21,18 @@ if (loaderContainer) {
   loaderContainer.classList.add("show");
 
   function getImagePath(basePath) {
-    const lastSlashIndex = basePath.lastIndexOf("/");
-    if (lastSlashIndex === -1) return basePath;
+    return basePath;
+  }
 
-    const dirPath = basePath.substring(0, lastSlashIndex);
-    const fileNameBase = basePath.substring(lastSlashIndex + 1);
-
-    const secondLastSlash = dirPath.lastIndexOf("/");
-    if (secondLastSlash === -1) return basePath;
-
-    const parentDir = dirPath.substring(0, secondLastSlash);
-    const sectionDir = dirPath.substring(secondLastSlash + 1);
-
-    let folderSuffix = "";
+  function getFileNameWithSuffix(baseName, index) {
+    const paddedIndex = (index + 1).toString().padStart(3, "0");
+    let suffix = "";
     if (window.innerWidth <= 767) {
-      folderSuffix = "-mobile";
+      suffix = "-mobile";
     } else if (window.innerWidth <= 1024) {
-      folderSuffix = "-tablet";
+      suffix = "-tablet";
     }
-
-    const finalDirPath = `${parentDir}/${sectionDir}${folderSuffix}`;
-
-    return `${finalDirPath}/${fileNameBase}`;
+    return `${baseName}${suffix}-${paddedIndex}.webp`;
   }
 
   class ProgressiveImageLoader {
@@ -153,18 +143,18 @@ if (loaderContainer) {
     return sections.map((section, index) => {
       const frameCount = parseInt(section.dataset.frameCount, 10);
       const baseImagePath = section.dataset.imagePath;
-      const imagePath = getImagePath(baseImagePath);
-      const urls = Array.from(
-        { length: frameCount },
-        (_, i) => `${imagePath}-${(i + 1).toString().padStart(3, "0")}.webp`
-      );
+      const basePath = getImagePath(baseImagePath);
+
+      const urls = Array.from({ length: frameCount }, (_, i) => {
+        const fileName = getFileNameWithSuffix(basePath, i);
+        return fileName;
+      });
 
       return {
         section,
         index,
         frameCount,
-        imagePath,
-        baseImagePath,
+        basePath,
         urls,
         canvas: section.querySelector(".image-sequence-canvas"),
       };
@@ -287,10 +277,10 @@ if (loaderContainer) {
       await imageLoader.loadSection(0, sectionData[0].urls);
     }
 
-    sectionData.forEach(({ canvas, imagePath }) => {
+    sectionData.forEach(({ canvas, basePath }) => {
       if (!canvas) return;
-      const firstImageUrl = `${imagePath}-001.webp`;
-      const img = imageLoader.getImage(firstImageUrl);
+      const firstUrl = getFileNameWithSuffix(basePath, 0);
+      const img = imageLoader.getImage(firstUrl);
       if (img?.complete) {
         const ctx = canvas.getContext("2d", { alpha: false });
         drawImageCover(ctx, img, canvas.width, canvas.height);
