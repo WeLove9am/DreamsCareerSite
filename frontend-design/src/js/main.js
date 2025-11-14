@@ -84,31 +84,30 @@ window.addEventListener(
         }
 
         processQueue() {
-          while (this.loadingQueue.length > 0 && this.activeLoads < this.concurrentLoads) {
+          while (
+            this.loadingQueue.length > 0 &&
+            this.activeLoads < this.concurrentLoads
+          ) {
             const { img, url } = this.loadingQueue.shift();
             this.activeLoads++;
             img.src = url;
           }
         }
 
-        async loadSection(sectionIndex, urls, onProgress) {
-          if (this.sectionsLoaded.has(sectionIndex) || this.sectionsLoading.has(sectionIndex)) {
+        async loadSection(sectionIndex, urls) {
+          if (
+            this.sectionsLoaded.has(sectionIndex) ||
+            this.sectionsLoading.has(sectionIndex)
+          ) {
             return;
           }
 
           this.sectionsLoading.add(sectionIndex);
 
           const chunkSize = 20;
-          let loadedCount = 0;
-
           for (let i = 0; i < urls.length; i += chunkSize) {
             const chunk = urls.slice(i, i + chunkSize);
-            await Promise.allSettled(chunk.map(url => this.loadImage(url)));
-
-            loadedCount += chunk.length;
-            if (onProgress) {
-              onProgress(loadedCount, urls.length);
-            }
+            await Promise.allSettled(chunk.map((url) => this.loadImage(url)));
           }
 
           this.sectionsLoading.delete(sectionIndex);
@@ -130,70 +129,6 @@ window.addEventListener(
 
       const imageLoader = new ProgressiveImageLoader();
 
-      class LoadingIndicatorManager {
-        constructor(sections) {
-          this.indicators = new Map();
-          this.setupIndicators(sections);
-        }
-
-        setupIndicators(sections) {
-          sections.forEach((section, index) => {
-            const canvas = section.querySelector(".image-sequence-canvas");
-            if (!canvas) return;
-
-            const indicator = document.createElement('div');
-            indicator.className = 'section-loading-indicator';
-            indicator.style.cssText = `
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          background: rgba(0, 0, 0, 0.8);
-          color: white;
-          padding: 12px 20px;
-          border-radius: 8px;
-          font-size: 12px;
-          z-index: 1000;
-          display: none;
-          font-family: monospace;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        `;
-            indicator.innerHTML = `
-          <div>⏳ Loading section ${index + 1}...</div>
-          <div style="margin-top: 5px;" class="progress-text">0%</div>
-        `;
-
-            canvas.parentElement.style.position = 'relative';
-            canvas.parentElement.appendChild(indicator);
-            this.indicators.set(index, indicator);
-          });
-        }
-
-        show(sectionIndex) {
-          const indicator = this.indicators.get(sectionIndex);
-          if (indicator) {
-            indicator.style.display = 'block';
-          }
-        }
-
-        hide(sectionIndex) {
-          const indicator = this.indicators.get(sectionIndex);
-          if (indicator) {
-            indicator.style.display = 'none';
-          }
-        }
-
-        updateProgress(sectionIndex, loaded, total) {
-          const indicator = this.indicators.get(sectionIndex);
-          if (indicator) {
-            const progressText = indicator.querySelector('.progress-text');
-            const percentage = Math.round((loaded / total) * 100);
-            progressText.textContent = `${percentage}% (${loaded}/${total})`;
-          }
-        }
-      }
-
-      let indicatorManager;
-
       const sectionData = sections.map((section, index) => {
         const frameCount = parseInt(section.dataset.frameCount, 10);
         const imagePath = section.dataset.imagePath;
@@ -208,7 +143,7 @@ window.addEventListener(
           frameCount,
           imagePath,
           urls,
-          canvas: section.querySelector(".image-sequence-canvas")
+          canvas: section.querySelector(".image-sequence-canvas"),
         };
       });
 
@@ -222,10 +157,10 @@ window.addEventListener(
         if (displayWidth > 0 && displayHeight > 0) {
           canvas.width = displayWidth * dpr;
           canvas.height = displayHeight * dpr;
-          canvas.style.width = displayWidth + 'px';
-          canvas.style.height = displayHeight + 'px';
+          canvas.style.width = displayWidth + "px";
+          canvas.style.height = displayHeight + "px";
 
-          const ctx = canvas.getContext('2d');
+          const ctx = canvas.getContext("2d");
           ctx.scale(dpr, dpr);
         } else {
           canvas.width = window.innerWidth;
@@ -263,7 +198,7 @@ window.addEventListener(
         scrollTrigger,
         onComplete,
         effectiveFps = 15,
-        sectionIndex
+        sectionIndex,
       }) {
         const ctx = canvas.getContext("2d", { alpha: false });
         let curFrame = -1;
@@ -287,20 +222,13 @@ window.addEventListener(
             if (nextSectionIndex < sectionData.length) {
               const nextSection = sectionData[nextSectionIndex];
 
-              if (!imageLoader.isSectionLoaded(nextSectionIndex) &&
-                !imageLoader.isLoading(nextSectionIndex)) {
-
-                indicatorManager.show(nextSectionIndex);
-
-                imageLoader.loadSection(
-                  nextSectionIndex,
-                  nextSection.urls,
-                  (loaded, total) => {
-                    indicatorManager.updateProgress(nextSectionIndex, loaded, total);
-                  }
-                ).then(() => {
-                  indicatorManager.hide(nextSectionIndex);
-                });
+              if (
+                !imageLoader.isSectionLoaded(nextSectionIndex) &&
+                !imageLoader.isLoading(nextSectionIndex)
+              ) {
+                imageLoader
+                  .loadSection(nextSectionIndex, nextSection.urls)
+                  .then(() => {});
               }
             }
           }
@@ -321,8 +249,6 @@ window.addEventListener(
       }
 
       async function initializeSequences() {
-        indicatorManager = new LoadingIndicatorManager(sections);
-
         const firstFramePromises = sectionData.map(({ urls }) =>
           imageLoader.loadImage(urls[0])
         );
@@ -331,11 +257,7 @@ window.addEventListener(
 
         const firstSection = sectionData[0];
 
-        await imageLoader.loadSection(
-          0,
-          firstSection.urls,
-          () => {}
-        );
+        await imageLoader.loadSection(0, firstSection.urls);
 
         sectionData.forEach(({ canvas, imagePath }, index) => {
           if (!canvas) return;
@@ -411,7 +333,7 @@ window.addEventListener(
             scrollTrigger: scrollTriggerConfig,
             onComplete: handleComplete,
             effectiveFps: 15,
-            sectionIndex: index
+            sectionIndex: index,
           });
         });
       }
@@ -461,7 +383,9 @@ window.addEventListener(
                   });
 
                   requestAnimationFrame(() => {
-                    currentSection.classList.remove("pin-section-in-transition");
+                    currentSection.classList.remove(
+                      "pin-section-in-transition"
+                    );
                     isSnapping = false;
                   });
                 }
