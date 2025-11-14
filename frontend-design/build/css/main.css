@@ -3234,7 +3234,7 @@ label.button:has(input[type=checkbox]:checked) {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  background: transparent;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
   z-index: 100;
   color: var(--color-white);
 }
@@ -3278,6 +3278,7 @@ label.button:has(input[type=checkbox]:checked) {
   line-height: 22px;
   text-decoration: none;
   padding: 11px 25px 7px;
+  -webkit-backdrop-filter: blur(30px) brightness(120%);
   backdrop-filter: blur(30px) brightness(120%);
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -3306,6 +3307,7 @@ label.button:has(input[type=checkbox]:checked) {
   width: 36px;
   height: 36px;
   border-radius: 8px;
+  -webkit-backdrop-filter: blur(30px) brightness(120%);
   backdrop-filter: blur(30px) brightness(120%);
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -3686,6 +3688,7 @@ input[type=search]::-webkit-search-decoration {
   align-items: center;
   overflow-x: hidden;
   padding: 100px 40px 40px;
+  -webkit-backdrop-filter: blur(100px);
   backdrop-filter: blur(100px);
 }
 
@@ -3933,6 +3936,7 @@ input[type=search]::-webkit-search-decoration {
 }
 
 .hero__tags .button {
+  -webkit-backdrop-filter: blur(30px) brightness(120%);
   backdrop-filter: blur(30px) brightness(120%);
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -4639,6 +4643,7 @@ input[type=search]::-webkit-search-decoration {
   display: block;
   border-radius: 40px;
   letter-spacing: 0;
+  -webkit-backdrop-filter: blur(30px) brightness(70%);
   backdrop-filter: blur(30px) brightness(70%);
   background-color: rgba(0, 0, 0, 0.3);
   font-family: var(--font-primary);
@@ -7436,6 +7441,7 @@ dialog[open] {
     max-height: max-content;
     transform: translateX(0);
     overflow-x: visible;
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 
@@ -7445,6 +7451,7 @@ dialog[open] {
     left: 0;
     top: -40px;
     transition: opacity, max-height, height, width 0.5s;
+    -webkit-backdrop-filter: blur(100px);
     backdrop-filter: blur(100px);
   }
 
@@ -7485,6 +7492,7 @@ dialog[open] {
     height: 100%;
     min-height: 50px;
     border-radius: 50px;
+    -webkit-backdrop-filter: blur(30px) brightness(120%);
     backdrop-filter: blur(30px) brightness(120%);
     background-color: rgba(0, 0, 0, 0.3);
   }

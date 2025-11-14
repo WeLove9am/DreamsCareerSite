@@ -6,7 +6,7 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  background: transparent;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
   z-index: 100;
   color: var(--color-white);
 }
