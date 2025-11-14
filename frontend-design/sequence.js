@@ -11,12 +11,38 @@ if (loaderContainer) {
   let lastScrollTop = window.scrollY;
   let isSnapping = false;
   let isLastSectionGlobal = false;
-  let currentBreakpoint = window.innerWidth <= 1024 ? "mobile" : "desktop";
+  let currentBreakpoint =
+    window.innerWidth <= 767
+      ? "mobile"
+      : window.innerWidth <= 1024
+      ? "tablet"
+      : "desktop";
 
   loaderContainer.classList.add("show");
 
   function getImagePath(basePath) {
-    return window.innerWidth <= 1024 ? `${basePath}-mobile` : basePath;
+    const lastSlashIndex = basePath.lastIndexOf("/");
+    if (lastSlashIndex === -1) return basePath;
+
+    const dirPath = basePath.substring(0, lastSlashIndex);
+    const fileNameBase = basePath.substring(lastSlashIndex + 1);
+
+    const secondLastSlash = dirPath.lastIndexOf("/");
+    if (secondLastSlash === -1) return basePath;
+
+    const parentDir = dirPath.substring(0, secondLastSlash);
+    const sectionDir = dirPath.substring(secondLastSlash + 1);
+
+    let folderSuffix = "";
+    if (window.innerWidth <= 767) {
+      folderSuffix = "-mobile";
+    } else if (window.innerWidth <= 1024) {
+      folderSuffix = "-tablet";
+    }
+
+    const finalDirPath = `${parentDir}/${sectionDir}${folderSuffix}`;
+
+    return `${finalDirPath}/${fileNameBase}`;
   }
 
   class ProgressiveImageLoader {
@@ -64,8 +90,19 @@ if (loaderContainer) {
         this.loadingQueue.length > 0 &&
         this.activeLoads < this.concurrentLoads
       ) {
-        const { img, url } = this.loadingQueue.shift();
+        const { img, url, resolve, reject } = this.loadingQueue.shift();
         this.activeLoads++;
+        img.onload = () => {
+          this.imageCache.set(url, img);
+          this.activeLoads--;
+          this.processQueue();
+          resolve(img);
+        };
+        img.onerror = () => {
+          this.activeLoads--;
+          this.processQueue();
+          reject(new Error(`Failed to load ${url}`));
+        };
         img.src = url;
       }
     }
@@ -138,23 +175,23 @@ if (loaderContainer) {
 
   function resizeCanvas(canvas) {
     const rect = canvas.parentElement.getBoundingClientRect();
-    const displayWidth = rect.width;
-    const displayHeight = rect.height;
+    let displayWidth = rect.width;
+    let displayHeight = rect.height;
+
+    if (displayWidth <= 0 || displayHeight <= 0) {
+      displayWidth = window.innerWidth;
+      displayHeight = window.innerHeight;
+    }
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    if (displayWidth > 0 && displayHeight > 0) {
-      canvas.width = displayWidth * dpr;
-      canvas.height = displayHeight * dpr;
-      canvas.style.width = displayWidth + "px";
-      canvas.style.height = displayHeight + "px";
+    canvas.width = displayWidth * dpr;
+    canvas.height = displayHeight * dpr;
+    canvas.style.width = displayWidth + "px";
+    canvas.style.height = displayHeight + "px";
 
-      const ctx = canvas.getContext("2d");
-      ctx.scale(dpr, dpr);
-    } else {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+    const ctx = canvas.getContext("2d", { alpha: false });
+    ctx.scale(dpr, dpr);
   }
 
   function drawImageCover(ctx, img, canvasW, canvasH) {
@@ -215,9 +252,7 @@ if (loaderContainer) {
             !imageLoader.isSectionLoaded(nextSectionIndex) &&
             !imageLoader.isLoading(nextSectionIndex)
           ) {
-            imageLoader
-              .loadSection(nextSectionIndex, nextSection.urls)
-              .then(() => {});
+            imageLoader.loadSection(nextSectionIndex, nextSection.urls);
           }
         }
       }
@@ -225,7 +260,7 @@ if (loaderContainer) {
 
     const duration = urls.length / effectiveFps;
 
-    const animation = gsap.to(playhead, {
+    return gsap.to(playhead, {
       frame: urls.length - 1,
       ease: "none",
       duration: duration,
@@ -233,31 +268,31 @@ if (loaderContainer) {
       onComplete: onComplete,
       scrollTrigger: scrollTrigger,
     });
-
-    return animation;
   }
 
   async function initializeSequences() {
     const firstFramePromises = sectionData.map(({ urls }) =>
       imageLoader.loadImage(urls[0])
     );
+    await Promise.allSettled(firstFramePromises);
 
-    await Promise.all(firstFramePromises);
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
 
-    const firstSection = sectionData[0];
+    sectionData.forEach(({ canvas }) => {
+      if (canvas) resizeCanvas(canvas);
+    });
 
-    await imageLoader.loadSection(0, firstSection.urls);
+    if (sectionData[0]) {
+      await imageLoader.loadSection(0, sectionData[0].urls);
+    }
 
-    sectionData.forEach(({ canvas, imagePath }, index) => {
+    sectionData.forEach(({ canvas, imagePath }) => {
       if (!canvas) return;
-
-      resizeCanvas(canvas);
-
       const firstImageUrl = `${imagePath}-001.webp`;
       const img = imageLoader.getImage(firstImageUrl);
-
-      if (img) {
-        const ctx = canvas.getContext("2d");
+      if (img?.complete) {
+        const ctx = canvas.getContext("2d", { alpha: false });
         drawImageCover(ctx, img, canvas.width, canvas.height);
       }
     });
@@ -271,7 +306,7 @@ if (loaderContainer) {
       if (!canvas) return;
 
       const nextSection = sections[index + 1];
-      const isLastSection = index + 1 === sections.length - 1;
+      const isLastSection = index === sections.length - 1;
 
       const handleComplete = () => {
         if (nextSection) {
@@ -282,7 +317,7 @@ if (loaderContainer) {
             overwrite: "auto",
             onStart: () => {
               if (isLastSection) {
-                imageSequenceScrollText.classList.add("hidden");
+                imageSequenceScrollText?.classList.add("hidden");
               }
             },
             onComplete: () => {
@@ -387,12 +422,17 @@ if (loaderContainer) {
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      const newBreakpoint = window.innerWidth <= 1024 ? "mobile" : "desktop";
+      const newBreakpoint =
+        window.innerWidth <= 767
+          ? "mobile"
+          : window.innerWidth <= 1024
+          ? "tablet"
+          : "desktop";
 
       if (newBreakpoint !== currentBreakpoint) {
         currentBreakpoint = newBreakpoint;
 
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
 
         imageLoader.clearCache();
 
@@ -415,4 +455,4 @@ if (loaderContainer) {
   });
 }
 
-document.querySelector("body").classList.add("page-loaded");
+document.querySelector("body")?.classList.add("page-loaded");
