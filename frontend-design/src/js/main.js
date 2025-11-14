@@ -202,7 +202,7 @@ window.addEventListener(
           displayHeight = window.innerHeight;
         }
 
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const dpr = Math.min(window.devicePixelRatio || 1, 1);
 
         canvas.width = displayWidth * dpr;
         canvas.height = displayHeight * dpr;
