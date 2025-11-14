@@ -173,7 +173,7 @@ if (loaderContainer) {
       displayHeight = window.innerHeight;
     }
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1);
 
     canvas.width = displayWidth * dpr;
     canvas.height = displayHeight * dpr;
@@ -306,7 +306,10 @@ if (loaderContainer) {
             scrollTo: nextSection,
             overwrite: "auto",
             onStart: () => {
-              if (isLastSection) {
+              // Show scroll hint only if next section is NOT the last
+              if (!nextSection.classList.contains("last-section")) {
+                imageSequenceScrollText?.classList.remove("hidden");
+              } else {
                 imageSequenceScrollText?.classList.add("hidden");
               }
             },
@@ -314,6 +317,7 @@ if (loaderContainer) {
               nextSection.classList.remove("pin-section-in-transition");
               if (isLastSection) {
                 isLastSectionGlobal = true;
+                imageSequenceScrollText?.classList.add("hidden");
                 setTimeout(() => {
                   const menuLinkFirst = document
                     .querySelectorAll(".menu__item")[0]
@@ -326,6 +330,10 @@ if (loaderContainer) {
                 }, 2000);
               } else {
                 isLastSectionGlobal = false;
+                // Keep scroll hint visible when entering non-last section
+                if (index + 1 < sections.length - 1) {
+                  imageSequenceScrollText?.classList.remove("hidden");
+                }
               }
             },
           });
@@ -339,6 +347,15 @@ if (loaderContainer) {
         end: "bottom top",
         scrub: true,
         snap: 0.7,
+        onToggle: (self) => {
+          if (self.isActive) {
+            if (index < sections.length - 1) {
+              imageSequenceScrollText?.classList.remove("hidden");
+            } else {
+              imageSequenceScrollText?.classList.add("hidden");
+            }
+          }
+        },
       };
 
       imageSequence({
@@ -350,6 +367,11 @@ if (loaderContainer) {
         sectionIndex: index,
       });
     });
+
+    // Initially show scroll hint if not on last section
+    if (sections.length > 1) {
+      imageSequenceScrollText?.classList.remove("hidden");
+    }
   }
 
   initializeSequences();
@@ -399,6 +421,11 @@ if (loaderContainer) {
               requestAnimationFrame(() => {
                 currentSection.classList.remove("pin-section-in-transition");
                 isSnapping = false;
+
+                // Re-show scroll hint if going back to non-last section
+                if (i - 1 < sections.length - 1) {
+                  imageSequenceScrollText?.classList.remove("hidden");
+                }
               });
             }
           }

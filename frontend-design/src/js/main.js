@@ -335,7 +335,9 @@ window.addEventListener(
                 scrollTo: nextSection,
                 overwrite: "auto",
                 onStart: () => {
-                  if (isLastSection) {
+                  if (!nextSection.classList.contains("last-section")) {
+                    imageSequenceScrollText?.classList.remove("hidden");
+                  } else {
                     imageSequenceScrollText?.classList.add("hidden");
                   }
                 },
@@ -343,6 +345,7 @@ window.addEventListener(
                   nextSection.classList.remove("pin-section-in-transition");
                   if (isLastSection) {
                     isLastSectionGlobal = true;
+                    imageSequenceScrollText?.classList.add("hidden");
                     setTimeout(() => {
                       const menuLinkFirst = document
                         .querySelectorAll(".menu__item")[0]
@@ -355,6 +358,10 @@ window.addEventListener(
                     }, 2000);
                   } else {
                     isLastSectionGlobal = false;
+                    // Keep scroll hint visible when entering non-last section
+                    if (index + 1 < sections.length - 1) {
+                      imageSequenceScrollText?.classList.remove("hidden");
+                    }
                   }
                 },
               });
@@ -368,6 +375,15 @@ window.addEventListener(
             end: "bottom top",
             scrub: true,
             snap: 0.7,
+            onToggle: (self) => {
+              if (self.isActive) {
+                if (index < sections.length - 1) {
+                  imageSequenceScrollText?.classList.remove("hidden");
+                } else {
+                  imageSequenceScrollText?.classList.add("hidden");
+                }
+              }
+            },
           };
 
           imageSequence({
@@ -379,6 +395,10 @@ window.addEventListener(
             sectionIndex: index,
           });
         });
+
+        if (sections.length > 1) {
+          imageSequenceScrollText?.classList.remove("hidden");
+        }
       }
 
       initializeSequences();
@@ -430,6 +450,10 @@ window.addEventListener(
                       "pin-section-in-transition"
                     );
                     isSnapping = false;
+
+                    if (i - 1 < sections.length - 1) {
+                      imageSequenceScrollText?.classList.remove("hidden");
+                    }
                   });
                 }
               }
