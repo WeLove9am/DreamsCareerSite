@@ -4,6 +4,7 @@ export const FAQ_QUERY = `
       ... on faq_Entry {
         id
         title
+        authorId
 
         #FAQ Hero Fields
 

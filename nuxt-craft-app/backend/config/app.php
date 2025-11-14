@@ -27,7 +27,9 @@ return [
     'modules' => [
         'authorinfo' => modules\authorinfo\Module::class,
         'geocode' => \modules\geocode\GeocodeModule::class,
-        'jobhighlights' => \modules\jobhighlights\JobHighlightsModule::class,
+        //'jobhighlights' => \modules\jobhighlights\JobHighlightsModule::class,
+        'enquiriesmodule' => \modules\enquiriesmodule\EnquiriesModule::class,
     ],
-    'bootstrap' => ['authorinfo','geocode','jobhighlights'],
+    //'bootstrap' => ['authorinfo','geocode','jobhighlights','enquiriesmodule'],
+    'bootstrap' => ['authorinfo','geocode','enquiriesmodule'],
 ];
