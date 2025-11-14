@@ -3,15 +3,33 @@ const props = defineProps({
   globalData: {
     type: Object,
     default: () => ({
-      address: []
+      address: [],
+      logo: {
+        url: '',
+        alt: ''
+      },
+      text: '',
+      socials:{
+        title: '',
+        pageLink: '',
+        show: false
+      }
     })
-  }
+  },
+footerData: {
+    type: Object,
+    default: () => ({})
+},
+footer2Data: {
+    type: Object,
+    default: () => ({})
+}
 })
 
 const address = computed(() => props.globalData?.address?.[0] || null)
 </script>
 
-
+console(props.footerData[0])
 <template>
   <!--<footer class="bg-slate-50 py-6 px-2 text-sm">
     <address 
@@ -41,7 +59,7 @@ const address = computed(() => props.globalData?.address?.[0] || null)
           <footer class="footer background-primary">
             <div class="footer__inner">
                 <div class="footer__search">
-                    <form action="" method="post">
+                    <form action="/jobs" method="get">
                         <div class="control">
                             <input class="input input--round" type="search" name="search" placeholder="Search roles">
                             <button class="input__icon" type="submit">
@@ -54,111 +72,38 @@ const address = computed(() => props.globalData?.address?.[0] || null)
                 </div>
                 <div class="footer__social">
                     <ul class="social-links">
-                        <li>
-                            <a href="#">
+                        <template v-for="gLink in globalData.socials">
+                        <li :key="gLink.id" v-if="gLink.show">
+                            <a :href="gLink.pageLink" target="_blank">
                                 <svg>
-                                    <use xlink:href="~/assets/images/sprites.svg#facebook"></use>
+                                    <use :xlink:href="`/images/sprites.svg#${gLink.title.toLowerCase()}`"></use>
                                 </svg>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <svg>
-                                    <use xlink:href="~/assets/images/sprites.svg#twitter"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <svg>
-                                    <use xlink:href="~/assets/images/sprites.svg#pinterest"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <svg>
-                                    <use xlink:href="~/assets/images/sprites.svg#instagram"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <svg>
-                                    <use xlink:href="~/assets/images/sprites.svg#youtube"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <svg>
-                                    <use xlink:href="~/assets/images/sprites.svg#linkedin"></use>
-                                </svg>
-                            </a>
-                        </li>
+                        </template>
                     </ul>
                 </div>
                 <div class="footer__middle">
-                    <img class="footer__logo" src="~/assets/images/logo.svg" alt="logo Dreams." width="187" height="67">
+                     <template v-if="globalData.logo.length > 0">
+                        <img 
+                            :src="globalData.logo[0].url" 
+                            :alt="globalData.logo[0].alt" 
+                            class="footer__logo" width="187" height="67"
+                        />
+                    </template>
                     <ul class="footer__nav">
-                        <li class="footer__col">
-                            <a class="footer__title" href="#">
-                                <h4>Our teams</h4>
+                        <li class="footer__col" v-for="item in footerData" :key="item.id">
+                            <a class="footer__title" :href="item.pageLink.startsWith('/') ? item.pageLink : `/${item.pageLink}`">
+                                <h4>{{ item.title }}</h4>
                             </a>
                             <ul class="footer__list">
-                                <li>
-                                    <a href="#">Retail </a>
-                                </li>
-                                <li>
-                                    <a href="#">Distribution </a>
-                                </li>
-                                <li>
-                                    <a href="#">Bed Factory </a>
-                                </li>
-                                <li>
-                                    <a href="#">Bedquarters </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer__col">
-                            <a class="footer__title" href="#">
-                                <h4>About us</h4>
-                            </a>
-                            <ul class="footer__list">
-                                <li>
-                                    <a href="#">About us & History </a>
-                                </li>
-                                <li>
-                                    <a href="#">Values </a>
-                                </li>
-                                <li>
-                                    <a href="#">L&D & Staff Networks</a>
-                                </li>
-                                <li>
-                                    <a href="#">Benefits & Wellbeing</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer__col">
-                            <a class="footer__title" href="#">
-                                <h4>How to apply</h4>
-                            </a>
-                            <ul class="footer__list">
-                                <li>
-                                    <a href="#">Application process</a>
-                                </li>
-                                <li>
-                                    <a href="#">FAQs </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer__col">
-                            <a class="footer__title" href="#">
-                                <h4>View jobs</h4>
-                            </a>
-                            <ul class="footer__list">
-                                <li>
-                                    <a href="#">Login </a>
+                                <li v-for="child in item.children" :key="child.id">
+                                    <a 
+                                    :href="child.pageLink.startsWith('http') ? child.pageLink : 
+                                            child.pageLink.startsWith('/') ? child.pageLink : 
+                                            `/${child.pageLink}`" 
+                                    :target="child.pageLink.startsWith('http') ? '_blank' : '_self'"
+                                    >{{ child.title }} </a>
                                 </li>
                             </ul>
                         </li>
@@ -166,19 +111,10 @@ const address = computed(() => props.globalData?.address?.[0] || null)
                 </div>
                 <div class="footer__bottom">
                     <ul class="footer__links">
-                        <li>
-                            <a href="#">Terms and conditions</a>
+                        <li v-for="fLink in footer2Data" :key="fLink.id">
+                            <a :href="fLink.pageLink.startsWith('/') ? fLink.pageLink : `/${fLink.pageLink}`">{{ fLink.title }}</a>
                         </li>
-                        <li>
-                            <a href="#">Cookies</a>
-                        </li>
-                        <li>
-                            <a href="#">Privacy and security</a>
-                        </li>
-                        <li>
-                            <a href="#">Modern slavery statement Gender pay gap </a>
-                        </li>
-                    </ul><span class="footer__text">Dreams Limited is registered in England and Wales | Company registration number: 08428347 | Registered Office: Knaves Beech, High Wycombe, Bucks. HP10 9YU.</span>
+                    </ul><span class="footer__text">{{ globalData.text }}</span>
                 </div>
             </div>
         </footer>

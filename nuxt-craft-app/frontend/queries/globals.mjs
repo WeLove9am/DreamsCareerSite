@@ -30,6 +30,14 @@ export const GLOBALS_QUERY = `
             pageLink
           }
         }
+        socials{
+          ... on socials_Entry {
+            title
+            pageLink
+            show
+          }
+        }
+        text
       }
     }
     pagesEntries(level: 1) {

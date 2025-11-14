@@ -74,6 +74,7 @@ export const RETAIL_QUERY = `
         subTitle
         copy
         copy2
+        subTitle2
 
       }
     }
@@ -113,10 +114,30 @@ export const RETAIL_QUERY = `
         uri
         location
         postCode
+        jobDescription
+        salary
         postcodesCat{
           ... on postcodesCat_Category{
             longitude
             latitude
+          }
+        }
+        contractType {
+          ... on contractType_Category {
+            id
+            title
+          }
+        }
+        contractHours {
+          ... on contractHours_Category {
+            id
+            title
+          }
+        }
+        sector {
+          ... on sector_Category {
+            id
+            title
           }
         }
       }

@@ -9,14 +9,18 @@ import { JOB_POSTS_QUERY } from '@/queries/jobs.mjs'
 const graphql = useGraphQL()
 const { isPreview, previewToken, previewTimestamp } = usePreview()
 
-// ✅ Reactive filters
+
+//addressReactive filters
 const search = ref('')
 const location = ref('')
 const distance = ref('')
 const selectedSectors = ref([])
 const selectedContracts = ref([])
 
-// ✅ Fetch all jobs (client-side filtering)
+//addressHero reset key
+const heroReset = ref(false)
+
+//addressFetch all jobs (client-side filtering)
 const fetchBlogData = async () => {
   try {
     const result = await graphql.query(
@@ -45,7 +49,7 @@ const {
 
 if (isPreview.value) fetchPageData(currentPage.value)
 
-// ✅ Utilities
+//addressUtilities
 async function getCoordinatesFromLocation(locationName) {
   if (!locationName) return null
   try {
@@ -74,7 +78,7 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
   return R * c
 }
 
-// ✅ Filtering logic
+//addressFiltering logic
 const filteredJobs = ref([])
 
 async function applyFilters() {
@@ -129,11 +133,30 @@ async function applyFilters() {
       }
     }
   }
+  else if (location.value.trim()) {// Location filter
+    const loc = location.value.toLowerCase()
+    jobs = jobs.filter(
+      (job) =>
+        job.location?.toLowerCase().includes(loc) ||
+        job.postCode?.toLowerCase().includes(loc)
+    )
+  }
+  // else{
+  //   // search by location only if distance is not set
+  //   if (location.value.trim()) {
+  //     const locInput = location.value.toLowerCase()
+  //     jobs = jobs.filter(
+  //       job =>
+  //         job.location?.toLowerCase().includes(locInput) ||
+  //         job.postCode?.toLowerCase().includes(locInput)
+  //     )
+  //   }
+  // }
 
   filteredJobs.value = jobs
 }
 
-// ✅ Run filters
+//addressRun filters
 // 1️⃣ When data first loads
 watch(data, applyFilters, { immediate: true })
 
@@ -143,7 +166,7 @@ watch([search, location, distance, selectedSectors, selectedContracts], async ()
   currentPage.value = 1
 })
 
-// ✅ Pagination
+//addressPagination
 const itemsPerPage = 10
 const filteredTotalPages = computed(() =>
   Math.ceil(filteredJobs.value.length / itemsPerPage)
@@ -153,7 +176,7 @@ const paginatedJobs = computed(() => {
   return filteredJobs.value.slice(start, start + itemsPerPage)
 })
 
-// ✅ Change page
+//addressChange page
 function goToPage(page) {
   if (page < 1 || page > filteredTotalPages.value) return
   currentPage.value = page
@@ -163,7 +186,7 @@ function goToPage(page) {
   })
 }
 
-// ✅ Filter lists
+//addressFilter lists
 const allSectors = computed(() => {
   const jobs = data.value?.posts || []
   const sectors = new Set()
@@ -178,17 +201,8 @@ const allContractTypes = computed(() => {
   return Array.from(types).sort()
 })
 
-// ✅ Reset filters
-function resetFilters() {
-  search.value = ''
-  location.value = ''
-  distance.value = ''
-  selectedSectors.value = []
-  selectedContracts.value = []
-  currentPage.value = 1
-}
 
-// ✅ Helpers
+//addressHelpers
 const content = computed(() => data.value?.content || {})
 useHead(() => ({ title: content.value?.title || 'Jobs' }))
 
@@ -198,6 +212,7 @@ const openApply = (link, target = '_self') => {
 }
 
 const handleHeroSearch = ({ keyword, location: loc }) => {
+  console.log('Hero search:', keyword, loc)
   search.value = keyword
   location.value = loc
   applyFilters()
@@ -205,6 +220,19 @@ const handleHeroSearch = ({ keyword, location: loc }) => {
     const firstJob = document.querySelector('.job-list .job-item')
     if (firstJob) firstJob.scrollIntoView({ behavior: 'smooth', block: 'start' })
   })
+}
+
+//addressReset filters
+function resetFilters() {
+  search.value = ''
+  location.value = ''
+  distance.value = ''
+  selectedSectors.value = []
+  selectedContracts.value = []
+  currentPage.value = 1
+
+  //trigger reset for JobsHero
+  heroReset.value = !heroReset.value
 }
 </script>
 
@@ -219,6 +247,7 @@ const handleHeroSearch = ({ keyword, location: loc }) => {
       :desktopImage="data.content.desktopImage"
       :heroImage="data.content.heroImage"
       @search="handleHeroSearch"
+      :reset="heroReset"
     />
 
     <section class="jobs">

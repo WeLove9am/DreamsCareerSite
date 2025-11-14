@@ -46,9 +46,9 @@ watch([isPreview, previewToken], () => {
 })
 
 // --- CONSOLE LOGS START HERE ---
-console.log('--- Full Data Payload ---', JSON.stringify(data.value, null, 2));
-console.log('FAQs Entry Data:', JSON.stringify(data.value?.faqs, null, 2));
-console.log('Global Entry Data:', JSON.stringify(data.value?.global, null, 2));
+// console.log('--- Full Data Payload ---', JSON.stringify(data.value, null, 2));
+// console.log('FAQs Entry Data:', JSON.stringify(data.value?.faqs, null, 2));
+// console.log('Global Entry Data:', JSON.stringify(data.value?.global, null, 2));
 // --- CONSOLE LOGS END HERE ---
 </script>
 
@@ -67,6 +67,7 @@ console.log('Global Entry Data:', JSON.stringify(data.value?.global, null, 2));
        :caption="data.faqs.caption2"
        :copy="data.faqs.copy"
        :qands="data.faqs.qands"
+       :authorId="data.faqs.authorId"
     />
     </div>
 </template>

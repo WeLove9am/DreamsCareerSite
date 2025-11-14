@@ -70,7 +70,7 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
 							</ul>
 						</nav>
 					</div>
-					<div class="header__links"> <a class="header__link" href="/jobs">View jobs</a><a class="header__link" href="">
+					<div class="header__links"> <a class="header__link" href="/jobs">View jobs</a><a class="header__link" href="/jobs">
 							<svg>
 								<use xlink:href="~/assets/images/sprites.svg#search"></use>
 							</svg></a></div><a class="header__login" href="https://dreams-careers.com/login/" target="_blank">Login</a>
