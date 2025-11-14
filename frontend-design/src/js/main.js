@@ -40,8 +40,13 @@ window.addEventListener(
       let lastScrollTop = window.scrollY;
       let isSnapping = false;
       let isLastSectionGlobal = false;
+      let currentBreakpoint = window.innerWidth <= 1024 ? "mobile" : "desktop";
 
       loaderContainer.classList.add("show");
+
+      function getImagePath(basePath) {
+        return window.innerWidth <= 1024 ? `${basePath}-mobile` : basePath;
+      }
 
       class ProgressiveImageLoader {
         constructor() {
@@ -125,27 +130,40 @@ window.addEventListener(
         isLoading(sectionIndex) {
           return this.sectionsLoading.has(sectionIndex);
         }
+
+        clearCache() {
+          this.imageCache.clear();
+          this.sectionsLoaded.clear();
+          this.sectionsLoading.clear();
+          this.loadingQueue = [];
+        }
       }
 
       const imageLoader = new ProgressiveImageLoader();
 
-      const sectionData = sections.map((section, index) => {
-        const frameCount = parseInt(section.dataset.frameCount, 10);
-        const imagePath = section.dataset.imagePath;
-        const urls = Array.from(
-          { length: frameCount },
-          (_, i) => `${imagePath}-${(i + 1).toString().padStart(3, "0")}.webp`
-        );
+      function buildSectionData() {
+        return sections.map((section, index) => {
+          const frameCount = parseInt(section.dataset.frameCount, 10);
+          const baseImagePath = section.dataset.imagePath;
+          const imagePath = getImagePath(baseImagePath);
+          const urls = Array.from(
+            { length: frameCount },
+            (_, i) => `${imagePath}-${(i + 1).toString().padStart(3, "0")}.webp`
+          );
 
-        return {
-          section,
-          index,
-          frameCount,
-          imagePath,
-          urls,
-          canvas: section.querySelector(".image-sequence-canvas"),
-        };
-      });
+          return {
+            section,
+            index,
+            frameCount,
+            imagePath,
+            baseImagePath,
+            urls,
+            canvas: section.querySelector(".image-sequence-canvas"),
+          };
+        });
+      }
+
+      let sectionData = buildSectionData();
 
       function resizeCanvas(canvas) {
         const rect = canvas.parentElement.getBoundingClientRect();
@@ -400,12 +418,31 @@ window.addEventListener(
       window.addEventListener("resize", () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-          sections.forEach((section) => {
-            const canvas = section.querySelector(".image-sequence-canvas");
-            if (canvas) {
-              resizeCanvas(canvas);
-            }
-          });
+          const newBreakpoint =
+            window.innerWidth <= 1024 ? "mobile" : "desktop";
+
+          if (newBreakpoint !== currentBreakpoint) {
+            currentBreakpoint = newBreakpoint;
+
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+            imageLoader.clearCache();
+
+            sectionData = buildSectionData();
+
+            loaderContainer.style.display = "flex";
+            loaderContainer.classList.remove("fade-out");
+            loaderContainer.classList.add("show");
+
+            initializeSequences();
+          } else {
+            sections.forEach((section) => {
+              const canvas = section.querySelector(".image-sequence-canvas");
+              if (canvas) {
+                resizeCanvas(canvas);
+              }
+            });
+          }
         }, 250);
       });
     }
