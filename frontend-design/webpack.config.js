@@ -5,7 +5,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default {
-  mode: "production",
   entry: "./src/js/main.js",
   output: {
     path: path.resolve(__dirname, "build/js"),
