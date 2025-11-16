@@ -139,6 +139,12 @@
   }
 }
 
+.menu__list .menu__item:nth-child(3) .slider-menu .swiper-wrapper {
+  @include desktop {
+    grid-template-columns: 2fr 2fr;
+  }
+}
+
 .menu__link {
   z-index: 1;
   position: relative;

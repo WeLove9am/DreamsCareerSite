@@ -7494,6 +7494,10 @@ dialog[open] {
     background-color: rgba(0, 0, 0, 0.3);
   }
 
+  .menu__list .menu__item:nth-child(3) .slider-menu .swiper-wrapper {
+    grid-template-columns: 2fr 2fr;
+  }
+
   .menu.menu--open {
     transition: none;
   }
