@@ -325,7 +325,7 @@ window.addEventListener(
           if (!canvas) return;
 
           const nextSection = sections[index + 1];
-          const isLastSection = index === sections.length - 1;
+          const isLastSection = index + 1 === sections.length - 1;
 
           const handleComplete = () => {
             if (nextSection) {
@@ -347,18 +347,19 @@ window.addEventListener(
                     isLastSectionGlobal = true;
                     imageSequenceScrollText?.classList.add("hidden");
                     setTimeout(() => {
+                      const menu = document.querySelector(".menu");
                       const menuLinkFirst = document
                         .querySelectorAll(".menu__item")[0]
                         ?.querySelector(".menu__link");
                       const menuContentFirst =
                         menuLinkFirst?.nextElementSibling?.querySelector("li");
 
+                      menu?.classList.toggle("active");
                       menuLinkFirst?.classList.toggle("active");
                       menuContentFirst?.classList.toggle("active");
                     }, 2000);
                   } else {
                     isLastSectionGlobal = false;
-                    // Keep scroll hint visible when entering non-last section
                     if (index + 1 < sections.length - 1) {
                       imageSequenceScrollText?.classList.remove("hidden");
                     }
@@ -408,12 +409,14 @@ window.addEventListener(
           lastScrollTop = window.scrollY;
         }
         if (isLastSectionGlobal) {
+          const menu = document.querySelector(".menu");
           const menuLinkFirst = document
             .querySelectorAll(".menu__item")[0]
             ?.querySelector(".menu__link");
           const menuContentFirst =
             menuLinkFirst?.nextElementSibling?.querySelector("li");
 
+          menu?.classList.remove("active");
           menuLinkFirst?.classList.remove("active");
           menuContentFirst?.classList.remove("active");
         }

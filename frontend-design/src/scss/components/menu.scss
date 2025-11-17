@@ -73,10 +73,6 @@
   }
 }
 
-// .menu.active [data-collapse-content] {
-//   transition: none;
-// }
-
 .menu__content .slider-menu .swiper-wrapper {
   @include desktop {
     display: grid;
