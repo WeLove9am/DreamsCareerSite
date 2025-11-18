@@ -28,7 +28,7 @@ const props = defineProps({
     <section class="section intro">
         <div class="container intro__inner">
             <div class="intro__text">
-                <h2>{{ subHeading }}</h2>
+                <h2 class="bedquarter-h2">{{ subHeading }}</h2>
                 <h3>{{ subHeading2 }}</h3>
                 <p>{{ caption }}</p>
                 <ul> 
