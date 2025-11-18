@@ -1559,13 +1559,6 @@ label:has(+ input:disabled)) {
 
 @font-face {
   font-family: "axiforma";
-  src: url("../fonts/axiforma-black.woff2") format("woff2"), url("../fonts/axiforma-black.woff") format("woff");
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "axiforma";
   src: url("../fonts/axiforma-bold.woff2") format("woff2"), url("../fonts/axiforma-bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
@@ -2265,7 +2258,7 @@ h3,
 
 .partners__info h3 {
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   margin: 0;
   line-height: 31px;
 }
@@ -2437,7 +2430,7 @@ details[open] > summary:first-of-type .details__icon-opened {
 
 .card h3 {
   font-family: var(--font-primary);
-  font-weight: 900;
+  font-weight: 700;
   font-size: 28px;
   line-height: 31px;
   margin: 0;
@@ -2710,7 +2703,7 @@ details[open] > summary:first-of-type .details__icon-opened {
 .next__body h3 {
   font-family: var(--font-primary);
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 31px;
   margin: 0;
   letter-spacing: -0.84px;
@@ -2772,7 +2765,7 @@ details[open] > summary:first-of-type .details__icon-opened {
 .wellbeing h3 {
   font-family: var(--font-primary);
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 31px;
   letter-spacing: 0;
   margin: 0;
@@ -3703,17 +3696,11 @@ input[type=search]::-webkit-search-decoration {
   top: 150px;
   left: 0;
   right: 0;
-  margin-right: -40px;
-  width: calc(100% + 60px);
   transition: opacity, max-height, height, width 0.5s;
 }
 
 .menu__content > li {
   width: 100%;
-}
-
-.menu.active .menu__content {
-  padding: 0 40px;
 }
 
 .menu__list {
@@ -3822,7 +3809,6 @@ input[type=search]::-webkit-search-decoration {
 .menu__content > li[data-collapse-content] {
   transform: translateY(-10px);
   max-width: 1920px;
-  margin: 0 auto;
 }
 
 .navbar__link {
@@ -3910,7 +3896,8 @@ input[type=search]::-webkit-search-decoration {
 }
 
 .hero__motto img {
-  margin: 0 auto;
+  margin: 20px auto;
+  width: 100%;
 }
 
 .hero__sleep {
@@ -4418,7 +4405,6 @@ input[type=search]::-webkit-search-decoration {
 
 .slider-features__imageSmall {
   width: 100%;
-  aspect-ratio: 1/0.9;
   margin-bottom: 20px;
 }
 
@@ -4557,7 +4543,6 @@ input[type=search]::-webkit-search-decoration {
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  pointer-events: none;
 }
 
 .swiper-slide-thumb-active .slider-feature-slide__body {
@@ -4577,14 +4562,14 @@ input[type=search]::-webkit-search-decoration {
   bottom: 30px;
   display: flex;
   justify-content: space-between;
-  width: calc(100% - 60px);
+  left: 60px;
+  right: 60px;
 }
 
 .slider-menu .swiper-pagination {
   position: static;
   padding-top: 30px;
   padding-bottom: 30px;
-  width: calc(100% - 60px);
 }
 
 .slider-menu .swiper-pagination-bullet {
@@ -4593,12 +4578,10 @@ input[type=search]::-webkit-search-decoration {
 
 .slider-menu .swiper-button-prev {
   padding-top: 2px;
-  padding-left: 20px;
 }
 
 .slider-menu .swiper-button-next {
   padding-top: 2px;
-  padding-right: 20px;
 }
 
 .slider-menu .swiper-button-prev svg,
@@ -4789,7 +4772,7 @@ input[type=search]::-webkit-search-decoration {
 
 .about h3 {
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   margin: 0;
   line-height: 31px;
   letter-spacing: 0;
@@ -5065,7 +5048,7 @@ input[type=search]::-webkit-search-decoration {
 .progress__questions {
   color: var(--color-primary);
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
@@ -5097,7 +5080,7 @@ input[type=search]::-webkit-search-decoration {
   margin-bottom: 0;
   color: #d3cfe0;
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 14px;
   text-align: center;
 }
@@ -7452,7 +7435,7 @@ dialog[open] {
     backdrop-filter: blur(100px);
   }
 
-  .menu.active .menu__content {
+  .menu.active .menu__content .swiper {
     padding: 135px 130px 50px;
   }
 
@@ -7525,7 +7508,7 @@ dialog[open] {
   }
 
   .hero__motto h1 {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 55px;
     line-height: 70px;
     margin-bottom: 20px;
@@ -7544,6 +7527,7 @@ dialog[open] {
     -o-object-fit: contain;
     object-fit: contain;
     display: block;
+    margin: 0 auto;
   }
 
   .hero__sleep {

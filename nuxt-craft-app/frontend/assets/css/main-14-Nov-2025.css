@@ -1560,7 +1560,7 @@ label:has(+ input:disabled)) {
 @font-face {
   font-family: "axiforma";
   src: url("../fonts/axiforma-black.woff2") format("woff2"), url("../fonts/axiforma-black.woff") format("woff");
-  font-weight: 900;
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -2265,7 +2265,7 @@ h3,
 
 .partners__info h3 {
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   margin: 0;
   line-height: 31px;
 }
@@ -2437,7 +2437,7 @@ details[open] > summary:first-of-type .details__icon-opened {
 
 .card h3 {
   font-family: var(--font-primary);
-  font-weight: 900;
+  font-weight: 700;
   font-size: 28px;
   line-height: 31px;
   margin: 0;
@@ -2710,7 +2710,7 @@ details[open] > summary:first-of-type .details__icon-opened {
 .next__body h3 {
   font-family: var(--font-primary);
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 31px;
   margin: 0;
   letter-spacing: -0.84px;
@@ -2772,7 +2772,7 @@ details[open] > summary:first-of-type .details__icon-opened {
 .wellbeing h3 {
   font-family: var(--font-primary);
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 31px;
   letter-spacing: 0;
   margin: 0;
@@ -4787,7 +4787,7 @@ input[type=search]::-webkit-search-decoration {
 
 .about h3 {
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   margin: 0;
   line-height: 31px;
   letter-spacing: 0;
@@ -5063,7 +5063,7 @@ input[type=search]::-webkit-search-decoration {
 .progress__questions {
   color: var(--color-primary);
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
@@ -5095,7 +5095,7 @@ input[type=search]::-webkit-search-decoration {
   margin-bottom: 0;
   color: #d3cfe0;
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 14px;
   text-align: center;
 }
@@ -7516,7 +7516,7 @@ dialog[open] {
   }
 
   .hero__motto h1 {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 55px;
     line-height: 70px;
     margin-bottom: 20px;

@@ -61,7 +61,7 @@
   letter-spacing: 0;
 
   @include desktop {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 55px;
     line-height: 70px;
     margin-bottom: 20px;
@@ -85,13 +85,15 @@
 }
 
 .hero__motto img {
-  margin: 0 auto;
+  margin: 20px auto;
+  width: 100%;
 
   @include desktop {
     height: auto;
     width: auto;
     object-fit: contain;
     display: block;
+    margin: 0 auto;
   }
 }
 
