@@ -108,10 +108,10 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
           <h3>${data.value.pageSubheading2}</h3>
           <img 
           class="hidden-desktop" 
-          src="/images/home/home-header-1-v1.svg" 
+          src="/images/home/home-header-1-v2.svg" 
           alt="from our big thinkers."
           />
-          <img class="visible-desktop" src="/images/home/home-header-1-desktop-v1.svg" alt="from our big thinkers."/>
+          <img class="visible-desktop" src="/images/home/home-header-1-desktop-v2.svg" alt="from our big thinkers."/>
         </div>
       </section>
       <section class="pin-section" id="section-2" data-frame-count="75" data-image-path="images/home/bedquarters/dreamscareersite-bedquarters">
@@ -138,8 +138,8 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
       <section class="pin-section" id="section-5" data-frame-count="75" data-image-path="images/home/distribution/dreamscareersite-distribution">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
-          <img class="hidden-desktop" src="/images/home/home-header-5-v1.svg" alt="from our big thinkers."/>
-          <img class="visible-desktop" src="/images/home/home-header-5-desktop-v1.svg" alt="from our big thinkers."/>
+          <img class="hidden-desktop" src="/images/home/home-header-5-v2.svg" alt="from our big thinkers."/>
+          <img class="visible-desktop" src="/images/home/home-header-5-desktop-v2.svg" alt="from our big thinkers."/>
         </div>
       </section>
       <section class="pin-section" id="section-6" data-frame-count="75" data-image-path="images/home/distribution/dreamscareersite-distribution">

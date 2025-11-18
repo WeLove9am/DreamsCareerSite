@@ -105,7 +105,6 @@ const mapMarkers = computed(() => {
       :promises="data.bedquarters.promises"
       />
       <BedquartersMap 
-        :jobs="mapMarkers"
         :subTitle="data.bedquarters.subTitle"
         :copy="data.bedquarters.copy"
         :copy2="data.bedquarters.copy2"
