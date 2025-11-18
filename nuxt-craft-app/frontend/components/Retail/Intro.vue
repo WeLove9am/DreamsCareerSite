@@ -19,6 +19,10 @@ const props = defineProps({
     heroImage: {
         type: Array,
         default: () => []
+    },
+    buttonCaption: {
+        type: String,
+        default: ''
     }
     
 })
@@ -32,6 +36,9 @@ const props = defineProps({
                 <h3>{{ subHeading2 }}</h3>
                 <p>{{ caption }}</p>
                 <p>{{ caption2 }}</p>
+                <div class="retail actions">
+                    <a class="button button--primary" href="/jobs?sector=Retail">{{ buttonCaption }}</a>
+                </div>
             </div>
             <NuxtImg
                     v-if="heroImage?.[0]?.url" 

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch, computed, nextTick } from 'vue'
+import { useRoute } from '#app'
 import { useHead } from '#imports'
 import { usePaginatedData } from '@/composables/usePaginatedData'
 import { useGraphQL } from '@/composables/useGraphQL'
@@ -8,6 +9,11 @@ import { JOB_POSTS_QUERY } from '@/queries/jobs.mjs'
 
 const graphql = useGraphQL()
 const { isPreview, previewToken, previewTimestamp } = usePreview()
+
+const route = useRoute()
+// Read ?sector from URL (SSR safe)
+const initialQuerySector = computed(() => route.query.sector ?? '')
+
 
 
 //addressReactive filters
@@ -234,6 +240,12 @@ function resetFilters() {
   //trigger reset for JobsHero
   heroReset.value = !heroReset.value
 }
+onMounted(() => {
+  if (initialQuerySector.value) {
+    selectedSectors.value = [initialQuerySector.value]
+    applyFilters()
+  }
+})
 </script>
 
 
@@ -253,6 +265,7 @@ function resetFilters() {
     <section class="jobs">
       <div class="container">
         <div class="job-form">
+          <h3>{{ filteredJobs.length }} jobs found</h3>
           <form @submit.prevent>
             <!-- Job Sector -->
             <div class="job-form__item">
@@ -365,18 +378,19 @@ function resetFilters() {
 
                 <div class="job-item__buttons">
                   <button
-                    v-if="entry.jobLink"
                     class="button button--primary text-uppercase"
-                    @click="openApply(entry.jobLink, '_blank')"
-                  >
-                    Apply
-                  </button>
-                  <button
-                    class="button text-uppercase"
                     @click="openApply(`/jobs/${entry.slug}/${entry.jobId}`, '_blank')"
                   >
                     Read more
                   </button>
+                  <button
+                    v-if="entry.jobLink"
+                    class="button text-uppercase"
+                    @click="openApply(entry.jobLink, '_blank')"
+                  >
+                    Apply
+                  </button>
+
                 </div>
               </div>
             </template>

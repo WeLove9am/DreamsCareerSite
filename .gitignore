@@ -15,5 +15,8 @@
 *.orig
 *.rej
 *.env
+*.zip
 *.DS_Store
 .DS_Store
+
+/frontend-design-copy/

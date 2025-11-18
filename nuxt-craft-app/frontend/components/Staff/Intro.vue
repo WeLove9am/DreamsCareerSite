@@ -16,7 +16,7 @@ const props = defineProps({
 
 </script>
 <template>
-    <section class="page-header">
+    <section class="staff page-header">
         <div class="container">
             <NuxtImg
                 v-if="image?.[0]?.url" 

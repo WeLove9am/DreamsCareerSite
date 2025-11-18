@@ -110,7 +110,7 @@ const mapMarkers = computed(() => {
         :copy="data.bedquarters.copy"
         :copy2="data.bedquarters.copy2"
       />
-      <BedquartersQuiz
+      <!--<BedquartersQuiz
         :subHeading="data.global.subTitle2"
         :subHeading2="data.global.subTitle3"
         :copy="data.global.copy2"
@@ -123,6 +123,6 @@ const mapMarkers = computed(() => {
         :buttonCaption2="data.global.buttonCaption2"
         :buttonLink="data.global.buttonLink"
         :quizEntries="data.global.quiz"
-        />
+        />-->
     </div>
 </template>

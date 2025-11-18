@@ -7,7 +7,19 @@ const props = defineProps({
   subTitle: {
     type: String,
     default: ''
-}
+  },
+  buttonCaption: {
+    type: String,
+    default: ''
+  },
+  subTitle2: {
+    type: String,
+    default: ''
+  },
+  buttonCaption2: {
+    type: String,
+    default: ''
+  }
 })
 const truncate = (text, len) => (text ? text.slice(0, len) + '...' : '')
 </script>
@@ -41,10 +53,23 @@ const truncate = (text, len) => (text ? text.slice(0, len) + '...' : '')
                                             <li><span class="card-job__trait">Determined and motivated</span></li>
                                         </ul>
                                     </div>-->
+                                    <div class="next__actions">
+                                        <a class="button button--primary" :href="`/jobs/${job.slug}/${job.jobId}`" target="_blank">{{ buttonCaption2 }}</a>
+                                    </div>
                                 </article>
                             </div>
                             
                         </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="section-header">
+                        <div class="retailcard_body">
+                            <p class="text-primary">{{ subTitle2 }}</p>
+                            <div class="next__actions">
+                                <a class="button button--primary" href="/jobs?sector=Retail">{{ buttonCaption }}</a>
+                            </div>
+                         </div>
                     </div>
                 </div>
             </section>

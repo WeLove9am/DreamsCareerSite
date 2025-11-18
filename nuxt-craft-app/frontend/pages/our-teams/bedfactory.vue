@@ -81,7 +81,7 @@ watch([isPreview, previewToken], () => {
     :copy="data.bedfactory.copy"
     :copy2="data.bedfactory.copy2"
   />
-    <BedfactoryQuiz
+    <!--<BedfactoryQuiz
     :subHeading="data.global.subTitle2"
     :subHeading2="data.global.subTitle3"
     :copy="data.global.copy2"
@@ -94,6 +94,6 @@ watch([isPreview, previewToken], () => {
     :buttonCaption2="data.global.buttonCaption2"
     :buttonLink="data.global.buttonLink"
     :quizEntries="data.global.quiz"
-    />
+    />-->
     </div>
 </template>

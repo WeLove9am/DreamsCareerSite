@@ -86,6 +86,11 @@ function nl2br(text) {
   if (!text) return ''
   return text.replace(/\n/g, '<br/><br/>')
 }
+
+definePageMeta({
+  layout: 'application'
+})
+const globalsData = inject('globalsData')
 </script>
 
 <template>
@@ -130,6 +135,18 @@ function nl2br(text) {
       :features="content.features"
       :subHeading="content.subHeading4"
       :address="content.subHeading5"
+      />
+
+      <JobadvertFooter :globalData="globalsData?.global"
+      :title="currentPost.title"
+      :contractType="currentPost.contractType"
+      :contractHours="currentPost.contractHours"
+      :sector="currentPost.sector"
+      :location="currentPost.location"
+      :postCode="currentPost.postCode"
+      :salary="currentPost.salary"
+      :jobDescription="currentPost.jobDescription"
+      :jobLink="currentPost.jobLink"
       />
 
 

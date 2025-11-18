@@ -140,6 +140,7 @@ const randomJobs = computed(() => {
       :caption="data.retail.caption2"
       :caption2="data.retail.caption3"
       :heroImage="data.retail.image"
+      :buttonCaption="data.retail.buttonCaption"
       />
     <RetailFeatures
       :features="data.retail.features"
@@ -157,7 +158,7 @@ const randomJobs = computed(() => {
         :copy="data.retail.copy"
         :copy2="data.retail.copy2"
       />
-      <RetailQuiz
+      <!--<RetailQuiz
         :subHeading="data.global.subTitle2"
         :subHeading2="data.global.subTitle3"
         :copy="data.global.copy2"
@@ -170,10 +171,13 @@ const randomJobs = computed(() => {
         :buttonCaption2="data.global.buttonCaption2"
         :buttonLink="data.global.buttonLink"
         :quizEntries="data.global.quiz"
-        />
+        />-->
       <RetailJobcard 
       :jobs="randomJobs"
       :subTitle="data.retail.subTitle2"
+      :buttonCaption="data.retail.buttonCaption"
+      :subTitle2="data.retail.subTitle3"
+      :buttonCaption2="data.retail.buttonCaption2"
       />
     </div>
 </template>

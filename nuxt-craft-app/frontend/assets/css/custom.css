@@ -40,3 +40,61 @@
   color: #c00;
   margin-top: 1rem;
 }
+.menu__link.activeLink {
+  color: var(--color-white);
+  font-weight: 700;
+}
+.retailcard_body{ margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center;}
+.retailcard_body p {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 19px;
+  margin-bottom: 15px;
+}
+.retail.actions{ margin-top: 20px; display: flex;}
+a.header__link.job_link{background-color: var(--color-primary);color: var(--color-white);-webkit-backdrop-filter:none;backdrop-filter:none;}
+p.copy_text{ max-width: 600px; line-height: 25px;}
+.jobs_footer.hero__tags {
+    margin-bottom: 25px;
+    margin-top: 0px;
+    justify-content: left;
+}
+.jobs_footer.hero__tags .button {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: #80738f;
+}
+.job-item__buttons{margin-top: 20px; }
+.job-item__buttons .button--primary{margin-right: 10px; }
+.hero__motto #openVideoBtn{
+  background-image: url("../../images/play-button.svg");
+  background-repeat: no-repeat;
+  background-position: 25px 10px;
+  padding-left: 60px;
+}
+
+@media (min-width: 768px) {
+  .menu__link:focus,
+  .menu__link:hover,
+  .menu__link:active {
+    color: var(--color-white);
+  }
+}
+@media (min-width: 1200px) {
+   .retailcard_body p {
+    font-size: 21px;
+    line-height: 28px;
+    margin-bottom: 25px;
+  }
+  .job-item__buttons{ align-self: flex-end;}
+  .staff.page-header {
+        padding: 0px 0px 80px;
+  }
+  .job_footer .next__body{ flex: 3}
+  .job_footer .next__image{ flex: 2}
+  .header__link:last-child {
+    display: none;
+  }
+  .job-item__buttons{margin-top: 0px;}
+}

@@ -75,6 +75,9 @@ export const RETAIL_QUERY = `
         copy
         copy2
         subTitle2
+        subTitle3
+        buttonCaption
+        buttonCaption2
 
       }
     }
@@ -108,10 +111,12 @@ export const RETAIL_QUERY = `
         }
       }
     }
-    jobListEntries{
+    jobListEntries(sector: 392){
       ... on jobList_Entry {
         title
         uri
+        slug
+        jobId
         location
         postCode
         jobDescription

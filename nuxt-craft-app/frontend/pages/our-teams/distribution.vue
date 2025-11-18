@@ -109,7 +109,7 @@ const mapMarkers = computed(() => {
         :copy="data.distribution.copy"
         :copy2="data.distribution.copy2"
       />
-    <DistributionQuiz
+    <!--<DistributionQuiz
     :subHeading="data.global.subTitle2"
     :subHeading2="data.global.subTitle3"
     :copy="data.global.copy2"
@@ -122,6 +122,6 @@ const mapMarkers = computed(() => {
     :buttonCaption2="data.global.buttonCaption2"
     :buttonLink="data.global.buttonLink"
     :quizEntries="data.global.quiz"
-    />
+    />-->
     </div>
 </template>

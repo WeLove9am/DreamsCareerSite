@@ -61,7 +61,7 @@ const props = defineProps({
                         loading="lazy"
                         class="hero__images visible-desktop"/>
                 </div>
-            <p v-if="caption">{{ caption }}</p>
+            <p v-if="caption" class="copy_text">{{ caption }}</p>
         </div>
     </section>
 </template>

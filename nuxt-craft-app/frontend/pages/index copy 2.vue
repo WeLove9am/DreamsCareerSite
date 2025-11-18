@@ -87,11 +87,13 @@ watch([isPreview, previewToken], () => {
 })
 // Use a custom layout for the homepage 
 definePageMeta({
-  layout: 'home',
-  ssr: false
+  layout: 'home'
+  // ,
+  // ssr: false
 })
 
-const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</div>
+const homeData = `<div class="image-sequence-wrapper">
+      <div class="image-sequece-wrapper__scroll">Scroll to explore</div>
       <div class="image-sequence-loading">
         <div class="loader"></div>
         <img 
@@ -149,10 +151,82 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
           <img class="hidden-desktop" src="/images/home/home-header-6-v1.svg" alt="helping the nation sleep better."/>
           <img class="visible-desktop" src="/images/home/home-header-6-desktop-v1.svg" alt="helping the nation sleep better."/>
         </div>
-      </section>`
+      </section>
+    </div>
+    
+    
+    <div class="image-sequence-wrapper">
+                <div class="image-sequece-wrapper__scroll">Scroll to explore</div>
+                <div class="image-sequence-loading">
+                    <div class="loader"></div>
+                    <img class="image-sequence-loading__logo" src="images/logo.svg" alt="logo Dreams." width="187" height="67">
+                </div>
+
+                <section class="pin-section" id="section-1" data-frame-count="75" data-image-path="images/general/dreamscareersite-general">
+                    <canvas class="image-sequence-canvas"></canvas>
+                    <div class="pin-section__title">
+                      <h3>${data.value.pageSubheading2}</h3>
+                      <img 
+                      class="hidden-desktop" 
+                      src="/images/home/home-header-1-v1.svg" 
+                      alt="from our big thinkers."
+                      />
+                      <img class="visible-desktop" src="/images/home/home-header-1-desktop-v1.svg" alt="from our big thinkers."/>
+                    </div>
+                </section>
+
+                <section class="pin-section" id="section-2" data-frame-count="75" data-image-path="images/bedquarters/dreamscareersite-bedquarters">
+                    <canvas class="image-sequence-canvas"></canvas>
+                    <div class="pin-section__title">
+                      <img class="hidden-desktop" src="/images/home/home-header-2.svg" alt="from our big thinkers."/>
+                      <img class="visible-desktop" src="/images/home/home-header-2-desktop.svg" alt="from our big thinkers."/>
+                    </div>
+                </section>
+
+                <section class="pin-section" id="section-3" data-frame-count="75" data-image-path="images/bedfactory/dreamscareersite-bedfactory">
+                    <canvas class="image-sequence-canvas"></canvas>
+                    <div class="pin-section__title">
+                      <img class="hidden-desktop" src="/images/home/home-header-3.svg" alt="from our big thinkers."/>
+                      <img class="visible-desktop" src="/images/home/home-header-3-desktop.svg" alt="from our big thinkers."/>
+                    </div>
+                </section>
+
+                <section class="pin-section" id="section-4" data-frame-count="87" data-image-path="images/retail/dreamscareersite-retail">
+                    <canvas class="image-sequence-canvas"></canvas>
+                    <div class="pin-section__title">
+                      <img class="hidden-desktop" src="/images/home/home-header-4-v1.svg" alt="from our big thinkers."/>
+                      <img class="visible-desktop" src="/images/home/home-header-4-desktop-v1.svg" alt="from our big thinkers."/>
+                    </div>
+                </section>
+
+                <section class="pin-section" id="section-5" data-frame-count="75" data-image-path="images/distribution/dreamscareersite-distribution">
+                    <canvas class="image-sequence-canvas"></canvas>
+                    <div class="pin-section__title">
+                      <img class="hidden-desktop" src="/images/home/home-header-5-v1.svg" alt="from our big thinkers."/>
+                      <img class="visible-desktop" src="/images/home/home-header-5-desktop-v1.svg" alt="from our big thinkers."/>
+                    </div>
+                </section>
+
+                <section class="pin-section" id="section-6" data-frame-count="75" data-image-path="images/distribution/dreamscareersite-distribution">
+                    <canvas class="image-sequence-canvas"></canvas>
+                    <div class="pin-section__title">
+                      <h3>${data.value.pageSubheading}</h3>
+                      <img class="hidden-desktop" src="/images/home/home-header-6-v1.svg" alt="helping the nation sleep better."/>
+                      <img class="visible-desktop" src="/images/home/home-header-6-desktop-v1.svg" alt="helping the nation sleep better."/>
+                    </div>
+                </section>
+            </div>
+    
+    
+    
+    `
 
 </script>
 
 <template>
-    <div class="image-sequence-wrapper" v-html="homeData"></div>
+<div :key="previewTimestamp">
+
+    <div v-html="homeData"></div>
+
+</div>  
 </template>

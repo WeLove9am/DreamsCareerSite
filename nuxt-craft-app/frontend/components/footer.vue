@@ -112,7 +112,12 @@ console(props.footerData[0])
                 <div class="footer__bottom">
                     <ul class="footer__links">
                         <li v-for="fLink in footer2Data" :key="fLink.id">
-                            <a :href="fLink.pageLink.startsWith('/') ? fLink.pageLink : `/${fLink.pageLink}`">{{ fLink.title }}</a>
+                                    <a 
+                                    :href="fLink.pageLink.startsWith('http') ? fLink.pageLink : 
+                                            fLink.pageLink.startsWith('/') ? fLink.pageLink : 
+                                            `/${fLink.pageLink}`" 
+                                    :target="fLink.pageLink.startsWith('http') ? '_blank' : '_self'"
+                                  >{{ fLink.title }}</a>
                         </li>
                     </ul><span class="footer__text">{{ globalData.text }}</span>
                 </div>

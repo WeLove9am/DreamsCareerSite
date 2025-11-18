@@ -52,7 +52,7 @@ const imageCount = computed(() => {
                 <h4>{{ copy }}</h4>
                 <p>{{ copy2 }}</p>
                 <ul class="card__list">                                                                                 
-                    <li class="card__item" v-for="item in list" :key="item.id"><strong class="item__title">{{ item.title }}</strong>
+                    <li class="card__item" v-for="item in list" :key="item.id"><strong class="item__title">{{ item.title }}&nbsp;</strong>
                         <p class="item__desc">{{ item.caption }}</p>
                     </li>
                 </ul>
