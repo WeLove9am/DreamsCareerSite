@@ -5238,6 +5238,7 @@ input[type=search]::-webkit-search-decoration {
   color: var(--color-primary);
   font-weight: 700;
   margin-top: 0;
+  max-width: 165px;
 }
 
 .slider-values-slide__header h3 {
