@@ -46,7 +46,7 @@ const props = defineProps({
             width="1920" height="1080"
         />
         <div class="hero__inner">
-            <div class="hero__motto">
+            <div class="hero__motto department">
                 <h1>{{ subHeading }}</h1>
                 <NuxtImg
                     v-if="mobileImage?.[0]?.url" 

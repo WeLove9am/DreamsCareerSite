@@ -27,7 +27,7 @@ const props = defineProps({
                         <h3 v-if="subHeading2">{{ subHeading2 }}</h3>
                         <h4 v-if="subHeadin3">{{ subHeading3 }}</h4>
                     </div>
-                    <div class="wellbeing">
+                    <div class="wellbeing" data-scrollspy="animate__stackCardsDown">
                         <div class="wellbeing__background wave-top wave-bottom"></div>
                         <div class="wellbeing__card" v-for="item  in wellbeing" :key="item.id">
                             <NuxtImg

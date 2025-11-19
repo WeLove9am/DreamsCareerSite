@@ -73,7 +73,13 @@ p.copy_text{ max-width: 600px; line-height: 25px;}
   background-position: 25px 10px;
   padding-left: 60px;
 }
-
+.wellbeing__background.wave-bottom.wave-top:after {
+  background-image: none;
+}
+.faq-boxes .card{background-color: #F8F2F5;}
+.department .hidden-desktop{ max-height: 144px;}
+.header__logo{z-index: 100;}
+.margin-bottom-section{ margin-bottom: 25px;}
 @media (max-width: 425px) {
   h2.bedquarter-h2{font-size: 52px !important;}
 }
@@ -82,6 +88,11 @@ p.copy_text{ max-width: 600px; line-height: 25px;}
   .menu__link:hover,
   .menu__link:active {
     color: var(--color-white);
+  }
+}
+@media (min-width: 1025px){
+  .slider-spotlight__thumbs .swiper-slide p{
+    padding-right: 25px;
   }
 }
 @media (min-width: 1200px) {
@@ -100,4 +111,5 @@ p.copy_text{ max-width: 600px; line-height: 25px;}
     display: none;
   }
   .job-item__buttons{margin-top: 0px;}
+  .margin-bottom-section{ margin-bottom: 50px;}
 }

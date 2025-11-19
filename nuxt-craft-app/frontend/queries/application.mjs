@@ -38,7 +38,10 @@ export const APPLICATION_QUERY = `
             
             }
         }
-
+        subTitle2
+        subTitle3
+        buttonCaption
+        buttonCaption2
 
       }
     }
@@ -72,5 +75,42 @@ export const APPLICATION_QUERY = `
         }
       }
     }
+    jobListEntries{
+      ... on jobList_Entry {
+        title
+        uri
+        slug
+        jobId
+        location
+        postCode
+        jobDescription
+        salary
+        postcodesCat{
+          ... on postcodesCat_Category{
+            longitude
+            latitude
+          }
+        }
+        contractType {
+          ... on contractType_Category {
+            id
+            title
+          }
+        }
+        contractHours {
+          ... on contractHours_Category {
+            id
+            title
+          }
+        }
+        sector {
+          ... on sector_Category {
+            id
+            title
+          }
+        }
+      }
+    }
+
   }
 `;

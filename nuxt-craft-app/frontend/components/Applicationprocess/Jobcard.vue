@@ -54,7 +54,7 @@ const truncate = (text, len) => (text ? text.slice(0, len) + '...' : '')
                                         </ul>
                                     </div>-->
                                     <div class="next__actions">
-                                        <a class="button button--primary" :href="`/jobs/${job.slug}/${job.jobId}`" target="_blank">{{ buttonCaption2 }}</a>
+                                        <a class="button button--primary" :href="`/jobs/${job.slug}/${job.jobId}`" target="_blank">{{ buttonCaption }}</a>
                                     </div>
                                 </article>
                             </div>
@@ -80,7 +80,7 @@ const truncate = (text, len) => (text ? text.slice(0, len) + '...' : '')
                         <div class="retailcard_body">
                             <p class="text-primary">{{ subTitle2 }}</p>
                             <div class="next__actions">
-                                <a class="button button--primary" href="/jobs?sector=Retail">{{ buttonCaption }}</a>
+                                <a class="button button--primary" href="/jobs">{{ buttonCaption2 }}</a>
                             </div>
                          </div>
                     </div>

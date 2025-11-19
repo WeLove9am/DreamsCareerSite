@@ -136,7 +136,7 @@ const submitEnquiry = async () => {
                     >
                         <template v-if="item.items && item.items.length > 0">
                             <div class="tab-slide-wrapper">
-                                <div class="tab-slide__top">
+                                <div class="tab-slide__top faq-boxes">
                                     <div 
                                         v-for="(card, cardIndex) in item.items.slice(0, Math.ceil(item.items.length / 2))" 
                                         :key="cardIndex" 
@@ -208,7 +208,7 @@ const submitEnquiry = async () => {
                                     </div>
                                 </div>
 
-                                <div class="tab-slide__bottom">
+                                <div class="tab-slide__bottom faq-boxes">
                                     <div 
                                         v-for="(card, cardIndex) in item.items.slice(Math.ceil(item.items.length / 2))" 
                                         :key="cardIndex + item.items.length" 

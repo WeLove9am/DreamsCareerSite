@@ -24,7 +24,8 @@ const { data, refresh } = await useAsyncData(
       //return { application: result.entry, global: result.globalEntries[0] }
       return JSON.parse(JSON.stringify({
         application: result.entry,
-        global: result.globalEntries[0]
+        global: result.globalEntries[0],
+        jobs: result.jobListEntries
       }));
     } catch (error) {
       console.error('Failed to fetch Application Process data:', error)
@@ -49,6 +50,13 @@ definePageMeta({
   layout: 'application'
 })
 
+//Get 10 random jobs
+const randomJobs = computed(() => {
+  const allJobs = data.value?.jobs || []
+  return [...allJobs]
+    .sort(() => Math.random() - 0.5) // shuffle
+    .slice(0, 10) // take first 10
+})
 </script>
 
 <template>
@@ -64,6 +72,13 @@ definePageMeta({
     <ApplicationprocessProcess
        :subTitle="data.application.subTitle"
        :steps="data.application.application"
+    />
+    <ApplicationprocessJobcard 
+    :jobs="randomJobs"
+    :subTitle="data.application.subTitle2"
+    :buttonCaption="data.application.buttonCaption"
+    :subTitle2="data.application.subTitle3"
+    :buttonCaption2="data.application.buttonCaption2"
     />
 
     </div>

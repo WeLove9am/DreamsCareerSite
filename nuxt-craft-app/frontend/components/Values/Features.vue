@@ -33,7 +33,7 @@ const props = defineProps({
 
 </script>
 <template>
-    <section class="section">
+    <section class="section margin-bottom-section">
         <div class="container">
             <div class="section-header">
                 <h2>{{ subHeading }}</h2>

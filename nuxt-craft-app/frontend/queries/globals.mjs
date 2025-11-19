@@ -38,6 +38,15 @@ export const GLOBALS_QUERY = `
           }
         }
         text
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
       }
     }
     pagesEntries(level: 1) {
