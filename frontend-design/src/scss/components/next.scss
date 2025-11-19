@@ -103,6 +103,7 @@
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: auto;
 
   @include tablet {
     flex-wrap: wrap;
