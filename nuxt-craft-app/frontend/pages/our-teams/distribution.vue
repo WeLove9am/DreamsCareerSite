@@ -61,6 +61,8 @@ const mapMarkers = computed(() => {
                     id: job.id,
                     title: job.title,
                     uri: job.uri,
+                    slug: job.slug,
+                    jobId: job.jobId,
                     locationName: job.location,
                     postCode: job.postCode,
                     postcodesCat: [{

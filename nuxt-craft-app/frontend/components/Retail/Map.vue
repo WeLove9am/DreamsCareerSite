@@ -78,11 +78,19 @@ async function initMap() {
       center: { lat: 54.406847, lng: 1.480041 },
       zoom: 6.5,
       mapId: 'UK_JOBS_MAP',
-      mapTypeControl: true,
-      mapTypeControlOptions: {
-        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-        position: google.maps.ControlPosition.TOP_CENTER,
-      },
+      // mapTypeControl: true,
+      // mapTypeControlOptions: {
+      //   style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+      //   position: google.maps.ControlPosition.TOP_CENTER,
+      // },
+      fullscreenControl: false,
+      mapTypeControl: false,
+      streetViewControl: false,
+      zoomControl: false,
+      rotateControl: false,
+      scaleControl: false,
+      keyboardShortcuts: false,
+      clickableIcons: false,
     })
 
     // Add markers
@@ -96,40 +104,47 @@ async function initMap() {
       if (isNaN(lat) || isNaN(lng)) return
 
       const position = { lat, lng }
+      // const marker = new Marker({
+      //   position,
+      //   map,
+      //   title: job.title,
+      //   icon: {
+      //     path: google.maps.SymbolPath.CIRCLE,
+      //     scale: 10,                 // outer circle size
+      //     fillColor: "#251163",      // outer circle
+      //     fillOpacity: 1,
+      //     strokeWeight: 3,           
+      //     strokeColor: "#dba5ba",    // inner “dot” border color
+      //   },
+      // })
       const marker = new Marker({
         position,
         map,
         title: job.title
       })
 
+
       const infoWindow = new InfoWindow({
-        content: `
-          <div style="font-size:14px; line-height:1.4">
-            <strong>${job.title}</strong><br>
-            ${job.location || ''}<br>
-            ${job.postCode || ''}
-          </div>
-        `
-      })
+      content: `
+        <div style="font-size:14px; line-height:1.4">
+          <strong>${job.title}</strong><br>
+          ${job.locationName || ''}<br>
+          ${job.postCode || ''}<br>
+          <a href="/${job.uri}/${job.jobId}" target="_blank" style="color:#251163; text-decoration:underline;">
+            View Job →
+          </a>
+        </div>
+      `
+    })
+
 
       marker.addListener('click', () => infoWindow.open({ anchor: marker, map }))
       markers.push({ marker, job, position })
     })
 
-    const currentCenter = map.getCenter()
-    let offsetLat = 0
-    let offsetLng = 0
-
-    if (window.innerWidth < 768) {
-    offsetLat = 1 // more shift on mobile
-    offsetLng = 1.5
-    } else {
-    offsetLat = 0
-    offsetLng = 0.2 // slight shift on desktop
-    }
     const newCenter = {
-      lat: currentCenter.lat() - offsetLat,
-      lng: currentCenter.lng() - offsetLng
+      lat: 54.622978, 
+      lng: -2.592773
     }
     map.setCenter(newCenter)
 
@@ -181,12 +196,6 @@ async function handleSearch(e) {
     map.setCenter(searchLocation)
     map.setZoom(8)
 
-    // Add a search center marker
-    new google.maps.marker.AdvancedMarkerElement({
-      map,
-      position: searchLocation,
-      title: `Search: ${query}`,
-    })
 
   } catch (err) {
     console.error('Error fetching geocode:', err)
@@ -201,43 +210,42 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="section map">
-    <div class="map__image wave-top wave-bottom">
-      <div id="map" style="width: 100%; border-radius: 12px;"></div>
-    </div>
-
-    <div class="map__inner">
-      <div class="map__card">
-        <div class="card card--primary">
-          <h3>{{ subTitle }}</h3>
-          <h4>{{ copy }}</h4>
-          <p>{{ copy2 }}</p>
-          <form @submit="handleSearch">
-            <div class="control">
-              <input
-                ref="searchInput"
-                class="input input--round"
-                type="search"
-                name="store"
-                placeholder="Find your local store"
-              />
-              <button class="input__icon" type="submit">
-                <svg>
-                  <use xlink:href="~/assets/images/sprites.svg#search"></use>
-                </svg>
-              </button>
-            </div>
-            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-          </form>
+  <section class="section map retail_map">
+    <div class="container">
+      <div class="map-columns">
+        <div id="map" style="width: 100%; border-radius: 20px;"></div>
+        <div class="map__card retail-map__card">
+          <div class="card card--primary">
+            <h3>{{ subTitle }}</h3>
+            <h4>{{ copy }}</h4>
+            <p>{{ copy2 }}</p>
+            <form @submit="handleSearch">
+              <div class="control">
+                <input
+                  ref="searchInput"
+                  class="input input--round"
+                  type="search"
+                  name="store"
+                  placeholder="Find your local store"
+                />
+                <button class="input__icon" type="submit">
+                  <svg>
+                    <use xlink:href="~/assets/images/sprites.svg#search"></use>
+                  </svg>
+                </button>
+              </div>
+              <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+            </form>
+          </div>
+          </div>
         </div>
-      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
 .map__image #map {
-  height: 640px;
+  min-height: 640px;
 }
 @media (min-width: 768px) {
   .map__image #map {
@@ -272,4 +280,5 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
   appearance: none;
 }
+
 </style>
