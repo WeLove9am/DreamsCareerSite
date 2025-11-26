@@ -249,83 +249,72 @@ onMounted(() => {
 })
 
 // --- SEO & Sharing Meta Tags ---
-// Define a safe, reactive path to the final image URL
-const finalImage = computed(() => {
-    const homeImage = data.value?.content?.sharingImage?.[0]?.url || null
-    const globalImage = data.value?.global?.sharingImage?.[0]?.url || null
-    return homeImage || globalImage || null;
-});
+const homeImage = data.value?.content?.sharingImage?.[0]?.url || null
+const globalImage = data.value?.global?.sharingImage?.[0]?.url || null
 
-//SSR FIX: Wrap the entire head configuration in a function (getter)
-useHead(() => {
-  // Ensure data.value is available before trying to access nested properties
-  const pageContent = data.value?.content;
-  const globalContent = data.value?.global;
-  
-  // Return the computed meta object
-  return {
-    title: pageContent?.metaTitle || globalContent?.metaTitle || 'Jobs',
-    meta: [
-      {
-        name: 'description',
-        content: pageContent?.metaDescription || globalContent?.metaDescription || '',
-      },
-      {
-        property: 'og:title',
-        content: pageContent?.sharingTitle || globalContent?.sharingTitle || '',
-      },
-      {
-        property: 'og:url',
-        content: pageContent?.url,
-      },
-      {
-        property: 'og:description',
-        content: pageContent?.sharingDescription || globalContent?.sharingDescription || '',
-      },
-      // Conditionally include the og:image tag
-      ...(finalImage.value
-        ? [
-            {
-              property: 'og:image',
-              content: finalImage.value,
-            },
-          ]
-        : []),
-      {
-        name: 'twitter:card',
-        content: 'summary_large_image',
-      },
-      {
-        name: 'twitter:site',
-        content: pageContent?.url,
-      },
-      {
-        name: 'twitter:title',
-        content: pageContent?.sharingTitle || globalContent?.sharingTitle || '',
-      },
-      {
-        name: 'twitter:description',
-        content: pageContent?.sharingDescription || globalContent?.sharingDescription || '',
-      },
-      // Conditionally include the twitter:image tag
-      ...(finalImage.value
-        ? [
-            {
-              name: 'twitter:image',
-              content: finalImage.value,
-            },
-          ]
-        : []),
-      {
-        name: 'robots',
-        content:
-          pageContent?.defaultRobots !== 'siteDefault'
-            ? pageContent?.defaultRobots
-            : globalContent?.defaultRobots || 'index, follow',
-      },
-    ],
-  };
-});
+const finalImage = homeImage || globalImage || null
+
+useHead({
+  title: data.value?.content?.metaTitle || data.value?.global?.metaTitle || '',
+  meta: [
+    {
+      name: 'description',
+      content: data.value?.content?.metaDescription || data.value?.global?.metaDescription ||'',
+    },
+    {
+      property: 'og:title',
+      content: data.value?.content?.sharingTitle || data.value?.global?.sharingTitle ||'',
+    },
+    {
+      property: 'og:url',
+      content: data.value?.content?.url,
+    },
+    {
+      property: 'og:description',
+      content: data.value?.content?.sharingDescription || data.value?.global?.sharingDescription ||'',
+    },
+    ...(finalImage
+      ? [
+          {
+            property: 'og:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: data.value?.content?.url,
+    },
+    {
+      name: 'twitter:title',
+      content: data.value?.content?.sharingTitle || data.value?.global?.sharingTitle ||'',
+    },
+    {
+      name: 'twitter:description',
+      content: data.value?.content?.sharingDescription || data.value?.global?.sharingDescription ||'',
+    },
+    ...(finalImage
+      ? [
+          {
+            name: 'twitter:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'robots',
+      content:
+        data.value?.content?.defaultRobots !== 'siteDefault'
+          ? data.value?.content?.defaultRobots
+          : data.value?.global?.defaultRobots,
+    },
+  ],
+})
+
 </script>
 
 

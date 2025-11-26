@@ -45,6 +45,72 @@ watch([isPreview, previewToken], () => {
   }
 })
 
+// --- SEO & Sharing Meta Tags ---
+const homeImage = data.value.bedfactory.sharingImage?.[0]?.url
+const globalImage = data.value.global.sharingImage?.[0]?.url
+
+const finalImage = homeImage || globalImage || null
+
+useHead({
+  title: data.value.bedfactory.metaTitle || data.value.global.metaTitle,
+  meta: [
+    {
+      name: 'description',
+      content: data.value.bedfactory.metaDescription || data.value.global.metaDescription,
+    },
+    {
+      property: 'og:title',
+      content: data.value.bedfactory.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      property: 'og:url',
+      content: data.value.bedfactory.url,
+    },
+    {
+      property: 'og:description',
+      content: data.value.bedfactory.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            property: 'og:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: data.value.bedfactory.url,
+    },
+    {
+      name: 'twitter:title',
+      content: data.value.bedfactory.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      name: 'twitter:description',
+      content: data.value.bedfactory.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            name: 'twitter:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'robots',
+      content:
+        data.value.bedfactory.defaultRobots !== 'siteDefault'
+          ? data.value.bedfactory.defaultRobots
+          : data.value.global.defaultRobots,
+    },
+  ],
+})
 
 </script>
 

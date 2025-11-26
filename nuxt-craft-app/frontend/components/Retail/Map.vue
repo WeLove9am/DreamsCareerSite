@@ -27,10 +27,11 @@ const GOOGLE_MAPS_API_KEY = config.public.googleMapsApiKey
 const MAPBOX_ACCESS_TOKEN = config.public.mapboxAccessToken
 
 let map = null
-let markers = []
+let markers = [] // each item: { marker, jobs[], position }
 const searchInput = ref(null)
 const errorMessage = ref('')
 
+// --- Utils ---
 function toRadians(deg) {
   return deg * Math.PI / 180
 }
@@ -47,42 +48,35 @@ function haversineDistance(coord1, coord2) {
   return R * c
 }
 
+// -----------------------------------------------------------------------------
+// INIT MAP
+// -----------------------------------------------------------------------------
 async function initMap() {
   try {
     // Load Google Maps script
     if (!window.google || !window.google.maps) {
       await new Promise((resolve, reject) => {
-        const existingScript = document.getElementById('google-maps-script')
-        if (existingScript) existingScript.remove()
-
-        const script = document.createElement('script')
-        script.id = 'google-maps-script'
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=weekly`
-        script.async = true
-        script.defer = true
-        script.onload = resolve
-        script.onerror = reject
-        document.head.appendChild(script)
+        const s = document.createElement('script')
+        s.id = 'google-maps-script'
+        s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=weekly`
+        s.async = true
+        s.defer = true
+        s.onload = resolve
+        s.onerror = reject
+        document.head.appendChild(s)
       })
     }
 
     const { Map, InfoWindow } = await google.maps.importLibrary('maps')
     const { Marker } = await google.maps.importLibrary('marker')
 
-    if (!jobs.length) {
-      console.warn('No job data available for map markers.')
-      return
-    }
+    // Responsive zoom
+    const zoomLevel = window.innerWidth < 768 ? 5.5 : 6.5
 
     map = new Map(document.getElementById('map'), {
       center: { lat: 54.406847, lng: 1.480041 },
-      zoom: 6.5,
+      zoom: zoomLevel,
       mapId: 'UK_JOBS_MAP',
-      // mapTypeControl: true,
-      // mapTypeControlOptions: {
-      //   style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-      //   position: google.maps.ControlPosition.TOP_CENTER,
-      // },
       fullscreenControl: false,
       mapTypeControl: false,
       streetViewControl: false,
@@ -93,113 +87,119 @@ async function initMap() {
       clickableIcons: false,
     })
 
-    // Add markers
+    // -------------------------------------------------------------------------
+    // GROUP JOBS BY COORDINATES
+    // -------------------------------------------------------------------------
+    const grouped = {}
+
     jobs.forEach(job => {
-      if (!job.postcodesCat || !job.postcodesCat.length) return
-      const { latitude, longitude } = job.postcodesCat[0] || {}
+      if (!job.postcodesCat?.length) return
+      const { latitude, longitude } = job.postcodesCat[0]
       if (!latitude || !longitude) return
 
-      const lat = parseFloat(latitude)
-      const lng = parseFloat(longitude)
-      if (isNaN(lat) || isNaN(lng)) return
+      const key = `${latitude},${longitude}`
+      grouped[key] ||= []
+      grouped[key].push(job)
+    })
 
+    // -------------------------------------------------------------------------
+    // CREATE ONE MARKER PER LOCATION
+    // -------------------------------------------------------------------------
+    Object.entries(grouped).forEach(([key, jobList]) => {
+      const [lat, lng] = key.split(',').map(Number)
       const position = { lat, lng }
-      // const marker = new Marker({
-      //   position,
-      //   map,
-      //   title: job.title,
-      //   icon: {
-      //     path: google.maps.SymbolPath.CIRCLE,
-      //     scale: 10,                 // outer circle size
-      //     fillColor: "#251163",      // outer circle
-      //     fillOpacity: 1,
-      //     strokeWeight: 3,           
-      //     strokeColor: "#dba5ba",    // inner “dot” border color
-      //   },
-      // })
+
       const marker = new Marker({
         position,
         map,
-        title: job.title
+        title: jobList[0].locationName || jobList[0].title
       })
 
+      // Build infoWindow with multiple jobs
+      let html = `<div style="font-size:14px; line-height:1.4">`
 
-      const infoWindow = new InfoWindow({
-      content: `
-        <div style="font-size:14px; line-height:1.4">
-          <strong>${job.title}</strong><br>
-          ${job.locationName || ''}<br>
-          ${job.postCode || ''}<br>
-          <a href="/${job.uri}/${job.jobId}" target="_blank" style="color:#251163; text-decoration:underline;">
-            View Job →
-          </a>
-        </div>
-      `
-    })
+      jobList.forEach(job => {
+        html += `
+          <div style="margin-bottom:10px;">
+            <strong>${job.title}</strong><br>
+            ${job.locationName || ''}<br>
+            ${job.postCode || ''}<br>
+            <a href="/${job.uri}/${job.jobId}" 
+               target="_blank"
+               style="color:#251163; text-decoration:underline;">
+              View Job →
+            </a>
+          </div>
+          <hr/>
+        `
+      })
 
+      html += `</div>`
+
+      const infoWindow = new InfoWindow({ content: html })
 
       marker.addListener('click', () => infoWindow.open({ anchor: marker, map }))
-      markers.push({ marker, job, position })
+
+      markers.push({ marker, jobs: jobList, position })
     })
 
-    const newCenter = {
-      lat: 54.622978, 
-      lng: -2.592773
-    }
-    map.setCenter(newCenter)
+    // Reset map center
+    map.setCenter({ lat: 54.622978, lng: -2.592773 })
 
-  } catch (error) {
-    console.error('Google Maps failed to load:', error)
+  } catch (err) {
+    console.error('Google Maps failed:', err)
   }
 }
 
-// Search and Filter Jobs by Location
+// -----------------------------------------------------------------------------
+// SEARCH
+// -----------------------------------------------------------------------------
 async function handleSearch(e) {
   e.preventDefault()
-  errorMessage.value = '' // reset previous message
+  errorMessage.value = ''
+
   const query = searchInput.value.value.trim()
-  if(query.length < 3) {
+  if (query.length < 3) {
     errorMessage.value = 'Please enter at least 3 characters.'
     return
   }
 
   try {
-    const res = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${MAPBOX_ACCESS_TOKEN}&country=GB&limit=1`)
+    const res = await fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${MAPBOX_ACCESS_TOKEN}&country=GB&limit=1`
+    )
+
     const data = await res.json()
-    if (!data.features || !data.features.length) {
+    if (!data.features?.length) {
       errorMessage.value = 'No locations found for that search.'
       return
     }
 
     const [lng, lat] = data.features[0].center
-    const searchLocation = { lat, lng }
+    const searchLoc = { lat, lng }
 
-    // Filter jobs within 50 miles
+    // Find markers within 50 miles
     const nearby = markers.filter(m => {
-      const dist = haversineDistance(searchLocation, m.position)
+      const dist = haversineDistance(searchLoc, m.position)
       return dist <= 50
     })
 
     if (!nearby.length) {
-      //alert('No jobs found within 50 miles of that location.')
       errorMessage.value = 'No jobs found within 50 miles of that location.'
       return
     }
 
-    // Hide all markers first
+    // Hide all markers
     markers.forEach(m => m.marker.setMap(null))
 
-    // Show only nearby markers
+    // Show matched markers only
     nearby.forEach(m => m.marker.setMap(map))
 
-    // Center map around search location
-    map.setCenter(searchLocation)
+    map.setCenter(searchLoc)
     map.setZoom(8)
 
-
   } catch (err) {
-    console.error('Error fetching geocode:', err)
-    //alert('Error searching location.')
+    console.error(err)
     errorMessage.value = 'Error searching location.'
   }
 }

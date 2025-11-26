@@ -22,7 +22,7 @@ const config = useRuntimeConfig()
 const GOOGLE_MAPS_API_KEY = config.public.googleMapsApiKey
 
 // Fixed location (from your iframe)
-const FIXED_POS = { lat: 51.6054387, lng: -0.6943416 }
+const FIXED_POS = { lat: 52.497128, lng: -2.018146 }
 //51.605439,-0.694342
 
 async function initMap() {
@@ -51,7 +51,7 @@ async function initMap() {
     // map options: no controls and non-interactive
     const map = new Map(document.getElementById('map'), {
       center: FIXED_POS,
-      zoom: 19,
+      zoom: 18,
       mapId: undefined,            // or your map style id
       disableDefaultUI: true,      // hide default controls
       clickableIcons: false,

@@ -117,6 +117,75 @@ const randomJobs = computed(() => {
     .slice(0, 10) // take first 10
 })
 
+
+// --- SEO & Sharing Meta Tags ---
+const homeImage = data.value.retail.sharingImage?.[0]?.url
+const globalImage = data.value.global.sharingImage?.[0]?.url
+
+const finalImage = homeImage || globalImage || null
+
+useHead({
+  title: data.value.retail.metaTitle || data.value.global.metaTitle,
+  meta: [
+    {
+      name: 'description',
+      content: data.value.retail.metaDescription || data.value.global.metaDescription,
+    },
+    {
+      property: 'og:title',
+      content: data.value.retail.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      property: 'og:url',
+      content: data.value.retail.url,
+    },
+    {
+      property: 'og:description',
+      content: data.value.retail.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            property: 'og:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: data.value.retail.url,
+    },
+    {
+      name: 'twitter:title',
+      content: data.value.retail.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      name: 'twitter:description',
+      content: data.value.retail.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            name: 'twitter:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'robots',
+      content:
+        data.value.retail.defaultRobots !== 'siteDefault'
+          ? data.value.retail.defaultRobots
+          : data.value.global.defaultRobots,
+    },
+  ],
+})
+
+
 // --- CONSOLE LOGS START HERE ---
 // console.log('--- Full Data Payload ---', JSON.stringify(data.value, null, 2));
 // console.log('FAQs Entry Data:', JSON.stringify(data.value?.retail, null, 2));

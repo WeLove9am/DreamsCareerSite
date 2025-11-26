@@ -1,5 +1,5 @@
 <script setup>
-import { useRoute } from '#app'
+import { useRoute, useRequestURL } from '#app'
 import { useGraphQL } from '@/composables/useGraphQL'
 import { usePreview } from '@/composables/usePreview'
 import { JOB_POSTS_QUERY } from '@/queries/jobPosts.mjs'
@@ -9,6 +9,8 @@ import { useHead } from '#imports'
 
 const route = useRoute()
 const graphql = useGraphQL()
+const url = useRequestURL()
+const fullUrl = url.href        // full URL
 const { isPreview, previewToken, previewTimestamp } = usePreview()
 const hero = computed(() => currentPost.value?.image && currentPost.value?.image.length > 0)
 
@@ -58,11 +60,72 @@ watch([isPreview, previewToken], () => {
 const currentPost = computed(() => data.value?.jobListEntries?.[0] || null)
 const content = computed(() => data.value?.entry || null)
 const hasPost = computed(() => !!currentPost.value)
+const global = computed(() => data.value?.globalEntries?.[0] || null)
 
-// Set the page title
-useHead(() => ({
-  title: currentPost.value?.title || ''
-}))
+// --- SEO & Sharing Meta Tags ---
+const jobTitle = currentPost.value?.title || ''
+const locationName = currentPost.value?.location || ''
+const postCode = currentPost.value?.postCode || ''
+const globalImage = global.value?.sharingImage?.[0]?.url || ''
+// Build “Location, Postcode” safely
+const fullLocation = locationName
+  ? postCode
+    ? `${locationName}, ${postCode}`
+    : locationName
+  : postCode
+    ? postCode
+    : ''
+
+useHead({
+  title: `Dreams Careers${jobTitle ? ' | ' + jobTitle : ''}${fullLocation ? ' Job in ' + fullLocation : ''}`,
+  meta: [
+    {
+      name: 'description',
+      content: `Apply for the ${jobTitle ? jobTitle : ''} role at Dreams in ${fullLocation ? ' Job in ' + fullLocation : ''}. Explore responsibilities, benefits and growth opportunities. Start your application today.`,
+    },
+    {
+      property: 'og:title',
+      content: `Dreams Careers${jobTitle ? ' | ' + jobTitle : ''}${fullLocation ? ' Job in ' + fullLocation : ''}`,
+    },
+    {
+      property: 'og:url',
+      content: fullUrl,
+    },
+    {
+      property: 'og:description',
+      content: `Apply for the ${jobTitle ? jobTitle : ''} role at Dreams in ${fullLocation ? ' Job in ' + fullLocation : ''}. Explore responsibilities, benefits and growth opportunities. Start your application today.`,
+    },
+    {
+      property: 'og:image',
+      content: globalImage || '',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: fullUrl,
+    },
+    {
+      name: 'twitter:title',
+      content: `Dreams Careers${jobTitle ? ' | ' + jobTitle : ''}${fullLocation ? ' Job in ' + fullLocation : ''}`,
+    },
+    {
+      name: 'twitter:description',
+      content: `Apply for the ${jobTitle ? jobTitle : ''} role at Dreams in ${fullLocation ? ' Job in ' + fullLocation : ''}. Explore responsibilities, benefits and growth opportunities. Start your application today.`,
+    },
+    {
+      name: 'twitter:image',
+      content: globalImage || '',
+    },
+    {
+      name: 'robots',
+      content: global.value?.defaultRobots || '',
+    },
+  ]
+  })
+
 
 // Fetch store address based on job post postcode
 const storeAddress = ref(null)
@@ -84,7 +147,7 @@ try {
 
 function nl2br(text) {
   if (!text) return ''
-  return text.replace(/\n/g, '<br/><br/>')
+  return text.replace(/\n/g, '<br/>')
 }
 
 definePageMeta({
@@ -148,38 +211,5 @@ const globalsData = inject('globalsData')
       :jobDescription="currentPost.jobDescription"
       :jobLink="currentPost.jobLink"
       />
-
-
-    <!--
-    <div v-if="pending" class="container mx-auto py-12 px-2">
-      Loading...
-    </div>
-    
-    <div v-else-if="error" class="container mx-auto py-12 px-2 text-red-600">
-      {{ error.message }}
-    </div>
-    
-    <template v-else-if="hasPost">
-      <header class="container mx-auto pt-12 pb-6 px-2 text-2xl relative" :class="hero ? 'aspect-video' : ''">
-        
-    
-
-        <div class=" z-10" :class="hero ? 'text-white bg-black/80 p-4 sm:bottom-0 relative sm:ml-4 sm:max-w-screen-lg sm:absolute sm:rounded' : ''">
-          <h1 class="font-bold text-4xl sm:text-6xl lg:text-9xl">{{ currentPost.title }}</h1>
-          <div class="text-xs mt-4">
-            
-          </div>
-        </div>
-      
-      </header>
-
-      
-    </template>
-
-    <div v-else class="container mx-auto py-12 px-2">
-      Post not found
-    </div>-->
-
-    
   </div>
 </template>

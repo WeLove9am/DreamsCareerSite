@@ -37,7 +37,7 @@ export const BEDQUARTERS_QUERY = `
                 title
                 caption
             }
-      }
+       }
 
         #Bedquarters Features Fields
 
@@ -79,6 +79,16 @@ export const BEDQUARTERS_QUERY = `
         subTitle
         copy
         copy2
+        url
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
 
       }
     }
@@ -95,6 +105,15 @@ export const BEDQUARTERS_QUERY = `
         copy3
         buttonCaption2
         buttonLink
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
         quiz{
           ... on quiz_Entry {
             title

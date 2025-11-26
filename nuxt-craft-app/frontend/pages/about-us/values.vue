@@ -45,6 +45,72 @@ watch([isPreview, previewToken], () => {
   }
 })
 
+// --- SEO & Sharing Meta Tags ---
+const homeImage = data.value.values.sharingImage?.[0]?.url
+const globalImage = data.value.global.sharingImage?.[0]?.url
+
+const finalImage = homeImage || globalImage || null
+
+useHead({
+  title: data.value.values.metaTitle || data.value.global.metaTitle,
+  meta: [
+    {
+      name: 'description',
+      content: data.value.values.metaDescription || data.value.global.metaDescription,
+    },
+    {
+      property: 'og:title',
+      content: data.value.values.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      property: 'og:url',
+      content: data.value.values.url,
+    },
+    {
+      property: 'og:description',
+      content: data.value.values.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            property: 'og:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: data.value.values.url,
+    },
+    {
+      name: 'twitter:title',
+      content: data.value.values.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      name: 'twitter:description',
+      content: data.value.values.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            name: 'twitter:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'robots',
+      content:
+        data.value.values.defaultRobots !== 'siteDefault'
+          ? data.value.values.defaultRobots
+          : data.value.global.defaultRobots,
+    },
+  ],
+})
 
 </script>
 

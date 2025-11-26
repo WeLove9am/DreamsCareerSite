@@ -95,9 +95,18 @@ export const JOB_POSTS_QUERY = `
         caption2
       }    
     }
-
-
-
-
+    globalEntries(limit: 1) {
+      ... on global_Entry {
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
+      }
+    }
   }
 `;

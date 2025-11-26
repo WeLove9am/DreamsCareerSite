@@ -57,6 +57,74 @@ const randomJobs = computed(() => {
     .sort(() => Math.random() - 0.5) // shuffle
     .slice(0, 10) // take first 10
 })
+
+// --- SEO & Sharing Meta Tags ---
+const homeImage = data.value.application.sharingImage?.[0]?.url
+const globalImage = data.value.global.sharingImage?.[0]?.url
+
+const finalImage = homeImage || globalImage || null
+
+useHead({
+  title: data.value.application.metaTitle || data.value.global.metaTitle,
+  meta: [
+    {
+      name: 'description',
+      content: data.value.application.metaDescription || data.value.global.metaDescription,
+    },
+    {
+      property: 'og:title',
+      content: data.value.application.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      property: 'og:url',
+      content: data.value.application.url,
+    },
+    {
+      property: 'og:description',
+      content: data.value.application.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            property: 'og:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: data.value.application.url,
+    },
+    {
+      name: 'twitter:title',
+      content: data.value.application.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      name: 'twitter:description',
+      content: data.value.application.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            name: 'twitter:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'robots',
+      content:
+        data.value.application.defaultRobots !== 'siteDefault'
+          ? data.value.application.defaultRobots
+          : data.value.global.defaultRobots,
+    },
+  ],
+})
+
 </script>
 
 <template>

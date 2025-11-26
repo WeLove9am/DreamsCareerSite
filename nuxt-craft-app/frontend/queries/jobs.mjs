@@ -21,6 +21,16 @@ export const JOB_POSTS_QUERY = `
                 url
                 alt
             }
+            url
+            metaTitle
+            metaDescription
+            defaultRobots
+            sharingTitle
+            sharingDescription
+            sharingImage {
+              url
+              alt
+            }
       }    
     }
     jobListEntries(limit: $limit, offset: $offset) {
@@ -65,5 +75,19 @@ export const JOB_POSTS_QUERY = `
       }
     }
     entryCount(section: "jobList")
+    globalEntries(limit: 1) {
+      ... on global_Entry {
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
+      }
+    }
+
   }
 `;

@@ -75,6 +75,74 @@ const mapMarkers = computed(() => {
         })
         .filter(job => job !== null);
 });
+
+// --- SEO & Sharing Meta Tags ---
+const homeImage = data.value.distribution.sharingImage?.[0]?.url
+const globalImage = data.value.global.sharingImage?.[0]?.url
+
+const finalImage = homeImage || globalImage || null
+
+useHead({
+  title: data.value.distribution.metaTitle || data.value.global.metaTitle,
+  meta: [
+    {
+      name: 'description',
+      content: data.value.distribution.metaDescription || data.value.global.metaDescription,
+    },
+    {
+      property: 'og:title',
+      content: data.value.distribution.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      property: 'og:url',
+      content: data.value.distribution.url,
+    },
+    {
+      property: 'og:description',
+      content: data.value.distribution.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            property: 'og:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: data.value.distribution.url,
+    },
+    {
+      name: 'twitter:title',
+      content: data.value.distribution.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      name: 'twitter:description',
+      content: data.value.distribution.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            name: 'twitter:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'robots',
+      content:
+        data.value.distribution.defaultRobots !== 'siteDefault'
+          ? data.value.distribution.defaultRobots
+          : data.value.global.defaultRobots,
+    },
+  ],
+})
+
 </script>
 
 <template>

@@ -49,6 +49,73 @@ definePageMeta({
   layout: 'application'
 })
 
+// --- SEO & Sharing Meta Tags ---
+const homeImage = data.value.staff.sharingImage?.[0]?.url
+const globalImage = data.value.global.sharingImage?.[0]?.url
+
+const finalImage = homeImage || globalImage || null
+
+useHead({
+  title: data.value.staff.metaTitle || data.value.global.metaTitle,
+  meta: [
+    {
+      name: 'description',
+      content: data.value.staff.metaDescription || data.value.global.metaDescription,
+    },
+    {
+      property: 'og:title',
+      content: data.value.staff.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      property: 'og:url',
+      content: data.value.staff.url,
+    },
+    {
+      property: 'og:description',
+      content: data.value.staff.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            property: 'og:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: data.value.staff.url,
+    },
+    {
+      name: 'twitter:title',
+      content: data.value.staff.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      name: 'twitter:description',
+      content: data.value.staff.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            name: 'twitter:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'robots',
+      content:
+        data.value.staff.defaultRobots !== 'siteDefault'
+          ? data.value.staff.defaultRobots
+          : data.value.global.defaultRobots,
+    },
+  ],
+})
+
 </script>
 
 <template>

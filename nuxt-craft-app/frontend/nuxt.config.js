@@ -12,20 +12,27 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '~/assets/css/main.css?v=1.0.1026', '~/assets/css/custom.css?v=1.0.1026'
+    '~/assets/css/main.css?v=1.0.1032', '~/assets/css/custom.css?v=1.0.1032'
   ],
 
   app: {
     head: {
-      titleTemplate: '%s | ' + process.env.SITE_NAME,
+      //titleTemplate: '%s | ' + process.env.SITE_NAME,
       title: process.env.SITE_NAME,
       script: [
-        { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js?v=1.0.1026', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js?v=1.0.1026', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js?v=1.0.1026', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js?v=1.0.1026', defer: true},
-        { src: '/js/main.js?v=1.0.1026', type:'module', defer: true },  
-        { src: '/js/vendor.js?v=1.0.1026', type:'module', defer: true }
+        { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js?v=1.0.1032', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js?v=1.0.1032', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js?v=1.0.1032', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js?v=1.0.1032', defer: true},
+        { src: '/js/main.js?v=1.0.1032', type:'module', defer: true },  
+        { src: '/js/vendor.js?v=1.0.1032', type:'module', defer: true }
+      ],
+      link: [
+        { rel: "icon", type: "image/png", href: "/favicon-96x96.png", sizes: "96x96" },
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+        { rel: "shortcut icon", href: "/favicon.ico" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+        { rel: "manifest", href: "/site.webmanifest" }
       ]
     }
   },

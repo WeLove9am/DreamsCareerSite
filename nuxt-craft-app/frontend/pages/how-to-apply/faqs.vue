@@ -45,6 +45,74 @@ watch([isPreview, previewToken], () => {
   }
 })
 
+// --- SEO & Sharing Meta Tags ---
+const homeImage = data.value.faqs.sharingImage?.[0]?.url
+const globalImage = data.value.global.sharingImage?.[0]?.url
+
+const finalImage = homeImage || globalImage || null
+
+useHead({
+  title: data.value.faqs.metaTitle || data.value.global.metaTitle,
+  meta: [
+    {
+      name: 'description',
+      content: data.value.faqs.metaDescription || data.value.global.metaDescription,
+    },
+    {
+      property: 'og:title',
+      content: data.value.faqs.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      property: 'og:url',
+      content: data.value.faqs.url,
+    },
+    {
+      property: 'og:description',
+      content: data.value.faqs.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            property: 'og:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:site',
+      content: data.value.faqs.url,
+    },
+    {
+      name: 'twitter:title',
+      content: data.value.faqs.sharingTitle || data.value.global.sharingTitle,
+    },
+    {
+      name: 'twitter:description',
+      content: data.value.faqs.sharingDescription || data.value.global.sharingDescription,
+    },
+    ...(finalImage
+      ? [
+          {
+            name: 'twitter:image',
+            content: finalImage,
+          },
+        ]
+      : []),
+    {
+      name: 'robots',
+      content:
+        data.value.faqs.defaultRobots !== 'siteDefault'
+          ? data.value.faqs.defaultRobots
+          : data.value.global.defaultRobots,
+    },
+  ],
+})
+
+
 // --- CONSOLE LOGS START HERE ---
 // console.log('--- Full Data Payload ---', JSON.stringify(data.value, null, 2));
 // console.log('FAQs Entry Data:', JSON.stringify(data.value?.faqs, null, 2));

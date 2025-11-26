@@ -33,6 +33,36 @@ const { data: layoutData } = await useAsyncData(
   }
 )
 
+// Google Tag Manager Integration
+const gtmId = layoutData.value.globals?.global?.gtmId
+
+if (gtmId) {
+  useHead({
+    script: [
+      {
+        children: `
+          (function(w,d,s,l,i){
+            w[l]=w[l]||[];
+            w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+            var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+            j.async=true;
+            j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+            f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','${gtmId}');
+        `
+      }
+    ],
+    // Injecting the <noscript> tag into the <body> element
+    noscript: [
+        {
+            innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+            tagPosition: 'bodyOpen' // Ensures it is placed right after <body>
+        }
+    ],
+  })
+}
+
 // Provide to ALL components globally
 provide('globalsData', layoutData.value.globals)
 provide('footerData', layoutData.value.footer)

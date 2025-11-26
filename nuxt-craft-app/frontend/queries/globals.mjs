@@ -38,6 +38,7 @@ export const GLOBALS_QUERY = `
           }
         }
         text
+        gtmId
         metaTitle
         metaDescription
         defaultRobots

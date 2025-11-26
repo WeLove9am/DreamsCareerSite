@@ -78,6 +78,16 @@ export const RETAIL_QUERY = `
         subTitle3
         buttonCaption
         buttonCaption2
+        url
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
 
       }
     }
@@ -109,6 +119,16 @@ export const RETAIL_QUERY = `
             }
           }
         }
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
+
       }
     }
     jobListEntries(sector: 392){

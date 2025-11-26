@@ -61,7 +61,16 @@ export const VALUES_QUERY = `
                 jobTitle
             }
         }
-
+        url        
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
       }
     }
       globalEntries(limit: 1) {
@@ -77,6 +86,15 @@ export const VALUES_QUERY = `
         copy3
         buttonCaption2
         buttonLink
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
         quiz{
           ... on quiz_Entry {
             title

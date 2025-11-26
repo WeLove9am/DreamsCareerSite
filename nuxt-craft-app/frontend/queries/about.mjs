@@ -59,8 +59,16 @@ export const ABOUT_QUERY = `
             url
             alt
         }
-
-
+        url        
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
       }
     }
       globalEntries(limit: 1) {
@@ -76,6 +84,15 @@ export const ABOUT_QUERY = `
         copy3
         buttonCaption2
         buttonLink
+        metaTitle
+        metaDescription
+        defaultRobots
+        sharingTitle
+        sharingDescription
+        sharingImage {
+          url
+          alt
+        }
         quiz{
           ... on quiz_Entry {
             title
