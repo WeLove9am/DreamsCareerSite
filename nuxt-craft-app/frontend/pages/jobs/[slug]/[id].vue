@@ -61,6 +61,11 @@ const currentPost = computed(() => data.value?.jobListEntries?.[0] || null)
 const content = computed(() => data.value?.entry || null)
 const hasPost = computed(() => !!currentPost.value)
 const global = computed(() => data.value?.globalEntries?.[0] || null)
+const retail = computed(() => data.value?.retail || null)
+const bedquarters = computed(() => data.value?.bedquarters || null)
+const distribution = computed(() => data.value?.distribution || null)
+const bedfactory = computed(() => data.value?.bedfactory || null)
+
 
 // --- SEO & Sharing Meta Tags ---
 const jobTitle = currentPost.value?.title || ''
@@ -154,6 +159,45 @@ definePageMeta({
   layout: 'application'
 })
 const globalsData = inject('globalsData')
+
+
+
+// Sector-based content selection
+const selectedSectorId = computed(() => Number(currentPost.value?.sector?.[0]?.id))
+// PROMISES
+const selectedPromises = computed(() => {
+  if (selectedSectorId.value === 392) {
+    return retail.value?.promises
+  }
+  if (selectedSectorId.value === 424) {
+    return distribution.value?.promises
+  }
+  if (selectedSectorId.value === 443) {
+    return bedquarters.value?.promises
+  }
+  if (selectedSectorId.value === 485) {
+    return bedfactory.value?.promises
+  }
+  return content.value?.promises
+})
+
+// FEATURES
+const selectedFeatures = computed(() => {
+  if (selectedSectorId.value === 392) {
+    return retail.value?.features
+  }
+  if (selectedSectorId.value === 424) {
+    return distribution.value?.features
+  }
+  if (selectedSectorId.value === 443) {
+    return bedquarters.value?.features
+  }
+  if (selectedSectorId.value === 485) {
+    return bedfactory.value?.features
+  }
+  return content.value?.features
+})
+
 </script>
 
 <template>
@@ -185,7 +229,7 @@ const globalsData = inject('globalsData')
       <JobadvertPromises
         :subHeading="content.subHeading2"
         :subHeading2="content.subHeading3"
-        :promises="content.promises"
+        :promises="selectedPromises"
         />
         <JobadvertMap 
     :subTitle="content.subTitle4"
@@ -195,7 +239,7 @@ const globalsData = inject('globalsData')
     :postcode="currentPost.postCode"
     />
       <JobadvertFeatures
-      :features="content.features"
+      :features="selectedFeatures"
       :subHeading="content.subHeading4"
       :address="content.subHeading5"
       />

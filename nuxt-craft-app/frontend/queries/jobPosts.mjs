@@ -108,5 +108,136 @@ export const JOB_POSTS_QUERY = `
         }
       }
     }
+
+  
+  retail: entry(section: "retail", limit: 1) {
+    ... on retail_Entry {
+      features {
+        ... on features_Entry {
+          title
+          image {
+            url
+            alt
+          }
+          copy
+          fullName
+          jobTitle
+        }
+      }
+      promises {
+        ... on promises_Entry {
+          title
+          copy
+          subTitle
+          caption
+          copy2
+          copy3
+          copy4
+          image {
+            url
+            alt
+          }
+        }
+      }
+    }
+  }
+
+  bedquarters: entry(section: "bedquarters", limit: 1) {
+    ... on bedquarters_Entry {
+      features {
+        ... on features_Entry {
+          title
+          image {
+            url
+            alt
+          }
+          copy
+          fullName
+          jobTitle
+        }
+      }
+      promises {
+        ... on promises_Entry {
+          title
+          copy
+          subTitle
+          caption
+          copy2
+          copy3
+          copy4
+          image {
+            url
+            alt
+          }
+        }
+      }
+    }
+  }
+
+  distribution: entry(section: "distribution", limit: 1) {
+    ... on distribution_Entry {
+      features {
+        ... on features_Entry {
+          title
+          image {
+            url
+            alt
+          }
+          copy
+          fullName
+          jobTitle
+        }
+      }
+      promises {
+        ... on promises_Entry {
+          title
+          copy
+          subTitle
+          caption
+          copy2
+          copy3
+          copy4
+          image {
+            url
+            alt
+          }
+        }
+      }
+    }
+  }
+
+  bedfactory: entry(section: "bedfactory", limit: 1) {
+    ... on bedfactory_Entry {
+      features {
+        ... on features_Entry {
+          title
+          image {
+            url
+            alt
+          }
+          copy
+          fullName
+          jobTitle
+        }
+      }
+      promises {
+        ... on promises_Entry {
+          title
+          copy
+          subTitle
+          caption
+          copy2
+          copy3
+          copy4
+          image {
+            url
+            alt
+          }
+        }
+      }
+    }
+  }
+
+
   }
 `;
