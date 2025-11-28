@@ -150,10 +150,40 @@ try {
   }
 }
 
-function nl2br(text) {
+function nl2brList(text) {
   if (!text) return ''
-  return text.replace(/\n/g, '<br/>')
+
+  const lines = text.split('\n')
+  let html = ''
+  let inList = false
+
+  lines.forEach(line => {
+    const trimmed = line.trim()
+
+    // Detect list item: "- something"
+    if (/^- /.test(trimmed) || trimmed === '-') {
+      if (!inList) {
+        html += '<ul>'
+        inList = true
+      }
+      // Remove the dash and space, wrap in <li>
+      html += `<li>${trimmed.replace(/^-\s?/, '')}</li>`
+    } else {
+      // Close list if previously open
+      if (inList) {
+        html += '</ul>'
+        inList = false
+      }
+      html += trimmed + '<br/>'
+    }
+  })
+
+  // Close list if file ended during list
+  if (inList) html += '</ul>'
+
+  return html
 }
+
 
 definePageMeta({
   layout: 'application'
@@ -218,11 +248,11 @@ const selectedFeatures = computed(() => {
     <div class="container container-sm">
         <article class="card">
             <h4>{{ content.subTitle }}</h4>
-            <p v-html="nl2br(currentPost.jobDescription)"></p>
+            <div v-html="nl2brList(currentPost.jobDescription)"></div>
             <h4>{{ content.subTitle2 }}</h4>
-            <p v-html="nl2br(currentPost.person)"></p>
+            <div v-html="nl2brList(currentPost.person)"></div>
             <h4>{{ content.subTitle3 }}</h4>
-            <p v-html="nl2br(currentPost.about)"></p>
+            <div v-html="nl2brList(currentPost.about)"></div>
         </article>
     </div>
 </section>
