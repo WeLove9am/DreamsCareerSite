@@ -105,6 +105,96 @@ article.card div{
 article.card ul{
   margin:10px 0px;
 }
+#section-6,#section-6 .pin-section__title{ background-color: #251163;}
+#section-6 .pin-section__title {
+  background: linear-gradient(180deg, #251163 0%, transparent 100%, #251163 25%);
+}
+.hero--bedquarters .hero__motto.department{
+  width: 100%;
+}
+/* Wrapper */
+  .dropdown {
+    position: relative;
+    margin: 0px;
+  }
+
+  /* Hide checkbox */
+  .dropdown-toggle {
+    display: none;
+  }
+
+  /* Item 1 (always visible) */
+  .dropdown-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 40px;
+    font-size: 12px;
+    line-height: 22px;
+    text-decoration: none;
+    padding: 11px 25px 7px;
+    -webkit-backdrop-filter: blur(30px) brightness(120%);
+    backdrop-filter: blur(30px) brightness(120%);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  /* Dropdown arrow */
+  .dropdown-arrow {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  /* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 9999;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease, opacity .25s ease;
+  border-radius: 30px;
+  font-size: 12px;
+  text-decoration: none;
+  -webkit-backdrop-filter: blur(30px) brightness(120%);
+  backdrop-filter: blur(30px) brightness(120%);
+  background-color: rgba(0, 0, 0, 0.3);
+  list-style-type: none;
+  min-width: 160px;
+  margin-top: 5px;
+}
+/* Dropdown items */
+.dropdown-menu li a {
+  display: block;
+  padding: 5px 14px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+}
+.dropdown-menu li a:hover {
+}
+/* OPEN STATE */
+.dropdown-toggle:checked ~ .dropdown-menu {
+  max-height: 300px; /* Large enough for menu */
+  opacity: 1;
+  padding: 10px;
+}
+/* Rotate arrow when open */
+.dropdown-toggle:checked + .dropdown-label .dropdown-arrow {
+  transform: rotate(225deg); /* ▲ */
+}
+@media (prefers-color-scheme: dark) {
+  .form-location--search input{
+    color: #fff !important; 
+  }
+}
 @media (max-width: 425px) {
   h2.bedquarter-h2{font-size: 52px !important;}
 }
@@ -158,6 +248,14 @@ article.card ul{
   .retail_map{ margin-top: 30px;}
   article.card div{
     font-size: 14px;
+  }
+  .dreams-amris .header__login{
+    display: flex;
+    margin-left: 20px;
+    flex-shrink: 0;
+  }
+  .dreams-amris .header__links .dropdown{
+    display: none;
   }
 }
 @media (min-width: 1600px) {
