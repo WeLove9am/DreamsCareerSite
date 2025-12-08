@@ -32,6 +32,11 @@ window.addEventListener(
     if (loaderContainer) {
       gsap.registerPlugin(ScrollTrigger);
 
+      const percentDisplay = document.createElement("div");
+      percentDisplay.className = "loading-percent";
+      percentDisplay.textContent = "0%";
+      loaderContainer.appendChild(percentDisplay);
+
       const sections = gsap.utils.toArray(".pin-section");
       const imageSequenceScrollText = document.querySelector(
         ".image-sequece-wrapper__scroll"
@@ -289,11 +294,46 @@ window.addEventListener(
         });
       }
 
+      function updateLoaderPercent(loaded, total) {
+        const percent = Math.min(100, Math.round((loaded / total) * 100));
+        percentDisplay.textContent = `${percent}%`;
+        if (percent === 100) {
+          setTimeout(() => {
+            loaderContainer.classList.add("fade-out");
+            setTimeout(() => {
+              loaderContainer.style.display = "none";
+            }, 500);
+          }, 300);
+        }
+      }
+
       async function initializeSequences() {
-        const firstFramePromises = sectionData.map(({ urls }) =>
-          imageLoader.loadImage(urls[0])
+        const firstFrameUrls = sectionData.map(({ urls }) => urls[0]);
+        const totalImages = firstFrameUrls.length;
+
+        if (totalImages === 0) {
+          loaderContainer.classList.add("fade-out");
+          setTimeout(() => (loaderContainer.style.display = "none"), 500);
+          return;
+        }
+
+        let loadedCount = 0;
+        updateLoaderPercent(0, totalImages);
+
+        const loadPromises = firstFrameUrls.map((url) =>
+          imageLoader
+            .loadImage(url)
+            .then(() => {
+              loadedCount++;
+              updateLoaderPercent(loadedCount, totalImages);
+            })
+            .catch(() => {
+              loadedCount++;
+              updateLoaderPercent(loadedCount, totalImages);
+            })
         );
-        await Promise.allSettled(firstFramePromises);
+
+        await Promise.all(loadPromises);
 
         await new Promise((resolve) => requestAnimationFrame(resolve));
         await new Promise((resolve) => requestAnimationFrame(resolve));
@@ -315,11 +355,6 @@ window.addEventListener(
             drawImageCover(ctx, img, canvas.width, canvas.height);
           }
         });
-
-        loaderContainer.classList.add("fade-out");
-        setTimeout(() => {
-          loaderContainer.style.display = "none";
-        }, 500);
 
         sectionData.forEach(({ section, urls, canvas, index }) => {
           if (!canvas) return;
@@ -489,6 +524,13 @@ window.addEventListener(
             loaderContainer.style.display = "flex";
             loaderContainer.classList.remove("fade-out");
             loaderContainer.classList.add("show");
+
+            loaderContainer.innerHTML = "";
+            const newPercentDisplay = document.createElement("div");
+            newPercentDisplay.className = "loading-percent";
+            newPercentDisplay.textContent = "0%";
+            loaderContainer.appendChild(newPercentDisplay);
+            percentDisplay = newPercentDisplay;
 
             initializeSequences();
           } else {
