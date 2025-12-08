@@ -11,6 +11,24 @@ import { tabs } from "./components/tabs.js";
 import { scrollspy } from "./components/scrollspy.js";
 import { heroScroll } from "./components/heroScroll.js";
 
+let globalPercentDisplay = null;
+let globalLoaderContainer = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loaderContainer = document.querySelector(".image-sequence-loading");
+  if (loaderContainer && !globalLoaderContainer) {
+    globalLoaderContainer = loaderContainer;
+
+    const percentDisplay = document.createElement("div");
+    percentDisplay.className = "loading-percent";
+    percentDisplay.textContent = "0%";
+    loaderContainer.appendChild(percentDisplay);
+    loaderContainer.classList.add("show");
+
+    globalPercentDisplay = percentDisplay;
+  }
+});
+
 window.addEventListener(
   "load",
   () => {
@@ -27,15 +45,13 @@ window.addEventListener(
     tabs.init();
     heroScroll.init();
 
-    const loaderContainer = document.querySelector(".image-sequence-loading");
+    const loaderContainer =
+      globalLoaderContainer ||
+      document.querySelector(".image-sequence-loading");
+    const percentDisplay = globalPercentDisplay;
 
-    if (loaderContainer) {
+    if (loaderContainer && percentDisplay) {
       gsap.registerPlugin(ScrollTrigger);
-
-      const percentDisplay = document.createElement("div");
-      percentDisplay.className = "loading-percent";
-      percentDisplay.textContent = "0%";
-      loaderContainer.appendChild(percentDisplay);
 
       const sections = gsap.utils.toArray(".pin-section");
       const imageSequenceScrollText = document.querySelector(
@@ -51,8 +67,6 @@ window.addEventListener(
           : window.innerWidth <= 1024
           ? "tablet"
           : "desktop";
-
-      loaderContainer.classList.add("show");
 
       function getImagePath(basePath) {
         return basePath;
@@ -295,6 +309,7 @@ window.addEventListener(
       }
 
       function updateLoaderPercent(loaded, total) {
+        if (!percentDisplay) return;
         const percent = Math.min(100, Math.round((loaded / total) * 100));
         percentDisplay.textContent = `${percent}%`;
         if (percent === 100) {
@@ -312,8 +327,7 @@ window.addEventListener(
         const totalImages = firstFrameUrls.length;
 
         if (totalImages === 0) {
-          loaderContainer.classList.add("fade-out");
-          setTimeout(() => (loaderContainer.style.display = "none"), 500);
+          updateLoaderPercent(1, 1);
           return;
         }
 
@@ -525,12 +539,9 @@ window.addEventListener(
             loaderContainer.classList.remove("fade-out");
             loaderContainer.classList.add("show");
 
-            loaderContainer.innerHTML = "";
-            const newPercentDisplay = document.createElement("div");
-            newPercentDisplay.className = "loading-percent";
-            newPercentDisplay.textContent = "0%";
-            loaderContainer.appendChild(newPercentDisplay);
-            percentDisplay = newPercentDisplay;
+            if (percentDisplay) {
+              percentDisplay.textContent = "0%";
+            }
 
             initializeSequences();
           } else {
@@ -564,7 +575,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const baseVimeoUrl = `https://player.vimeo.com/video/${vimeoId}`;
 
   openBtn.addEventListener("click", () => {
-    openModal(vimeoId);
+    openModal();
   });
 
   function openModal() {
