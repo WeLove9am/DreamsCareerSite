@@ -3,6 +3,8 @@ import { usePreview } from '@/composables/usePreview'
 import { useGraphQL } from '@/composables/useGraphQL'
 import { HOME_QUERY } from '@/queries/home.mjs'
 import { useAsyncData } from '#app'
+import { onMounted } from 'vue'
+
 
 const { isPreview, previewToken, previewTimestamp } = usePreview()
 const graphql = useGraphQL()
@@ -120,7 +122,6 @@ useHead({
 
 const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</div>
       <div class="image-sequence-loading">
-        <div class="loader"></div>
         <img 
           class="image-sequence-loading__logo" 
           src="/images/home/logo.svg" 
@@ -169,7 +170,7 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
           <img class="visible-desktop" src="/images/home/home-header-5-desktop-v2.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-6" data-frame-count="75" data-image-path="images/home/distribution/dreamscareersite-distribution">
+      <section class="pin-section" id="section-6">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
           <h3>${data.value.home.pageSubheading}</h3>
@@ -178,6 +179,28 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
         </div>
       </section>`
 
+// onMounted(() => {
+//   const loader = document.querySelector('.image-sequence-loading')
+//   const percentEl = document.querySelector('.loader-percent')
+
+//   if (!loader || !percentEl) return
+
+//   let percent = 0
+//   const duration = 3000     // 3 seconds
+//   const steps = 100         // 0 → 100
+//   const interval = duration / steps
+
+//   const timer = setInterval(() => {
+//     percent++
+//     percentEl.textContent = percent + '%'
+
+//     if (percent >= 100) {
+//       clearInterval(timer)
+//       loader.classList.add('fade-out')
+//       setTimeout(() => loader.remove(), 300)
+//     }
+//   }, interval)
+// })
 </script>
 
 <template>
