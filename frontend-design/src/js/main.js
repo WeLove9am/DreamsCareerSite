@@ -312,29 +312,27 @@ window.addEventListener(
         if (!percentDisplay) return;
         const percent = Math.min(100, Math.round((loaded / total) * 100));
         percentDisplay.textContent = `${percent}%`;
-        if (percent === 100) {
-          setTimeout(() => {
-            loaderContainer.classList.add("fade-out");
-            setTimeout(() => {
-              loaderContainer.style.display = "none";
-            }, 500);
-          }, 300);
-        }
       }
 
       async function initializeSequences() {
-        const firstFrameUrls = sectionData.map(({ urls }) => urls[0]);
-        const totalImages = firstFrameUrls.length;
-
-        if (totalImages === 0) {
-          updateLoaderPercent(1, 1);
+        if (sectionData.length === 0) {
+          if (loaderContainer && percentDisplay) {
+            loaderContainer.classList.add("fade-out");
+            setTimeout(() => {
+              loaderContainer.style.display = "none";
+            }, 1000);
+          }
+          document.body.classList.add("page-loaded");
           return;
         }
 
+        const firstSection = sectionData[0];
+        const totalImages = firstSection.urls.length;
         let loadedCount = 0;
+
         updateLoaderPercent(0, totalImages);
 
-        const loadPromises = firstFrameUrls.map((url) =>
+        const loadPromises = firstSection.urls.map((url) =>
           imageLoader
             .loadImage(url)
             .then(() => {
@@ -356,19 +354,26 @@ window.addEventListener(
           if (canvas) resizeCanvas(canvas);
         });
 
-        if (sectionData[0]) {
-          await imageLoader.loadSection(0, sectionData[0].urls);
-        }
+        await imageLoader.loadSection(0, sectionData[0].urls);
 
-        sectionData.forEach(({ canvas, basePath }) => {
-          if (!canvas) return;
-          const firstUrl = getFileNameWithSuffix(basePath, 0);
-          const img = imageLoader.getImage(firstUrl);
-          if (img?.complete) {
-            const ctx = canvas.getContext("2d", { alpha: false });
-            drawImageCover(ctx, img, canvas.width, canvas.height);
+        const firstFramePromises = sectionData.map(
+          async ({ basePath, canvas, index }) => {
+            if (!canvas) return;
+            const firstUrl = getFileNameWithSuffix(basePath, 0);
+            try {
+              await imageLoader.loadImage(firstUrl);
+              const img = imageLoader.getImage(firstUrl);
+              if (img) {
+                const ctx = canvas.getContext("2d", { alpha: false });
+                drawImageCover(ctx, img, canvas.width, canvas.height);
+              }
+            } catch (e) {
+              console.warn("Failed to load first frame for section", index);
+            }
           }
-        });
+        );
+
+        await Promise.all(firstFramePromises);
 
         sectionData.forEach(({ section, urls, canvas, index }) => {
           if (!canvas) return;
@@ -449,6 +454,15 @@ window.addEventListener(
         if (sections.length > 1) {
           imageSequenceScrollText?.classList.remove("hidden");
         }
+
+        if (loaderContainer && percentDisplay) {
+          loaderContainer.classList.add("fade-out");
+          setTimeout(() => {
+            loaderContainer.style.display = "none";
+          }, 1000);
+        }
+
+        document.body.classList.add("page-loaded");
       }
 
       initializeSequences();
@@ -535,12 +549,14 @@ window.addEventListener(
 
             sectionData = buildSectionData();
 
-            loaderContainer.style.display = "flex";
-            loaderContainer.classList.remove("fade-out");
-            loaderContainer.classList.add("show");
+            if (loaderContainer) {
+              loaderContainer.style.display = "flex";
+              loaderContainer.classList.remove("fade-out");
+              loaderContainer.classList.add("show");
 
-            if (percentDisplay) {
-              percentDisplay.textContent = "0%";
+              if (percentDisplay) {
+                percentDisplay.textContent = "0%";
+              }
             }
 
             initializeSequences();
@@ -554,9 +570,9 @@ window.addEventListener(
           }
         }, 250);
       });
+    } else {
+      document.body.classList.add("page-loaded");
     }
-
-    document.querySelector("body")?.classList.add("page-loaded");
   },
   false
 );
@@ -575,7 +591,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const baseVimeoUrl = `https://player.vimeo.com/video/${vimeoId}`;
 
   openBtn.addEventListener("click", () => {
-    openModal();
+    openModal(vimeoId);
   });
 
   function openModal() {
