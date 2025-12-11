@@ -35,6 +35,8 @@ const { data: layoutData } = await useAsyncData(
 
 // Google Tag Manager Integration
 const gtmId = layoutData.value.globals?.global?.gtmId
+// CookieYes ID
+const cookieYesId = layoutData.value.globals?.global?.cookieYesId
 
 if (gtmId) {
   useHead({
@@ -60,6 +62,18 @@ if (gtmId) {
             tagPosition: 'bodyOpen' // Ensures it is placed right after <body>
         }
     ],
+  })
+}
+if (cookieYesId) {
+  useHead({
+    script: [
+    {
+      src: `https://cdn-cookieyes.com/client_data/${cookieYesId}/script.js`,
+      defer: true,
+      id: "cookieyes",
+      type: "text/javascript",
+    },
+  ],
   })
 }
 

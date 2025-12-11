@@ -214,9 +214,10 @@ const submitEnquiry = async () => {
                                         :key="cardIndex + item.items.length" 
                                         class="card"
                                     >
-                                        <h3 :id="cardIndex === 1 ? 'contact' : ''">{{ card.title }}</h3>
+                                        <h3>{{ card.title }}</h3>
                                         <h4>{{ card.subTitle }}</h4>
                                         <p>{{ card.copy }}</p>
+
                                         <form method="post" @submit.prevent="submitEnquiry" class="tab-slide__form" v-if="card.showEnquiryForm">
                                             <p v-if="success" class="form-success">
                                             ✅ Thank you! Your enquiry has been submitted successfully.

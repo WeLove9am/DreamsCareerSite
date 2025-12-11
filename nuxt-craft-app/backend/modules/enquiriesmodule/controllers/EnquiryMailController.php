@@ -54,7 +54,7 @@ class EnquiryMailController extends Controller
   <style>
     body { font-family: Arial, sans-serif; background:#f7f7f7; margin:0; padding:60px 20px; }
     .container { background:#fff; max-width:600px; margin:0 auto; padding:40px; border-radius:12px; box-shadow:0 3px 10px rgba(0,0,0,.1); text-align:center; }
-    h2 { color:#2e7d32; font-size:1.8em; margin-bottom:10px; }
+    h2 { color:#251163; font-size:1.8em; margin-bottom:10px; }
     p  { font-size:1.1em; color:#333; }
     footer { margin-top:30px; font-size:.85em; color:#888; }
   </style>

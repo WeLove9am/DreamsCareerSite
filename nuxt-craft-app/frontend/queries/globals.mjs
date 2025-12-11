@@ -39,6 +39,7 @@ export const GLOBALS_QUERY = `
         }
         text
         gtmId
+        cookieYesId
         metaTitle
         metaDescription
         defaultRobots

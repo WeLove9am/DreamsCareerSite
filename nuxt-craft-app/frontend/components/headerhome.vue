@@ -98,7 +98,13 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
 						</nav>
 					</div>
 					<div class="header__links"> 
-						<a
+						<!--<a
+						v-if="isJobDetailPage"
+						class="header__link job_link"
+						:href="`/recruitment/applyForm.php?requirementId=${jobId}`"
+					>
+						Apply now
+					</a>--><a
 						v-if="isJobDetailPage"
 						class="header__link job_link"
 						:href="`https://dreams-careers.com/applyForm.php?requirementId=${jobId}`"

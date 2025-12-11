@@ -113,7 +113,8 @@ useHead({
 })
 
 definePageMeta({
-  layout: 'amris'
+  layout: 'amris',
+  ssr: false
 })
 
 </script>
@@ -124,7 +125,7 @@ definePageMeta({
       :heroImage="data.amris.heroImage"
       />
     <section> 
-					<div class="container container-md">
+					<div class="amris container container-md">
 						<div class="card">
 [AMRIS content]
             </div>

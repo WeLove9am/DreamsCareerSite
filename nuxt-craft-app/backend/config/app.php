@@ -29,7 +29,10 @@ return [
         'geocode' => \modules\geocode\GeocodeModule::class,
         //'jobhighlights' => \modules\jobhighlights\JobHighlightsModule::class,
         'enquiriesmodule' => \modules\enquiriesmodule\EnquiriesModule::class,
+        'enquiry-module' => [
+            'class' => \modules\enquiry\EnquiryModule::class,
+        ],
     ],
     //'bootstrap' => ['authorinfo','geocode','jobhighlights','enquiriesmodule'],
-    'bootstrap' => ['authorinfo','geocode','enquiriesmodule'],
+    'bootstrap' => ['authorinfo','geocode','enquiriesmodule','enquiry-module'],
 ];

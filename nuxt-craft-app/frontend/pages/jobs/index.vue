@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed, nextTick } from 'vue'
+import { ref, watch, computed, nextTick, onMounted } from 'vue'
 import { useRoute } from '#app'
 import { useHead } from '#imports'
 import { usePaginatedData } from '@/composables/usePaginatedData'
@@ -246,6 +246,15 @@ onMounted(() => {
     selectedSectors.value = [initialQuerySector.value]
     applyFilters()
   }
+  const toggle = document.querySelector('.filters-toggle')
+  const content = document.querySelector('.filters-content')
+
+  if (!toggle || !content) return
+
+  toggle.addEventListener('click', () => {
+    const isOpen = content.classList.toggle('open')
+    toggle.classList.toggle('open', isOpen)
+  })
 })
 
 // --- SEO & Sharing Meta Tags ---
@@ -346,73 +355,82 @@ useHead(() => {
       <div class="container">
         <div class="job-form">
           <h3>{{ filteredJobs.length }} jobs found</h3>
-          <form @submit.prevent>
-            <!-- Job Sector -->
-            <div class="job-form__item">
-              <h3>Job Sector</h3>
-              <div class="job-form__inputs">
-                <template v-for="sector in allSectors" :key="sector">
-                  <label class="checkbox button">
-                    <input
-                      class="checkbox-input"
-                      type="checkbox"
-                      :value="sector"
-                      v-model="selectedSectors"
-                    />
-                    <span class="checkbox-box__label">{{ sector }}</span>
-                  </label>
-                </template>
+          <div class="filters-container">
+            <button class="filters-toggle">
+              Filter
+              <span class="filters-arrow"></span>
+            </button>
+
+            <div class="filters-content">
+                <form @submit.prevent>
+                  <!-- Job Sector -->
+                  <div class="job-form__item">
+                    <h3>Job Sector</h3>
+                    <div class="job-form__inputs">
+                      <template v-for="sector in allSectors" :key="sector">
+                        <label class="checkbox button">
+                          <input
+                            class="checkbox-input"
+                            type="checkbox"
+                            :value="sector"
+                            v-model="selectedSectors"
+                          />
+                          <span class="checkbox-box__label">{{ sector }}</span>
+                        </label>
+                      </template>
+                    </div>
+                  </div>
+
+                  <!-- Contract Type -->
+                  <div class="job-form__item">
+                    <h3>Contract Type</h3>
+                    <div class="job-form__inputs">
+                      <template v-for="type in allContractTypes" :key="type">
+                        <label class="checkbox button">
+                          <input
+                            class="checkbox-input"
+                            type="checkbox"
+                            :value="type"
+                            v-model="selectedContracts"
+                          />
+                          <span class="checkbox-box__label">{{ type }}</span>
+                        </label>
+                      </template>
+                    </div>
+                  </div>
+
+                  <!-- Distance -->
+                  <div class="job-form__item">
+                    <h3>Distance (miles)</h3>
+                    <div class="job-form__inputs">
+                      <template v-for="m in [10, 20, 30, 40, 50]" :key="m">
+                        <label class="checkbox button">
+                          <input
+                            class="checkbox-input"
+                            type="checkbox"
+                            :value="String(m)"
+                            :checked="distance === String(m)"
+                            @change="distance = distance === String(m) ? '' : String(m)"
+                          />
+                          <span class="checkbox-box__label">{{ m }}</span>
+                        </label>
+                      </template>
+                    </div>
+                  </div>
+
+                  <!-- Reset -->
+                  <div class="job-form__item">
+                    <button
+                      class="button button--primary text-uppercase"
+                      type="button"
+                      @click="resetFilters"
+                    >
+                      Reset Filter
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
-
-            <!-- Contract Type -->
-            <div class="job-form__item">
-              <h3>Contract Type</h3>
-              <div class="job-form__inputs">
-                <template v-for="type in allContractTypes" :key="type">
-                  <label class="checkbox button">
-                    <input
-                      class="checkbox-input"
-                      type="checkbox"
-                      :value="type"
-                      v-model="selectedContracts"
-                    />
-                    <span class="checkbox-box__label">{{ type }}</span>
-                  </label>
-                </template>
-              </div>
-            </div>
-
-            <!-- Distance -->
-            <div class="job-form__item">
-              <h3>Distance (miles)</h3>
-              <div class="job-form__inputs">
-                <template v-for="m in [10, 20, 30, 40, 50]" :key="m">
-                  <label class="checkbox button">
-                    <input
-                      class="checkbox-input"
-                      type="checkbox"
-                      :value="String(m)"
-                      :checked="distance === String(m)"
-                      @change="distance = distance === String(m) ? '' : String(m)"
-                    />
-                    <span class="checkbox-box__label">{{ m }}</span>
-                  </label>
-                </template>
-              </div>
-            </div>
-
-            <!-- Reset -->
-            <div class="job-form__item">
-              <button
-                class="button button--primary text-uppercase"
-                type="button"
-                @click="resetFilters"
-              >
-                Reset
-              </button>
-            </div>
-          </form>
         </div>
 
         <!-- Job List -->
@@ -470,6 +488,15 @@ useHead(() => {
                   >
                     Apply
                   </button>
+                  <!--
+                  <button
+                    v-if="entry.jobLink"
+                    class="button text-uppercase"
+                    @click="openApply(`/recruitment/applyForm.php?requirementId=${entry.jobId}`, '_blank')"
+                  >
+                    Apply
+                  </button>
+                  -->
 
                 </div>
               </div>
