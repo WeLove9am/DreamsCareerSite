@@ -391,7 +391,7 @@ h1.title{
   }
   .amris.container.container-md .card{
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 35px;
   }
   h1.title{
   font-size: 31px;

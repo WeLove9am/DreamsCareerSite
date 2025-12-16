@@ -1,9 +1,7 @@
 
 <script setup>
-import { ref } from 'vue'
-import { useGraphQL } from '~/composables/useGraphQL'
+import { ref, onMounted } from 'vue'
 import { useFlashes } from '~/composables/useFlashes'
-import { CREATE_ENQUIRY_MUTATION } from '~/queries/enquiries.mjs'
 
 const props = defineProps({
     subTitle: {
@@ -29,8 +27,78 @@ const props = defineProps({
     
 })
 
-const graphql = useGraphQL()
 const { addFlash } = useFlashes()
+const runtimeConfig = useRuntimeConfig()
+
+const loadRecaptchaScript = () => {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  const siteKey = runtimeConfig.public?.recaptchaSiteKey
+
+  if (!siteKey) {
+    console.warn('reCAPTCHA site key missing; tab-slide forms will skip verification.')
+    return
+  }
+
+  const scriptId = 'google-recaptcha-script'
+
+  if (document.getElementById(scriptId)) {
+    return
+  }
+
+  const script = document.createElement('script')
+  script.id = scriptId
+  script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`
+  script.async = true
+  script.defer = true
+  document.head.appendChild(script)
+}
+
+const ensureRecaptchaReady = () => {
+  if (typeof window === 'undefined') {
+    return Promise.reject(new Error('reCAPTCHA can only run in the browser.'))
+  }
+
+  loadRecaptchaScript()
+
+  return new Promise((resolve, reject) => {
+    let attempts = 0
+    const maxAttempts = 40
+
+    const checkForRecaptcha = () => {
+      attempts += 1
+      if (window.grecaptcha) {
+        window.grecaptcha.ready(() => resolve(window.grecaptcha))
+        return
+      }
+
+      if (attempts >= maxAttempts) {
+        reject(new Error('Unable to load reCAPTCHA. Please try again.'))
+        return
+      }
+
+      setTimeout(checkForRecaptcha, 200)
+    }
+
+    checkForRecaptcha()
+  })
+}
+
+onMounted(() => {
+  loadRecaptchaScript()
+})
+const getRecaptchaToken = async () => {
+  const siteKey = runtimeConfig.public?.recaptchaSiteKey
+
+  if (!siteKey) {
+    throw new Error('reCAPTCHA is not configured.')
+  }
+
+  const grecaptcha = await ensureRecaptchaReady()
+  return grecaptcha.execute(siteKey, { action: 'tab_slide_form_submit' })
+}
 
 // Form fields
 const firstName = ref('')
@@ -71,21 +139,23 @@ const submitEnquiry = async () => {
   try {
     const title = `Enquiry from ${firstName.value} ${lastName.value}`
 
-    const result = await graphql.query(
-      CREATE_ENQUIRY_MUTATION,
-      {
+    const token = await getRecaptchaToken()
+
+    const response = await $fetch('/api/enquiry', {
+      method: 'POST',
+      body: {
+        token,
         title,
         firstName: firstName.value,
         lastName: lastName.value,
         emailAddress: emailAddress.value,
         question: question.value,
         authorId: props.authorId.toString()
-      },
-      { private: true }
-    )
+      }
+    })
 
-    if (!result?.save_enquiries_enquiry_Entry?.id) {
-      throw new Error('No data returned from GraphQL mutation.')
+    if (!response?.success) {
+      throw new Error('No confirmation received from the server.')
     }
 
     addFlash('✅ Thank you! Your enquiry has been submitted.', 'success')

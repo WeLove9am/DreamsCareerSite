@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '~/assets/css/main.css?v=1.0.10684', '~/assets/css/custom.css?v=1.0.10684'
+    '~/assets/css/main.css?v=1.0.10686', '~/assets/css/custom.css?v=1.0.10686'
   ],
 
   app: {
@@ -22,12 +22,12 @@ export default defineNuxtConfig({
       //titleTemplate: '%s | ' + process.env.SITE_NAME,
       title: process.env.SITE_NAME,
       script: [
-        { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js?v=1.0.10684', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js?v=1.0.10684', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js?v=1.0.10684', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js?v=1.0.10684', defer: true},
-        { src: '/js/main.js?v=1.0.10684', type:'module', defer: true },  
-        { src: '/js/vendor.js?v=1.0.10684', type:'module', defer: true }
+        { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js?v=1.0.10686', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js?v=1.0.10686', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js?v=1.0.10686', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js?v=1.0.10686', defer: true},
+        { src: '/js/main.js?v=1.0.10686', type:'module', defer: true },  
+        { src: '/js/vendor.js?v=1.0.10686', type:'module', defer: true }
       ],
       link: [
         { rel: "icon", type: "image/png", href: "/favicon-96x96.png", sizes: "96x96" },
@@ -54,11 +54,11 @@ export default defineNuxtConfig({
     port: 3000
   },
 
-  preset: 'node-server',
+  //preset: 'node-server',
   //preset: 'node',
-  routeRules: {
-  '/recruitment/**': { ssr: false, cache: false }
-  },
+  // routeRules: {
+  // '/recruitment/**': { ssr: false, cache: false }
+  // },
 
   runtimeConfig: {
     recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY,
@@ -90,17 +90,17 @@ export default defineNuxtConfig({
       ]
     }
   },
-  routeRules: {
-    '/recruitment/**': { ssr: false, cache: false, static: true }
-  },
-  nitro: {
-    devServer: {
-      watch: ['./server']
-    },
-    routeRules: {
-      '/recruitment/**': { proxy: 'https://stagingdreams.amris-wizard-proxy.com/**', ssr: false, cache: false }
-    }
-  },
+  // routeRules: {
+  //   '/recruitment/**': { ssr: false, cache: false, static: true }
+  // },
+  // nitro: {
+  //   devServer: {
+  //     watch: ['./server']
+  //   },
+  //   routeRules: {
+  //     '/recruitment/**': { proxy: 'https://stagingdreams.amris-wizard-proxy.com/**', ssr: false, cache: false }
+  //   }
+  // },
 
   experimental: {
     payloadExtraction: false

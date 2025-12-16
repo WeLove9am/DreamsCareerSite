@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import { useRoute } from '#app'
 const route = useRoute()
 
@@ -43,6 +44,7 @@ function isParentActive(item) {
 
 const { public: { SITE_NAME } } = useRuntimeConfig()
 const siteName = computed(() => SITE_NAME || 'Site Name')
+
 </script>
 
 <template>
@@ -53,41 +55,14 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
 						<nav class="menu">
 							<ul class="menu__list">
 								<li v-for="(item, index) in headernav" :key="item.id" class="menu__item">
-									<button class="menu__link" :class="{ activeLink: isParentActive(item) }" :data-collapse-target="`menu${index + 1}`" data-collapse-group="menu">{{ item.title }}</button>
-									<ul class="menu__content" v-if="item.children?.length"> 
-										<li :data-collapse-content="`menu${index + 1}`">
-											<div class="swiper slider-menu slider-menu1">
-												<div class="swiper-wrapper">
-													<div class="swiper-slide" v-for="child in item.children" :key="child.id">
-                            <a class="menu__content-link" 
-                            :href="child.pageLink.startsWith('/') ? child.pageLink : `/${child.pageLink}`"
-                            >
-                              <NuxtImg
-                                v-if="child.image?.[0]?.url" 
-                                :src="child.image[0].url" 
-                                :alt="child.image[0].alt || child.title"
-                                loading="lazy"
-                              />
-                              <h3>{{ child.title }}</h3>
-                            </a>
-                          </div>
-												</div>
-												<div class="swiper-pagination"></div>
-												<div class="swiper-navigation">
-													<button class="swiper-button-prev">
-														<svg>
-															<use xlink:href="~/assets/images/sprites.svg#chevron-left"></use>
-														</svg>
-													</button>
-													<button class="swiper-button-next">
-														<svg>
-															<use xlink:href="~/assets/images/sprites.svg#chevron-right"></use>
-														</svg>
-													</button>
-												</div>
-											</div>
-										</li>
-									</ul>
+									<a
+                    class="menu__link"
+                    :class="{ activeLink: isParentActive(item) }"
+                    :data-collapse-target="`menu${index + 1}`"
+                    data-collapse-group="menu"
+                    :href="item.pageLink.startsWith('/') ? item.pageLink : `/${item.pageLink}`"
+                  >{{ item.title }}
+                </a>
 								</li>
 							</ul>
 						</nav>

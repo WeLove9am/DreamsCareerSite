@@ -4,13 +4,14 @@ import { useGraphQL } from '@/composables/useGraphQL'
 import { usePreview } from '@/composables/usePreview'
 import { JOB_POSTS_QUERY } from '@/queries/jobPosts.mjs'
 import { STORES_QUERY } from '@/queries/stores.mjs'
-import { watch, computed } from 'vue'
+import { watch, computed, ref } from 'vue'
 import { useHead } from '#imports'
 
 const route = useRoute()
 const graphql = useGraphQL()
 const url = useRequestURL()
 const fullUrl = url.href        // full URL
+const siteOrigin = url.origin
 const { isPreview, previewToken, previewTimestamp } = usePreview()
 const hero = computed(() => currentPost.value?.image && currentPost.value?.image.length > 0)
 
@@ -129,12 +130,122 @@ useHead({
       content: global.value?.defaultRobots || '',
     },
   ]
-  })
+})
 
 
 // Fetch store address based on job post postcode
 const storeAddress = ref(null)
 const storeName = ref(null)
+
+const sanitizeText = (text) => {
+  if (!text) return ''
+  return text
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+const toISODate = (value) => {
+  if (!value) return undefined
+  const date = new Date(value)
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString()
+}
+
+const extractSalaryValue = (value) => {
+  if (!value) return null
+  const digits = value.replace(/[^0-9.]/g, '')
+  if (!digits) return null
+  const numeric = Number(digits)
+  return Number.isFinite(numeric) ? numeric : null
+}
+
+const jobPostingSchema = computed(() => {
+  const post = currentPost.value
+  if (!post) {
+    return null
+  }
+
+  const descriptionSource = [
+    post.jobDescription,
+    post.person
+      ? `The Person: ${post.person}`
+      : null,
+    content.value?.subTitle,
+    'Join the Dreams team and build your career helping the nation sleep better.'
+  ].filter(Boolean).join(' ')
+
+  const description = sanitizeText(descriptionSource)
+
+  const employmentType = post.contractType?.[0]?.title || post.contractHours?.[0]?.title
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    title: post.title,
+    description,
+    datePosted: toISODate(post.postDate),
+    employmentType,
+    url: fullUrl,
+    directApply: Boolean(post.jobLink),
+    industry: post.sector?.[0]?.title,
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: 'Dreams',
+      sameAs: siteOrigin
+    },
+    jobLocation: {
+      '@type': 'Place',
+      name: storeName.value || post.location || 'Dreams',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: storeAddress.value || post.location || undefined,
+        addressLocality: post.location || undefined,
+        postalCode: post.postCode || undefined,
+        addressCountry: 'GB'
+      }
+    }
+  }
+
+  if (post.jobId) {
+    schema.identifier = {
+      '@type': 'PropertyValue',
+      name: 'Dreams Careers',
+      value: post.jobId
+    }
+  }
+
+  if (post.salary) {
+    const salaryAmount = extractSalaryValue(post.salary)
+    if (salaryAmount) {
+      schema.baseSalary = {
+        '@type': 'MonetaryAmount',
+        currency: 'GBP',
+        value: {
+          '@type': 'QuantitativeValue',
+          value: salaryAmount
+        }
+      }
+    }
+  }
+
+  return schema
+})
+
+useHead(() => {
+  if (!jobPostingSchema.value) {
+    return {}
+  }
+
+  return {
+    script: [
+      {
+        key: 'job-posting-schema',
+        type: 'application/ld+json',
+        children: JSON.stringify(jobPostingSchema.value)
+      }
+    ]
+  }
+})
 
 
 if (currentPost.value?.postCode) {
