@@ -19,9 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (loaderContainer && !globalLoaderContainer) {
     globalLoaderContainer = loaderContainer;
 
+    const loaderElement = document.createElement("div");
+    loaderElement.className = "loader";
+    loaderContainer.appendChild(loaderElement);
+
     const percentDisplay = document.createElement("div");
     percentDisplay.className = "loading-percent";
-    percentDisplay.textContent = "0%";
+    percentDisplay.textContent = "0";
     loaderContainer.appendChild(percentDisplay);
     loaderContainer.classList.add("show");
 
@@ -55,7 +59,7 @@ window.addEventListener(
 
       const sections = gsap.utils.toArray(".pin-section");
       const imageSequenceScrollText = document.querySelector(
-        ".image-sequece-wrapper__scroll"
+        ".image-sequece-wrapper__scroll",
       );
 
       let lastScrollTop = window.scrollY;
@@ -65,8 +69,8 @@ window.addEventListener(
         window.innerWidth <= 767
           ? "mobile"
           : window.innerWidth <= 1024
-          ? "tablet"
-          : "desktop";
+            ? "tablet"
+            : "desktop";
 
       function getImagePath(basePath) {
         return basePath;
@@ -311,7 +315,7 @@ window.addEventListener(
       function updateLoaderPercent(loaded, total) {
         if (!percentDisplay) return;
         const percent = Math.min(100, Math.round((loaded / total) * 100));
-        percentDisplay.textContent = `${percent}%`;
+        percentDisplay.textContent = `${percent}`;
       }
 
       async function initializeSequences() {
@@ -342,7 +346,7 @@ window.addEventListener(
             .catch(() => {
               loadedCount++;
               updateLoaderPercent(loadedCount, totalImages);
-            })
+            }),
         );
 
         await Promise.all(loadPromises);
@@ -370,7 +374,7 @@ window.addEventListener(
             } catch (e) {
               console.warn("Failed to load first frame for section", index);
             }
-          }
+          },
         );
 
         await Promise.all(firstFramePromises);
@@ -513,7 +517,7 @@ window.addEventListener(
 
                   requestAnimationFrame(() => {
                     currentSection.classList.remove(
-                      "pin-section-in-transition"
+                      "pin-section-in-transition",
                     );
                     isSnapping = false;
 
@@ -537,8 +541,8 @@ window.addEventListener(
             window.innerWidth <= 767
               ? "mobile"
               : window.innerWidth <= 1024
-              ? "tablet"
-              : "desktop";
+                ? "tablet"
+                : "desktop";
 
           if (newBreakpoint !== currentBreakpoint) {
             currentBreakpoint = newBreakpoint;
@@ -555,7 +559,7 @@ window.addEventListener(
               loaderContainer.classList.add("show");
 
               if (percentDisplay) {
-                percentDisplay.textContent = "0%";
+                percentDisplay.textContent = "0";
               }
             }
 
@@ -574,7 +578,7 @@ window.addEventListener(
       document.body.classList.add("page-loaded");
     }
   },
-  false
+  false,
 );
 
 document.addEventListener("DOMContentLoaded", () => {
