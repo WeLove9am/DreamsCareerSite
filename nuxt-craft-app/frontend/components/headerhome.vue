@@ -124,7 +124,9 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
                             <use xlink:href="~/assets/images/sprites.svg#search"></use>
                         </svg>
                     </a>
-					</div><a class="header__login" href="https://dreams-careers.com/login/" target="_blank">Login</a>
+					</div>
+					<a class="header__login" href="https://dreams-careers.com/login/" target="_blank">Login</a>
+					<a class="header__login" href="#reciteme-launch">Accessibility</a>
 					<div class="header__menu-toggle">
 						<button class="menu-toggle js-toggle-menu" type="button">
 							<div class="menu-icon">
