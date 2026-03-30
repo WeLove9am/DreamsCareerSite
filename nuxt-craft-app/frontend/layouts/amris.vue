@@ -15,7 +15,7 @@ const footer2Data = inject('footer2Data')
     <main class="main">
       <slot />
     </main>
-    <Footer 
+    <Footeramris 
     :globalData="globalsData?.global"
     :footerData="footerData"
     :footer2Data="footer2Data"
