@@ -1,16 +1,26 @@
-#image-sequence {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
+// Removed: #image-sequence fixed rule — video is now position: absolute
+// inside each .pin-section, injected by JS with inline styles.
+// No selector needed here for it; override below only if you need
+// to deviate from the JS-applied defaults.
+
+// Optional: if you ever need to override the JS-injected video styles
+.pin-section>.scroll-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  // z-index is intentionally left at auto (below .pin-section__title)
 }
 
 .pin-section {
   min-height: 100vh;
   position: relative;
   z-index: 2;
+  // overflow: hidden is now important — without it the absolutely-positioned
+  // video can bleed outside the section during GSAP pinning transitions
+  overflow: hidden;
 }
 
 .pin-spacer:first-of-type>.pin-section {
@@ -54,6 +64,11 @@
 #section-6 {
   height: 800px;
   background-color: #000;
+
+  // Hide the injected video on the last section — it's a solid bg anyway
+  >.scroll-video {
+    display: none;
+  }
 }
 
 #section-6 .pin-section__title {

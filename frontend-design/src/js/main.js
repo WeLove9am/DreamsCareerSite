@@ -54,10 +54,11 @@ window.addEventListener(
       document.querySelector(".image-sequence-loading");
     const percentDisplay = globalPercentDisplay;
 
-    if (loaderContainer && percentDisplay) {
-      gsap.registerPlugin(ScrollTrigger);
+    const sections = gsap.utils.toArray(".pin-section");
 
-      const sections = gsap.utils.toArray(".pin-section");
+    if (sections.length > 0) {
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
       const imageSequenceScrollText = document.querySelector(
         ".image-sequece-wrapper__scroll",
       );
@@ -65,377 +66,96 @@ window.addEventListener(
       let lastScrollTop = window.scrollY;
       let isSnapping = false;
       let isLastSectionGlobal = false;
-      let currentBreakpoint =
-        window.innerWidth <= 767
-          ? "mobile"
-          : window.innerWidth <= 1024
-            ? "tablet"
-            : "desktop";
+      let progressAbortController = null;
 
-      function getImagePath(basePath) {
-        return basePath;
+      function getVideoSrc(section) {
+        return section.dataset.videoDesktop || "";
       }
-
-      function getFileNameWithSuffix(baseName, index) {
-        const paddedIndex = (index + 1).toString().padStart(3, "0");
-        let suffix = "";
-        if (window.innerWidth <= 767) {
-          suffix = "-mobile";
-        } else if (window.innerWidth <= 1024) {
-          suffix = "-tablet";
-        }
-        return `${baseName}${suffix}-${paddedIndex}.webp`;
-      }
-
-      class ProgressiveImageLoader {
-        constructor() {
-          this.imageCache = new Map();
-          this.loadingQueue = [];
-          this.concurrentLoads = 8;
-          this.activeLoads = 0;
-          this.sectionsLoading = new Set();
-          this.sectionsLoaded = new Set();
-        }
-
-        loadImage(url) {
-          if (this.imageCache.has(url)) {
-            return Promise.resolve(this.imageCache.get(url));
-          }
-
-          return new Promise((resolve, reject) => {
-            const img = new Image();
-
-            img.onload = () => {
-              this.imageCache.set(url, img);
-              this.activeLoads--;
-              this.processQueue();
-              resolve(img);
-            };
-
-            img.onerror = () => {
-              this.activeLoads--;
-              this.processQueue();
-              reject(new Error(`Failed to load ${url}`));
-            };
-
-            if (this.activeLoads < this.concurrentLoads) {
-              this.activeLoads++;
-              img.src = url;
-            } else {
-              this.loadingQueue.push({ img, url, resolve, reject });
-            }
-          });
-        }
-
-        processQueue() {
-          while (
-            this.loadingQueue.length > 0 &&
-            this.activeLoads < this.concurrentLoads
-          ) {
-            const { img, url, resolve, reject } = this.loadingQueue.shift();
-            this.activeLoads++;
-            img.onload = () => {
-              this.imageCache.set(url, img);
-              this.activeLoads--;
-              this.processQueue();
-              resolve(img);
-            };
-            img.onerror = () => {
-              this.activeLoads--;
-              this.processQueue();
-              reject(new Error(`Failed to load ${url}`));
-            };
-            img.src = url;
-          }
-        }
-
-        async loadSection(sectionIndex, urls) {
-          if (
-            this.sectionsLoaded.has(sectionIndex) ||
-            this.sectionsLoading.has(sectionIndex)
-          ) {
-            return;
-          }
-
-          this.sectionsLoading.add(sectionIndex);
-
-          const chunkSize = 20;
-          for (let i = 0; i < urls.length; i += chunkSize) {
-            const chunk = urls.slice(i, i + chunkSize);
-            await Promise.allSettled(chunk.map((url) => this.loadImage(url)));
-          }
-
-          this.sectionsLoading.delete(sectionIndex);
-          this.sectionsLoaded.add(sectionIndex);
-        }
-
-        getImage(url) {
-          return this.imageCache.get(url);
-        }
-
-        isSectionLoaded(sectionIndex) {
-          return this.sectionsLoaded.has(sectionIndex);
-        }
-
-        isLoading(sectionIndex) {
-          return this.sectionsLoading.has(sectionIndex);
-        }
-
-        clearCache() {
-          this.imageCache.clear();
-          this.sectionsLoaded.clear();
-          this.sectionsLoading.clear();
-          this.loadingQueue = [];
-        }
-      }
-
-      const imageLoader = new ProgressiveImageLoader();
 
       function buildSectionData() {
         return sections.map((section, index) => {
-          const frameCount = parseInt(section.dataset.frameCount, 10);
-          const baseImagePath = section.dataset.imagePath;
-          const basePath = getImagePath(baseImagePath);
+          let video = section.querySelector(".scroll-video");
 
-          const urls = Array.from({ length: frameCount }, (_, i) => {
-            const fileName = getFileNameWithSuffix(basePath, i);
-            return fileName;
-          });
+          if (!video) {
+            video = document.createElement("video");
+            video.className = "scroll-video";
+            video.muted = true;
+            video.playsInline = true;
+            video.preload = "none";
+            video.setAttribute("playsinline", "");
 
-          return {
-            section,
-            index,
-            frameCount,
-            basePath,
-            urls,
-            canvas: section.querySelector(".image-sequence-canvas"),
-          };
+            Object.assign(video.style, {
+              position: "absolute",
+              inset: "0",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              pointerEvents: "none",
+            });
+
+            section.style.position = "relative";
+            section.insertBefore(video, section.firstChild);
+          }
+
+          return { section, index, video };
         });
       }
 
       let sectionData = buildSectionData();
 
-      function resizeCanvas(canvas) {
-        const rect = canvas.parentElement.getBoundingClientRect();
-        let displayWidth = rect.width;
-        let displayHeight = rect.height;
+      function activateVideo(data) {
+        const { video, section } = data;
+        const src = getVideoSrc(section);
+        if (!src) return;
 
-        if (displayWidth <= 0 || displayHeight <= 0) {
-          displayWidth = window.innerWidth;
-          displayHeight = window.innerHeight;
-        }
+        if (video.dataset.loadedSrc === src) return;
 
-        const dpr = Math.min(window.devicePixelRatio || 1, 1);
-
-        canvas.width = displayWidth * dpr;
-        canvas.height = displayHeight * dpr;
-        canvas.style.width = displayWidth + "px";
-        canvas.style.height = displayHeight + "px";
-
-        const ctx = canvas.getContext("2d", { alpha: false });
-        ctx.scale(dpr, dpr);
+        video.dataset.loadedSrc = src;
+        video.preload = "auto";
+        video.src = src;
       }
 
-      function drawImageCover(ctx, img, canvasW, canvasH) {
-        if (canvasW <= 0 || canvasH <= 0 || img.width <= 0 || img.height <= 0)
-          return;
+      function createScrollVideo({ data, onComplete }) {
+        const { video, section, index } = data;
+        const scrubber = { t: 0 };
+        let lastT = -1;
+        let nextActivated = false;
 
-        const imgRatio = img.width / img.height;
-        const canvasRatio = canvasW / canvasH;
+        const updateTime = () => {
+          if (scrubber.t === lastT) return;
+          lastT = scrubber.t;
 
-        let drawW, drawH, drawX, drawY;
-
-        if (imgRatio > canvasRatio) {
-          drawH = canvasH;
-          drawW = canvasH * imgRatio;
-        } else {
-          drawW = canvasW;
-          drawH = canvasW / imgRatio;
-        }
-
-        drawX = (canvasW - drawW) / 2;
-        drawY = (canvasH - drawH) / 2;
-
-        ctx.clearRect(0, 0, canvasW, canvasH);
-        ctx.drawImage(img, drawX, drawY, drawW, drawH);
-      }
-
-      function imageSequence({
-        urls,
-        canvas,
-        scrollTrigger,
-        onComplete,
-        effectiveFps = 15,
-        sectionIndex,
-      }) {
-        const ctx = canvas.getContext("2d", { alpha: false });
-        let curFrame = -1;
-        let playhead = { frame: 0 };
-        let hasTriggeredNextLoad = false;
-
-        const updateImage = () => {
-          const frame = Math.round(playhead.frame);
-          if (frame !== curFrame) {
-            const img = imageLoader.getImage(urls[frame]);
-            if (img?.complete) {
-              drawImageCover(ctx, img, canvas.width, canvas.height);
-              curFrame = frame;
-            }
+          if (video.readyState >= 1 && video.duration) {
+            video.currentTime = scrubber.t * video.duration;
           }
 
-          if (!hasTriggeredNextLoad && frame > 0) {
-            hasTriggeredNextLoad = true;
-            const nextSectionIndex = sectionIndex + 1;
-
-            if (nextSectionIndex < sectionData.length) {
-              const nextSection = sectionData[nextSectionIndex];
-
-              if (
-                !imageLoader.isSectionLoaded(nextSectionIndex) &&
-                !imageLoader.isLoading(nextSectionIndex)
-              ) {
-                imageLoader.loadSection(nextSectionIndex, nextSection.urls);
-              }
-            }
+          if (!nextActivated && scrubber.t > 0.05 && index + 1 < sectionData.length) {
+            nextActivated = true;
+            activateVideo(sectionData[index + 1]);
           }
         };
 
-        const duration = urls.length / effectiveFps;
+        const scrollDistance = index === sections.length - 1 ? "+=200%" : "+=300%";
 
-        return gsap.to(playhead, {
-          frame: urls.length - 1,
+        gsap.to(scrubber, {
+          t: 1,
           ease: "none",
-          duration: duration,
-          onUpdate: updateImage,
-          onComplete: onComplete,
-          scrollTrigger: scrollTrigger,
-        });
-      }
-
-      function updateLoaderPercent(loaded, total) {
-        if (!percentDisplay) return;
-        const percent = Math.min(100, Math.round((loaded / total) * 100));
-        percentDisplay.textContent = `${percent}`;
-      }
-
-      async function initializeSequences() {
-        if (sectionData.length === 0) {
-          if (loaderContainer && percentDisplay) {
-            loaderContainer.classList.add("fade-out");
-            setTimeout(() => {
-              loaderContainer.style.display = "none";
-            }, 1000);
-          }
-          document.body.classList.add("page-loaded");
-          return;
-        }
-
-        const firstSection = sectionData[0];
-        const totalImages = firstSection.urls.length;
-        let loadedCount = 0;
-
-        updateLoaderPercent(0, totalImages);
-
-        const loadPromises = firstSection.urls.map((url) =>
-          imageLoader
-            .loadImage(url)
-            .then(() => {
-              loadedCount++;
-              updateLoaderPercent(loadedCount, totalImages);
-            })
-            .catch(() => {
-              loadedCount++;
-              updateLoaderPercent(loadedCount, totalImages);
-            }),
-        );
-
-        await Promise.all(loadPromises);
-
-        await new Promise((resolve) => requestAnimationFrame(resolve));
-        await new Promise((resolve) => requestAnimationFrame(resolve));
-
-        sectionData.forEach(({ canvas }) => {
-          if (canvas) resizeCanvas(canvas);
-        });
-
-        await imageLoader.loadSection(0, sectionData[0].urls);
-
-        const firstFramePromises = sectionData.map(
-          async ({ basePath, canvas, index }) => {
-            if (!canvas) return;
-            const firstUrl = getFileNameWithSuffix(basePath, 0);
-            try {
-              await imageLoader.loadImage(firstUrl);
-              const img = imageLoader.getImage(firstUrl);
-              if (img) {
-                const ctx = canvas.getContext("2d", { alpha: false });
-                drawImageCover(ctx, img, canvas.width, canvas.height);
-              }
-            } catch (e) {
-              console.warn("Failed to load first frame for section", index);
-            }
-          },
-        );
-
-        await Promise.all(firstFramePromises);
-
-        sectionData.forEach(({ section, urls, canvas, index }) => {
-          if (!canvas) return;
-
-          const nextSection = sections[index + 1];
-          const isLastSection = index + 1 === sections.length - 1;
-
-          const handleComplete = () => {
-            if (nextSection) {
-              nextSection.classList.add("pin-section-in-transition");
-              gsap.to(window, {
-                duration: 1,
-                scrollTo: nextSection,
-                overwrite: "auto",
-                onStart: () => {
-                  if (!nextSection.classList.contains("last-section")) {
-                    imageSequenceScrollText?.classList.remove("hidden");
-                  } else {
-                    imageSequenceScrollText?.classList.add("hidden");
-                  }
-                },
-                onComplete: () => {
-                  nextSection.classList.remove("pin-section-in-transition");
-                  if (isLastSection) {
-                    isLastSectionGlobal = true;
-                    imageSequenceScrollText?.classList.add("hidden");
-                    setTimeout(() => {
-                      const menu = document.querySelector(".menu");
-                      const menuLinkFirst = document
-                        .querySelectorAll(".menu__item")[0]
-                        ?.querySelector(".menu__link");
-                      const menuContentFirst =
-                        menuLinkFirst?.nextElementSibling?.querySelector("li");
-
-                      menu?.classList.toggle("active");
-                      menuLinkFirst?.classList.toggle("active");
-                      menuContentFirst?.classList.toggle("active");
-                    }, 2000);
-                  } else {
-                    isLastSectionGlobal = false;
-                    if (index + 1 < sections.length - 1) {
-                      imageSequenceScrollText?.classList.remove("hidden");
-                    }
-                  }
-                },
-              });
-            }
-          };
-
-          const scrollTriggerConfig = {
+          onComplete,
+          scrollTrigger: {
             trigger: section,
             pin: true,
             start: "top top",
-            end: "bottom top",
+            end: scrollDistance,
             scrub: true,
-            snap: 0.7,
+            snap: {
+              snapTo: 1,
+              duration: 0.3,
+              ease: "power1.inOut",
+            },
             onToggle: (self) => {
               if (self.isActive) {
+                if (!data.video.dataset.loadedSrc) activateVideo(data);
+
                 if (index < sections.length - 1) {
                   imageSequenceScrollText?.classList.remove("hidden");
                 } else {
@@ -443,38 +163,136 @@ window.addEventListener(
                 }
               }
             },
+            onUpdate: updateTime,
+          },
+        });
+      }
+
+      function trackFirstVideoProgress(video) {
+        if (!percentDisplay) return;
+
+        if (progressAbortController) {
+          progressAbortController.abort();
+        }
+        progressAbortController = new AbortController();
+        const { signal } = progressAbortController;
+
+        const update = () => {
+          if (!video.duration) return;
+          const bufferedEnd =
+            video.buffered.length > 0
+              ? video.buffered.end(video.buffered.length - 1)
+              : 0;
+          const pct = Math.min(
+            100,
+            Math.round((bufferedEnd / video.duration) * 100),
+          );
+          percentDisplay.textContent = `${pct}`;
+        };
+
+        video.addEventListener("progress", update, { signal });
+        video.addEventListener(
+          "canplaythrough",
+          () => {
+            if (percentDisplay) percentDisplay.textContent = "100";
+          },
+          { signal },
+        );
+      }
+
+      function hideLoader() {
+        if (!loaderContainer) return;
+        loaderContainer.classList.add("fade-out");
+        setTimeout(() => {
+          loaderContainer.style.display = "none";
+        }, 1000);
+      }
+
+      async function initializeSequences() {
+        if (sectionData.length === 0) {
+          hideLoader();
+          document.body.classList.add("page-loaded");
+          return;
+        }
+
+        activateVideo(sectionData[0]);
+        trackFirstVideoProgress(sectionData[0].video);
+
+        await new Promise((resolve) => {
+          const v = sectionData[0].video;
+          if (v.readyState >= 2) {
+            resolve();
+            return;
+          }
+          v.addEventListener("loadeddata", resolve, { once: true });
+          setTimeout(resolve, 5000);
+        });
+
+        sectionData.forEach((data) => {
+          const { index } = data;
+          const nextSection = sections[index + 1];
+          const isLastSection = index + 1 === sections.length - 1;
+
+          const handleComplete = () => {
+            if (!nextSection) return;
+
+            nextSection.classList.add("pin-section-in-transition");
+
+            gsap.to(window, {
+              duration: 1,
+              scrollTo: nextSection,
+              overwrite: "auto",
+              onStart: () => {
+                if (!nextSection.classList.contains("last-section")) {
+                  imageSequenceScrollText?.classList.remove("hidden");
+                } else {
+                  imageSequenceScrollText?.classList.add("hidden");
+                }
+              },
+              onComplete: () => {
+                nextSection.classList.remove("pin-section-in-transition");
+
+                if (isLastSection) {
+                  isLastSectionGlobal = true;
+                  imageSequenceScrollText?.classList.add("hidden");
+                  setTimeout(() => {
+                    const menu = document.querySelector(".menu");
+                    const menuLinkFirst = document
+                      .querySelectorAll(".menu__item")[0]
+                      ?.querySelector(".menu__link");
+                    const menuContentFirst =
+                      menuLinkFirst?.nextElementSibling?.querySelector("li");
+
+                    menu?.classList.toggle("active");
+                    menuLinkFirst?.classList.toggle("active");
+                    menuContentFirst?.classList.toggle("active");
+                  }, 2000);
+                } else {
+                  isLastSectionGlobal = false;
+                  if (index + 1 < sections.length - 1) {
+                    imageSequenceScrollText?.classList.remove("hidden");
+                  }
+                }
+              },
+            });
           };
 
-          imageSequence({
-            urls,
-            canvas,
-            scrollTrigger: scrollTriggerConfig,
-            onComplete: handleComplete,
-            effectiveFps: 15,
-            sectionIndex: index,
-          });
+          createScrollVideo({ data, onComplete: handleComplete });
         });
 
         if (sections.length > 1) {
           imageSequenceScrollText?.classList.remove("hidden");
         }
 
-        if (loaderContainer && percentDisplay) {
-          loaderContainer.classList.add("fade-out");
-          setTimeout(() => {
-            loaderContainer.style.display = "none";
-          }, 1000);
-        }
-
+        hideLoader();
         document.body.classList.add("page-loaded");
       }
 
       initializeSequences();
 
       window.addEventListener("scroll", () => {
-        if (!isSnapping) {
-          lastScrollTop = window.scrollY;
-        }
+        if (!isSnapping) lastScrollTop = window.scrollY;
+
         if (isLastSectionGlobal) {
           const menu = document.querySelector(".menu");
           const menuLinkFirst = document
@@ -499,15 +317,15 @@ window.addEventListener(
           for (let i = sections.length - 1; i >= 0; i--) {
             const section = sections[i];
             const sectionTop = section.offsetTop;
+
             if (sectionTop <= currentScroll) {
               if (i > 0) {
-                const prevSection = sections[i - 1];
-                const currentSection = sections[i];
                 const sectionHeight = section.offsetHeight;
                 const distanceFromTop = currentScroll - sectionTop;
 
                 if (distanceFromTop < sectionHeight * 0.3) {
-                  currentSection.classList.add("pin-section-in-transition");
+                  const prevSection = sections[i - 1];
+                  sections[i].classList.add("pin-section-in-transition");
                   isSnapping = true;
 
                   window.scrollTo({
@@ -516,9 +334,7 @@ window.addEventListener(
                   });
 
                   requestAnimationFrame(() => {
-                    currentSection.classList.remove(
-                      "pin-section-in-transition",
-                    );
+                    sections[i].classList.remove("pin-section-in-transition");
                     isSnapping = false;
 
                     if (i - 1 < sections.length - 1) {
@@ -537,44 +353,34 @@ window.addEventListener(
       window.addEventListener("resize", () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-          const newBreakpoint =
-            window.innerWidth <= 767
-              ? "mobile"
-              : window.innerWidth <= 1024
-                ? "tablet"
-                : "desktop";
+          ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
 
-          if (newBreakpoint !== currentBreakpoint) {
-            currentBreakpoint = newBreakpoint;
+          sectionData = buildSectionData();
 
-            ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
-
-            imageLoader.clearCache();
-
-            sectionData = buildSectionData();
-
-            if (loaderContainer) {
-              loaderContainer.style.display = "flex";
-              loaderContainer.classList.remove("fade-out");
-              loaderContainer.classList.add("show");
-
-              if (percentDisplay) {
-                percentDisplay.textContent = "0";
-              }
+          sectionData.forEach(({ video, section }) => {
+            const newSrc = getVideoSrc(section);
+            if (video.dataset.loadedSrc !== newSrc) {
+              delete video.dataset.loadedSrc;
+              video.removeAttribute("src");
+              video.preload = "none";
             }
+          });
 
-            initializeSequences();
-          } else {
-            sections.forEach((section) => {
-              const canvas = section.querySelector(".image-sequence-canvas");
-              if (canvas) {
-                resizeCanvas(canvas);
-              }
-            });
+          if (loaderContainer) {
+            loaderContainer.style.display = "flex";
+            loaderContainer.classList.remove("fade-out");
+            loaderContainer.classList.add("show");
+            if (percentDisplay) percentDisplay.textContent = "0";
           }
+
+          initializeSequences();
         }, 250);
       });
     } else {
+      if (loaderContainer) {
+        loaderContainer.classList.add("fade-out");
+        setTimeout(() => (loaderContainer.style.display = "none"), 1000);
+      }
       document.body.classList.add("page-loaded");
     }
   },
@@ -588,15 +394,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalVideoContainer = document.querySelector(".modal-video-container");
 
   const vimeoId = openBtn?.dataset.vimeoId;
-  if (!vimeoId) {
-    return;
-  }
+  if (!vimeoId) return;
 
   const baseVimeoUrl = `https://player.vimeo.com/video/${vimeoId}`;
 
-  openBtn.addEventListener("click", () => {
-    openModal(vimeoId);
-  });
+  openBtn.addEventListener("click", () => openModal());
 
   function openModal() {
     modalVideoContainer.classList.add("loading");
@@ -606,10 +408,9 @@ document.addEventListener("DOMContentLoaded", () => {
     iframe.setAttribute("frameborder", "0");
     iframe.setAttribute("allow", "autoplay; fullscreen");
     iframe.setAttribute("allowfullscreen", "");
-
-    iframe.addEventListener("load", () => {
-      modalVideoContainer.classList.remove("loading");
-    });
+    iframe.addEventListener("load", () =>
+      modalVideoContainer.classList.remove("loading"),
+    );
 
     modalVideoContainer.innerHTML = '<div class="loader"></div>';
     modalVideoContainer.appendChild(iframe);
@@ -630,9 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener("click", closeModal);
-  }
+  closeModalBtn?.addEventListener("click", closeModal);
 
   modal?.addEventListener("click", (e) => {
     const rect = modal.getBoundingClientRect();
@@ -641,8 +440,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.clientY <= rect.top + rect.height &&
       rect.left <= e.clientX &&
       e.clientX <= rect.left + rect.width;
-    if (!isInDialog) {
-      closeModal();
-    }
+    if (!isInDialog) closeModal();
   });
 });
