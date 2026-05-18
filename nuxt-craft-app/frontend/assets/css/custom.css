@@ -81,7 +81,7 @@ p.copy_text{ max-width: 600px; line-height: 25px;}
 .header__logo{z-index: 100;}
 .margin-bottom-section{ margin-bottom: 25px;}
 .pin-section__title {
-  background: linear-gradient(180deg, #0A0415 0%, transparent 20%, #0A0415 100%);
+  background: linear-gradient(180deg, #0A0415 0%, transparent 8%, #0A0415 100%);
 }
 .retail-map__card{
   position: relative;
