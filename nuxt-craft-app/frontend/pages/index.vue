@@ -130,7 +130,7 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
           height="67"
         />
       </div>
-      <section class="pin-section" id="section-1" data-frame-count="75" data-image-path="images/home/general/dreamscareersite-general">
+      <section class="pin-section" id="section-1" data-video-desktop="video/general-desktop.mp4">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
           <h3>${data.value.home.pageSubheading2}</h3>
@@ -142,28 +142,28 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
           <img class="visible-desktop" src="/images/home/home-header-1-desktop-v2.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-2" data-frame-count="75" data-image-path="images/home/bedquarters/dreamscareersite-bedquarters">
+      <section class="pin-section" id="section-2" data-video-desktop="video/bedquarters-desktop.mp4">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
           <img class="hidden-desktop" src="/images/home/home-header-2.svg" alt="from our big thinkers."/>
           <img class="visible-desktop" src="/images/home/home-header-2-desktop.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-3" data-frame-count="75" data-image-path="images/home/bedfactory/dreamscareersite-bedfactory">
+      <section class="pin-section" id="section-3" data-video-desktop="video/bedfactory-desktop.mp4">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
           <img class="hidden-desktop" src="/images/home/home-header-3.svg" alt="from our big thinkers."/>
           <img class="visible-desktop" src="/images/home/home-header-3-desktop.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-4" data-frame-count="87" data-image-path="images/home/retail/dreamscareersite-retail">
+      <section class="pin-section" id="section-4" data-video-desktop="video/retail-desktop.mp4">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
           <img class="hidden-desktop" src="/images/home/home-header-4-v1.svg" alt="from our big thinkers."/>
           <img class="visible-desktop" src="/images/home/home-header-4-desktop-v1.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-5" data-frame-count="75" data-image-path="images/home/distribution/dreamscareersite-distribution">
+      <section class="pin-section" id="section-5" data-video-desktop="video/distribution-desktop.mp4">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
           <img class="hidden-desktop" src="/images/home/home-header-5-v2.svg" alt="from our big thinkers."/>
