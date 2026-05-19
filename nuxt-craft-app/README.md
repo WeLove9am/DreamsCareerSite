@@ -54,6 +54,15 @@ This project assumes you have our recommended development environment  [DDEV](ht
     ddev fe npm run dev
     ```
 
+### Common Commands
+
+| Goal | Command |
+| --- | --- |
+| Local Development | `ddev fe npm run dev` |
+| Production Build | `ddev fe npm run build` |
+| Preview Build | `ddev fe npm run preview` |
+| Clear Build Cache | `rm -rf .nuxt` |
+
 > [!TIP]
 > The URLs that Nuxt emits as it boots up may not work—they are correct _inside_ their respective containers, but must be accessed from the outside via the pre-configured DDEV hostnames.
 
