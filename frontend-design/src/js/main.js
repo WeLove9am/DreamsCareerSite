@@ -14,24 +14,24 @@ import { heroScroll } from "./components/heroScroll.js";
 let globalPercentDisplay = null;
 let globalLoaderContainer = null;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const loaderContainer = document.querySelector(".image-sequence-loading");
-  if (loaderContainer && !globalLoaderContainer) {
-    globalLoaderContainer = loaderContainer;
+// document.addEventListener("DOMContentLoaded", () => {
+//   const loaderContainer = document.querySelector(".image-sequence-loading");
+//   if (loaderContainer && !globalLoaderContainer) {
+//     globalLoaderContainer = loaderContainer;
 
-    const loaderElement = document.createElement("div");
-    loaderElement.className = "loader";
-    loaderContainer.appendChild(loaderElement);
+//     const loaderElement = document.createElement("div");
+//     loaderElement.className = "loader";
+//     loaderContainer.appendChild(loaderElement);
 
-    const percentDisplay = document.createElement("div");
-    percentDisplay.className = "loading-percent";
-    percentDisplay.textContent = "0";
-    loaderContainer.appendChild(percentDisplay);
-    loaderContainer.classList.add("show");
+//     const percentDisplay = document.createElement("div");
+//     percentDisplay.className = "loading-percent";
+//     percentDisplay.textContent = "0";
+//     loaderContainer.appendChild(percentDisplay);
+//     loaderContainer.classList.add("show");
 
-    globalPercentDisplay = percentDisplay;
-  }
-});
+//     globalPercentDisplay = percentDisplay;
+//   }
+// });
 
 window.addEventListener(
   "load",
@@ -50,8 +50,7 @@ window.addEventListener(
     heroScroll.init();
 
     const loaderContainer =
-      globalLoaderContainer ||
-      document.querySelector(".image-sequence-loading");
+      globalLoaderContainer;
     const percentDisplay = globalPercentDisplay;
 
     const sections = gsap.utils.toArray(".pin-section");
@@ -191,13 +190,13 @@ window.addEventListener(
         };
 
         video.addEventListener("progress", update, { signal });
-        video.addEventListener(
-          "canplaythrough",
-          () => {
-            if (percentDisplay) percentDisplay.textContent = "100";
-          },
-          { signal },
-        );
+        // video.addEventListener(
+        //   "canplaythrough",
+        //   () => {
+        //     if (percentDisplay) percentDisplay.textContent = "100";
+        //   },
+        //   { signal },
+        // );
       }
 
       function hideLoader() {
@@ -401,16 +400,16 @@ document.addEventListener("DOMContentLoaded", () => {
   openBtn.addEventListener("click", () => openModal());
 
   function openModal() {
-    modalVideoContainer.classList.add("loading");
+    // modalVideoContainer.classList.add("loading");
 
     const iframe = document.createElement("iframe");
     iframe.src = `${baseVimeoUrl}?autoplay=1&loop=0&byline=0&title=0&muted=0`;
     iframe.setAttribute("frameborder", "0");
     iframe.setAttribute("allow", "autoplay; fullscreen");
     iframe.setAttribute("allowfullscreen", "");
-    iframe.addEventListener("load", () =>
-      modalVideoContainer.classList.remove("loading"),
-    );
+    // iframe.addEventListener("load", () =>
+    //   modalVideoContainer.classList.remove("loading"),
+    // );
 
     modalVideoContainer.innerHTML = '<div class="loader"></div>';
     modalVideoContainer.appendChild(iframe);
