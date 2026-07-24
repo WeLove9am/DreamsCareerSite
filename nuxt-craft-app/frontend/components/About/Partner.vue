@@ -12,6 +12,14 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    buttonCaption: {
+        type: String,
+        default: ''
+    },
+    buttonLink: {
+        type: String,
+        default: ''
+    },
     image: {
         type: Array,
         default: () => []
@@ -26,6 +34,14 @@ const props = defineProps({
     }
     
 })
+
+const nl2br = (value = '') => value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+    .replace(/\r?\n/g, '<br>')
 </script>
 <template>
 
@@ -43,7 +59,16 @@ const props = defineProps({
             <div class="partners__info" data-scrollspy="animate__fadeInUp">
                 <h3>{{ subTitle }}</h3>
                 <h4>{{ copy }}</h4>
-                <p>{{ copy2 }}</p>
+                <p v-html="nl2br(copy2)"></p>
+                <a
+                    v-if="buttonCaption && buttonLink"
+                    class="button button--primary"
+                    :href="buttonLink"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {{ buttonCaption }}
+                </a>
             </div>
             <div class="partners__bottom" data-scrollspy="animate__fadeInUp" data-delayTime="500">
                 <NuxtImg
@@ -54,9 +79,10 @@ const props = defineProps({
                 />
                 <NuxtImg
                     v-if="image3?.[0]?.url" 
+                    class="partners__image-three"
                     :src="image3[0].url" 
                     :alt="image3[0]?.alt || subTitle"
-                    loading="lazy"
+                    loading="lazy" style="max-height: 110px; width: auto;"
                 />
             </div>
         </div>

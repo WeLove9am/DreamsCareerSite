@@ -21,6 +21,15 @@ export default defineNuxtConfig({
     head: {
       //titleTemplate: '%s | ' + process.env.SITE_NAME,
       title: process.env.SITE_NAME,
+      meta: process.env.NOINDEX === 'true'
+        ? [
+            {
+              key: 'environment-noindex',
+              name: 'robots',
+              content: 'noindex, nofollow'
+            }
+          ]
+        : [],
       script: [
         { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js?v=1.0.10690', defer: true },
         { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js?v=1.0.10690', defer: true },
@@ -67,6 +76,7 @@ export default defineNuxtConfig({
       CRAFT_URL: process.env.CRAFT_URL,
       BASE_URL: process.env.BASE_URL,
       SITE_NAME: process.env.SITE_NAME,
+      noindex: process.env.NOINDEX === 'true',
       googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY,
       mapboxAccessToken: process.env.NUXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
       recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY
@@ -103,7 +113,8 @@ export default defineNuxtConfig({
   // },
 
   experimental: {
-    payloadExtraction: false
+    //payloadExtraction: false
+    appManifest: false
   },
 
   modules: ['@nuxt/image',]

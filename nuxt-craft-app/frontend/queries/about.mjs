@@ -47,6 +47,8 @@ export const ABOUT_QUERY = `
         subTitle
         copy
         copy2
+        buttonCaption
+        buttonLink
         image {
             url
             alt

@@ -335,6 +335,42 @@ h1.title{
   }
 }
 @media (min-width: 1200px) {
+  .header {
+    background: rgba(37, 17, 99, 0.3);
+    -webkit-backdrop-filter: blur(30px) brightness(70%);
+    backdrop-filter: blur(30px) brightness(70%);
+  }
+
+  .header__inner {
+    height: 96px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .header:has(.menu.active) {
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .menu__list::before {
+    content: none;
+  }
+
+  .menu__content {
+    background: rgba(18, 7, 48, 0.78);
+    -webkit-backdrop-filter: blur(30px) brightness(70%);
+    backdrop-filter: blur(30px) brightness(70%);
+  }
+  .header__link{
+    background-color:#DBA5BA;
+  }
+  .header__link a{ 
+    color:#251163;
+  }
+  .slider-menu .swiper-slide h3{
+    background-color:#251163;
+  }
    .retailcard_body p {
     font-size: 21px;
     line-height: 28px;
@@ -396,9 +432,46 @@ h1.title{
   h1.title{
   font-size: 31px;
   }
+  /* New styles for section headers and card headings */
+  .section-header h2{
+        font-size: 31px;
+        line-height: 38px;
+        margin-inline: auto;
+        margin-bottom: 50px;
+  }
+  .swiper.slider-spotlight__main .card .card__body h3,.section.map .card h3,.about h3,.about__text:nth-of-type(2) h3,.about__text:nth-of-type(3) h3,.partners__info h3,.inclusion .card h3,.wellbeing h3,.steps-slider__title,.tab-content .card h3 {
+        font-size: 31px;
+        line-height: 38px;
+        margin-bottom: 0px;
+  }
+  .about h3,.about__text:nth-of-type(2) h3,.about__text:nth-of-type(3) h3,.partners__info h3{
+    margin-bottom: 10px;
+  }
+  .section-header h3,.card-job h3{
+        font-size: 18px;
+        line-height: 20px;
+        margin-bottom: 30px;
+  }
+  .swiper.slider-spotlight__main .card .card__body h4,.section.map .card h4,.slider-features .slider-feature-slide__header h3,.slider-feature-slide__description,.inclusion .card h4,.tab-content .card h4 {
+        font-size: 18px;
+        line-height: 20px;
+        margin-bottom: 0px;
+  }
+  .slider-spotlight__thumbs .swiper-slide h4 {
+        font-size: 18px;
+        line-height: 20px;
+  }
+  /* End of new styles */
 }
 @media (min-width: 1600px) {
     .slider-values-slide__top {
         margin-inline: auto !important;
     }
+}
+
+@media (max-width: 480px) {
+  .partners__image-three {
+    box-sizing: border-box;
+    padding: 20px;
+  }
 }

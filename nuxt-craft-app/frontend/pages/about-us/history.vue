@@ -142,6 +142,8 @@ useHead({
        :subTitle="data.about.subTitle"
        :copy="data.about.copy"
        :copy2="data.about.copy2"
+       :buttonCaption="data.about.buttonCaption"
+       :buttonLink="data.about.buttonLink"
        :image="data.about.image"
        :image2="data.about.image2"
        :image3="data.about.image3"

@@ -63,6 +63,27 @@ This project assumes you have our recommended development environment  [DDEV](ht
 | Preview Build | `ddev fe npm run preview` |
 | Clear Build Cache | `rm -rf .nuxt` |
 
+## ⚠️ LIVE DEPLOYMENT: ENABLE SEARCH-ENGINE INDEXING
+
+> [!CAUTION]
+> **Before every live build, set `NOINDEX=false`.**
+>
+> If this remains `true`, search engines will be instructed not to index the live website.
+
+Before generating `frontend/.output` for the live site, set the following in `frontend/.env`:
+
+```dotenv
+NOINDEX=false
+```
+
+Then run a **new production build**. The value is read when Nuxt starts/builds, so changing `.env` after `.output` has already been generated will not update that build.
+
+Use `NOINDEX=true` for staging or other environments that must not appear in search results. With `true`, the frontend forces:
+
+```html
+<meta name="robots" content="noindex, nofollow">
+```
+
 > [!TIP]
 > The URLs that Nuxt emits as it boots up may not work—they are correct _inside_ their respective containers, but must be accessed from the outside via the pre-configured DDEV hostnames.
 

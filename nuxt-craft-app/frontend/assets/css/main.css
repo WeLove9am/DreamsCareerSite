@@ -4810,21 +4810,19 @@ input[type=search]::-webkit-search-decoration {
   line-height: 19px;
 }
 
-.pin-section > .scroll-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-  pointer-events: none;
+#image-sequence {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
 }
 
 .pin-section {
   min-height: 100vh;
   position: relative;
   z-index: 2;
-  overflow: hidden;
 }
 
 .pin-spacer:first-of-type > .pin-section {
@@ -4864,10 +4862,6 @@ input[type=search]::-webkit-search-decoration {
 #section-6 {
   height: 800px;
   background-color: #000;
-}
-
-#section-6 > .scroll-video {
-  display: none;
 }
 
 #section-6 .pin-section__title {
