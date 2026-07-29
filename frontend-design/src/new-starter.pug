@@ -1,0 +1,52 @@
+extends pug/base
+
+prepend vars
+  - title = 'New Starter'
+
+append vars
+
+block content 
+  <div class="sgn-page-wrapper">
+    <div class="container">
+      <header class="sgn-page-header">
+        <h1 class="sgn-page-title">New Starter Social Graphic Generator</h1>
+        <p class="sgn-page-subtitle">Upload your image, choose a branded graphic, and create your personalised social post</p>
+      </header>
+
+      <section class="sgn-card" id="sgn-section-upload">
+        <h2 class="sgn-section-title">1. Upload Your Image</h2>
+        <p class="sgn-section-subtitle">Upload a clear headshot or photo of yourself.</p>
+        <div class="sgn-upload-area">
+          <label class="sgn-file-input-wrapper" for="sgn-image-upload">
+            <span class="sgn-choose-file-btn">Choose file</span>
+            <span class="sgn-file-name" id="sgn-file-name">No file chosen</span>
+          </label>
+          <input type="file" id="sgn-image-upload" accept="image/*" hidden />
+        </div>
+      </section>
+
+      <section class="sgn-card" id="sgn-section-select">
+        <div class="sgn-section-header-row">
+          <h2 class="sgn-section-title">2. Select a Branded Graphic</h2>
+          <span class="sgn-graphic-count" id="sgn-graphic-count"></span>
+        </div>
+        <div class="sgn-graphics-grid" id="sgn-graphics-grid">
+          <div class="sgn-graphics-loading">Loading...</div>
+        </div>
+      </section>
+      <section class="sgn-card" id="sgn-section-preview">
+        <h2 class="sgn-section-title">3. Live Preview &amp; Download</h2>
+        <p class="sgn-section-subtitle">Your image will be automatically sized and positioned.</p>
+        <div class="sgn-preview-container">
+          <div class="sgn-preview-frame" id="sgn-preview-frame">
+            <canvas id="sgn-preview-canvas" width="590" height="590"></canvas>
+            <div class="sgn-preview-placeholder" id="sgn-preview-placeholder">
+              <p>Select a branded graphic above to see your preview</p>
+            </div>
+          </div>
+        </div>
+        <button class="sgn-download-btn" id="sgn-download-btn" disabled>Download your graphic</button>
+        <p class="sgn-privacy-note">Your image will be not be stored and deleted from our system when you close this window</p>
+      </section>
+    </div>
+  </div>
