@@ -141,7 +141,7 @@ onMounted(() => {
 
 <template>
   <section class="section map">
-    <div class="map__image wave-top wave-bottom">
+    <div class="map__image">
       <div id="map" style="width:100%; border-radius:8px; overflow:hidden;"></div>
     </div>
     <div class="map__inner">

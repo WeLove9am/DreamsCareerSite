@@ -56,6 +56,19 @@ console(props.footerData[0])
                             </a>
                         </li>
                         </template>
+                        <li class="social-links__recite-me">
+                            <a
+                                href="#reciteme-launch"
+                                aria-label="Open the Recite Me accessibility toolbar"
+                            >
+                                <img
+                                    src="/images/ReciteMe-Icon.svg"
+                                    alt=""
+                                    width="68"
+                                    height="22"
+                                />
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="footer__middle">

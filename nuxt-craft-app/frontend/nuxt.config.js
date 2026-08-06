@@ -63,6 +63,16 @@ export default defineNuxtConfig({
     port: 3000
   },
 
+  // Allow trusted cross-origin services such as Recite Me to identify the
+  // Dreams Careers origin without exposing page paths or query strings.
+  routeRules: {
+    '/**': {
+      headers: {
+        'referrer-policy': 'strict-origin-when-cross-origin'
+      }
+    }
+  },
+
   //preset: 'node-server',
   //preset: 'node',
   // routeRules: {

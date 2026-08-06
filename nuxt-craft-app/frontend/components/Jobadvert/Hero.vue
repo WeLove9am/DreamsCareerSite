@@ -35,9 +35,35 @@ const props = defineProps({
     
 })
 
-//Pick a random hero image if available
-const randomHeroImage = computed(() => {
+const normaliseImageName = (value) => String(value || '')
+  .toLowerCase()
+  .replace(/[^a-z0-9]/g, '')
+
+const getMeaningfulWords = (value) => String(value || '')
+  .toLowerCase()
+  .split(/[^a-z0-9]+/)
+  .filter((word) => word.length >= 3 && !['and', 'the', 'for'].includes(word))
+
+// Prefer an image whose title or filename matches the job sector.
+// If no sector image is found, fall back to a random available image.
+const selectedHeroImage = computed(() => {
   if (!props.heroImage?.length) return null
+
+  const rawSectorTitle = props.sector?.[0]?.title
+  const sectorTitle = normaliseImageName(rawSectorTitle)
+  const sectorWords = getMeaningfulWords(rawSectorTitle)
+  const sectorImage = sectorTitle
+    ? props.heroImage.find((image) => {
+        const fileName = image?.url?.split('/').pop()?.split('?')[0]
+        return [image?.title, fileName].some((name) =>
+          normaliseImageName(name).includes(sectorTitle) ||
+          sectorWords.some((word) => normaliseImageName(name).includes(word))
+        )
+      })
+    : null
+
+  if (sectorImage) return sectorImage
+
   const randomIndex = Math.floor(Math.random() * props.heroImage.length)
   return props.heroImage[randomIndex]
 })
@@ -58,9 +84,9 @@ const heroImageCount = computed(() => props.heroImage?.length || 0)
 <template>
     <section class="hero hero--jobs__listing wave-bottom">
         <NuxtImg
-            v-if="randomHeroImage?.url"
-            :src="randomHeroImage.url"
-            :alt="randomHeroImage.alt || title"
+            v-if="selectedHeroImage?.url"
+            :src="selectedHeroImage.url"
+            :alt="selectedHeroImage.alt || title"
             loading="lazy"
             width="1920"
             height="1080"
