@@ -68,6 +68,12 @@ window.addEventListener(
       let progressAbortController = null;
 
       function getVideoSrc(section) {
+        const width = window.innerWidth;
+        if (width < 768) {
+          return section.dataset.videoTablet || section.dataset.videoDesktop || "";
+        } else if (width < 1200) {
+          return section.dataset.videoTablet || section.dataset.videoDesktop || "";
+        }
         return section.dataset.videoDesktop || "";
       }
 
@@ -346,34 +352,6 @@ window.addEventListener(
             }
           }
         }
-      });
-
-      let resizeTimeout;
-      window.addEventListener("resize", () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          ScrollTrigger.getAll().forEach((trigger) => trigger.kill(true));
-
-          sectionData = buildSectionData();
-
-          sectionData.forEach(({ video, section }) => {
-            const newSrc = getVideoSrc(section);
-            if (video.dataset.loadedSrc !== newSrc) {
-              delete video.dataset.loadedSrc;
-              video.removeAttribute("src");
-              video.preload = "none";
-            }
-          });
-
-          if (loaderContainer) {
-            loaderContainer.style.display = "flex";
-            loaderContainer.classList.remove("fade-out");
-            loaderContainer.classList.add("show");
-            if (percentDisplay) percentDisplay.textContent = "0";
-          }
-
-          initializeSequences();
-        }, 250);
       });
     } else {
       if (loaderContainer) {
