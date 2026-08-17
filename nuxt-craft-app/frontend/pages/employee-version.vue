@@ -20,7 +20,7 @@ const { data } = await useAsyncData(
     if (!result?.entry) {
       throw createError({
         statusCode: 404,
-        message: 'Employee version social graphic generator page not found',
+        message: 'Employee social graphic generator page not found',
       })
     }
 
@@ -269,7 +269,7 @@ onBeforeUnmount(() => {
   <div class="sgn-page-wrapper">
     <div class="container">
       <header class="sgn-page-header">
-        <h1 class="sgn-page-title">Employee Version Social Graphic Generator</h1>
+        <h1 class="sgn-page-title">Employee Social Graphic Generator</h1>
         <p class="sgn-page-subtitle">
           Upload your image, choose a branded graphic, and create your personalised social post
         </p>
