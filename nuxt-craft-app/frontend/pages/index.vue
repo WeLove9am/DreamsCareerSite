@@ -121,7 +121,7 @@ useHead({
 })
 
 const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</div>
-      <div class="image-sequence-loading">
+			<div class="image-sequence-loading">
         <img 
           class="image-sequence-loading__logo" 
           src="/images/home/logo.svg" 
@@ -130,8 +130,7 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
           height="67"
         />
       </div>
-      <section class="pin-section" id="section-1" data-frame-count="75" data-image-path="images/home/general/dreamscareersite-general">
-        <canvas class="image-sequence-canvas"></canvas>
+      <section class="pin-section" id="section-1" data-video-mobile="video/general-mobile.mp4" data-video-tablet="video/general-tablet.mp4" data-video-desktop="video/general-desktop.mp4">
         <div class="pin-section__title">
           <h3>${data.value.home.pageSubheading2}</h3>
           <img 
@@ -142,36 +141,32 @@ const homeData = `<div class="image-sequece-wrapper__scroll">Scroll to explore</
           <img class="visible-desktop" src="/images/home/home-header-1-desktop-v2.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-2" data-frame-count="75" data-image-path="images/home/bedquarters/dreamscareersite-bedquarters">
-        <canvas class="image-sequence-canvas"></canvas>
+      <section class="pin-section" id="section-2" data-video-mobile="video/bedquarters-mobile.mp4" data-video-tablet="video/bedquarters-tablet.mp4" data-video-desktop="video/bedquarters-desktop.mp4">
         <div class="pin-section__title">
           <img class="hidden-desktop" src="/images/home/home-header-2.svg" alt="from our big thinkers."/>
           <img class="visible-desktop" src="/images/home/home-header-2-desktop.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-3" data-frame-count="75" data-image-path="images/home/bedfactory/dreamscareersite-bedfactory">
+      <section class="pin-section" id="section-3" data-video-mobile="video/bedfactory-mobile.mp4" data-video-tablet="video/bedfactory-tablet.mp4" data-video-desktop="video/bedfactory-desktop.mp4">
         <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
           <img class="hidden-desktop" src="/images/home/home-header-3.svg" alt="from our big thinkers."/>
           <img class="visible-desktop" src="/images/home/home-header-3-desktop.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-4" data-frame-count="87" data-image-path="images/home/retail/dreamscareersite-retail">
-        <canvas class="image-sequence-canvas"></canvas>
+      <section class="pin-section" id="section-4" data-video-mobile="video/retail-mobile.mp4" data-video-tablet="video/retail-tablet.mp4" data-video-desktop="video/retail-desktop.mp4">
         <div class="pin-section__title">
           <img class="hidden-desktop" src="/images/home/home-header-4-v1.svg" alt="from our big thinkers."/>
           <img class="visible-desktop" src="/images/home/home-header-4-desktop-v1.svg" alt="from our big thinkers."/>
         </div>
       </section>
-      <section class="pin-section" id="section-5" data-frame-count="75" data-image-path="images/home/distribution/dreamscareersite-distribution">
-        <canvas class="image-sequence-canvas"></canvas>
+      <section class="pin-section" id="section-5" data-video-mobile="video/distribution-mobile.mp4" data-video-tablet="video/distribution-tablet.mp4" data-video-desktop="video/distribution-desktop.mp4">
         <div class="pin-section__title">
           <img class="hidden-desktop" src="/images/home/home-header-5-v2.svg" alt="from our big thinkers."/>
           <img class="visible-desktop" src="/images/home/home-header-5-desktop-v2.svg" alt="from our big thinkers."/>
         </div>
       </section>
       <section class="pin-section" id="section-6">
-        <canvas class="image-sequence-canvas"></canvas>
         <div class="pin-section__title">
           <h3>${data.value.home.pageSubheading}</h3>
           <img class="hidden-desktop" src="/images/home/home-header-6-v1.svg" alt="helping the nation sleep better."/>
