@@ -217,6 +217,16 @@ const truncate = (text, len) => (text ? text.slice(0, len) + '...' : '')
 const openApply = (link, target = '_self') => {
   if (typeof window !== 'undefined' && link) window.open(link, target)
 }
+const isUnavailable = value => {
+  if (value === null || value === undefined) return true
+  const normalised = String(value).trim().toLowerCase()
+  return normalised === '' || normalised === 'n/a'
+}
+const formatLocation = entry => {
+  const parts = [entry.location, entry.postCode].filter(value => !isUnavailable(value))
+  return parts.length ? parts.join(', ') : 'N/A'
+}
+const hasSalary = entry => !isUnavailable(entry.salary)
 
 const handleHeroSearch = ({ keyword, location: loc }) => {
   console.log('Hero search:', keyword, loc)
@@ -458,17 +468,15 @@ useHead(() => {
                         <li>Contract type:</li>
                         <li>Contract hours:</li>
                         <li>Location:</li>
-                        <li>Salary:</li>
+                        <li v-if="hasSalary(entry)">Salary:</li>
                       </ul>
                     </div>
                     <div class="job-item__info">
                       <ul>
                         <li>{{ entry.contractType[0]?.title || 'N/A' }}</li>
                         <li>{{ entry.contractHours[0]?.title || 'N/A' }}</li>
-                        <li>
-                          {{ entry.location || 'N/A' }}, {{ entry.postCode || 'N/A' }}
-                        </li>
-                        <li>{{ entry.salary || 'N/A' }}</li>
+                        <li>{{ formatLocation(entry) }}</li>
+                        <li v-if="hasSalary(entry)">{{ entry.salary }}</li>
                       </ul>
                     </div>
                   </div>

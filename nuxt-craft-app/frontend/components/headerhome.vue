@@ -1,14 +1,19 @@
 <script setup>
 import { useRoute } from '#app'
+
 const route = useRoute()
 
 // Example: https://your-site.com/jobs/{slug}/{id}
 const isJobDetailPage = computed(() => {
-  return /^\/jobs\/[^/]+\/\d+$/.test(route.path)
+  return /^\/jobs\/[^/]+\/[^/]+$/.test(route.path)
 })
 
 // You get the id from route params
 const jobId = computed(() => route.params.id)
+const jobApplyUrl = useState('jobApplyUrl', () => '')
+const applyUrl = computed(() => {
+  return jobApplyUrl.value || `https://dreams-careers.com/applyForm.php?requirementId=${jobId.value}`
+})
 
 const props = defineProps({
   globalData: {
@@ -107,7 +112,8 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
 					</a>--><a
 						v-if="isJobDetailPage"
 						class="header__link job_link"
-						:href="`https://dreams-careers.com/applyForm.php?requirementId=${jobId}`"
+            data-job-apply-link
+						:href="applyUrl"
 					>
 						Apply now
 					</a>
@@ -125,7 +131,7 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
                         </svg>
                     </a>
 					</div>
-					<a class="header__login" href="https://dreams-careers.com/login/" target="_blank">Login</a>
+					<a class="header__login" href="https://dreams.ciphr-irecruit.com/Applicants/account/login" target="_blank">Login</a>
 					<a class="header__login" href="#reciteme-launch">Accessibility</a>
 					<div class="header__menu-toggle">
 						<button class="menu-toggle js-toggle-menu" type="button">

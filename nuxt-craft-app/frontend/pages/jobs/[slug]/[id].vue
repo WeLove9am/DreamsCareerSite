@@ -4,7 +4,7 @@ import { useGraphQL } from '@/composables/useGraphQL'
 import { usePreview } from '@/composables/usePreview'
 import { JOB_POSTS_QUERY } from '@/queries/jobPosts.mjs'
 import { STORES_QUERY } from '@/queries/stores.mjs'
-import { watch, computed, ref } from 'vue'
+import { watch, computed, ref, nextTick, onMounted } from 'vue'
 import { useHead } from '#imports'
 
 const route = useRoute()
@@ -14,6 +14,7 @@ const fullUrl = url.href        // full URL
 const siteOrigin = url.origin
 const { isPreview, previewToken, previewTimestamp } = usePreview()
 const hero = computed(() => currentPost.value?.image && currentPost.value?.image.length > 0)
+const jobApplyUrl = useState('jobApplyUrl', () => '')
 
 // Disable SSR for preview mode
 if (isPreview.value) {
@@ -36,10 +37,13 @@ const { data, error, refresh } = await useAsyncData(
           message: 'Post not found' 
         })
       }
+
+      jobApplyUrl.value = result.jobListEntries[0]?.jobLink || ''
       
       return result
     } catch (err) {
       console.error('Error fetching post:', err)
+      jobApplyUrl.value = ''
       throw createError({ 
         statusCode: 404,
         message: 'Post not found'
@@ -66,6 +70,33 @@ const retail = computed(() => data.value?.retail || null)
 const bedquarters = computed(() => data.value?.bedquarters || null)
 const distribution = computed(() => data.value?.distribution || null)
 const bedfactory = computed(() => data.value?.bedfactory || null)
+
+const syncHeaderApplyLink = async (url) => {
+  if (!import.meta.client || !url) return
+
+  await nextTick()
+  const headerApplyLink = document.querySelector('[data-job-apply-link]')
+  if (headerApplyLink) {
+    headerApplyLink.href = url
+  }
+}
+
+watch(
+  currentPost,
+  post => {
+    jobApplyUrl.value = post?.jobLink || ''
+    syncHeaderApplyLink(post?.jobLink || '')
+  },
+  { immediate: true }
+)
+
+onMounted(() => {
+  syncHeaderApplyLink(currentPost.value?.jobLink || '')
+})
+
+onBeforeRouteLeave(() => {
+  jobApplyUrl.value = ''
+})
 
 
 // --- SEO & Sharing Meta Tags ---
