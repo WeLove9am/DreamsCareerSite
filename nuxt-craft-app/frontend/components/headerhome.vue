@@ -14,6 +14,7 @@ const jobApplyUrl = useState('jobApplyUrl', () => '')
 const applyUrl = computed(() => {
   return jobApplyUrl.value || `https://dreams-careers.com/applyForm.php?requirementId=${jobId.value}`
 })
+const hasDarkHeader = computed(() => ['/employee', '/new-starter'].includes(route.path))
 
 const props = defineProps({
   globalData: {
@@ -56,7 +57,7 @@ const siteName = computed(() => SITE_NAME || 'Site Name')
 </script>
 
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'header--dark': hasDarkHeader }">
 				<div class="header__inner">
                 <Logo :siteName="siteName" :logo="globalData.logo" />
 					<div class="header__menu">

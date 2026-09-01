@@ -487,3 +487,16 @@ h1.title{
   width: 68px;
   height: auto;
 }
+
+.header--dark {
+  background: rgba(48, 39, 63, 0.96);
+  -webkit-backdrop-filter: blur(30px) brightness(90%);
+  backdrop-filter: blur(30px) brightness(90%);
+  box-shadow: 0 8px 24px rgba(48, 39, 63, 0.12);
+}
+
+.header--dark:has(.menu.active) {
+  background: rgba(48, 39, 63, 0.96);
+  -webkit-backdrop-filter: blur(30px) brightness(90%);
+  backdrop-filter: blur(30px) brightness(90%);
+}

@@ -72,7 +72,7 @@ const sharingImage = computed(() =>
 )
 
 useHead(() => ({
-  title: page.value.metaTitle || page.value.title || 'Employee Version',
+  title: page.value.metaTitle || page.value.title || 'Employee',
   meta: [
     {
       name: 'description',
@@ -248,7 +248,7 @@ async function downloadGraphic() {
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
-      link.download = `${uploadedFileName.value}-employee-version-social-graphic.jpg`
+      link.download = `${uploadedFileName.value}-employee-social-graphic.jpg`
       document.body.appendChild(link)
       link.click()
       link.remove()
@@ -279,7 +279,7 @@ onBeforeUnmount(() => {
         <h2 class="sgn-section-title">1. Upload Your Image</h2>
         <p class="sgn-section-subtitle">Upload a clear headshot or photo of yourself.</p>
         <div class="sgn-upload-area">
-          <label class="sgn-file-input-wrapper" for="sgn-employee-version-image-upload">
+          <label class="sgn-file-input-wrapper" for="sgn-employee-image-upload">
             <span class="sgn-choose-file-btn">Choose file</span>
             <span
               class="sgn-file-name"
@@ -288,7 +288,7 @@ onBeforeUnmount(() => {
           </label>
           <input
             ref="fileInput"
-            id="sgn-employee-version-image-upload"
+            id="sgn-employee-image-upload"
             type="file"
             accept="image/*"
             hidden
