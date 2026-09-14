@@ -46,7 +46,17 @@ const props = defineProps({
         default: ''
     }
 })
-const truncate = (text, len) => (text ? text.slice(0, len) + '...' : '')
+const stripHtmlTags = text => text ? text.replace(/<[^>]*>/g, ' ') : ''
+const truncate = (text, len) => {
+    const cleanText = stripHtmlTags(text)
+
+    return cleanText ? cleanText.slice(0, len) + '...' : ''
+}
+const hasSalary = value => {
+    if (value === null || value === undefined) return false
+
+    return String(value).trim() !== ''
+}
 </script>
 
 <template>
@@ -62,7 +72,7 @@ const truncate = (text, len) => (text ? text.slice(0, len) + '...' : '')
                   <div class="button button--gray">{{ contractType[0]?.title || 'N/A' }}</div>
                   <div class="button button--gray">{{ contractHours[0]?.title || 'N/A' }}</div>
                   <div class="button button--gray">{{ location }}</div>
-                  <div class="button button--gray">{{ salary }}</div>
+                  <div v-if="hasSalary(salary)" class="button button--gray">{{ salary }}</div>
                 </div>
                 <div class="next__actions">
                     <a 

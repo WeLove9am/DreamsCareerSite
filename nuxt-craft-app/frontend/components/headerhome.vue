@@ -8,11 +8,9 @@ const isJobDetailPage = computed(() => {
   return /^\/jobs\/[^/]+\/[^/]+$/.test(route.path)
 })
 
-// You get the id from route params
-const jobId = computed(() => route.params.id)
 const jobApplyUrl = useState('jobApplyUrl', () => '')
 const applyUrl = computed(() => {
-  return jobApplyUrl.value || `https://dreams-careers.com/applyForm.php?requirementId=${jobId.value}`
+  return jobApplyUrl.value || ''
 })
 const hasDarkHeader = computed(() => ['/employee', '/new-starter'].includes(route.path))
 

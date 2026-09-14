@@ -16,6 +16,12 @@ const { isPreview, previewToken, previewTimestamp } = usePreview()
 const hero = computed(() => currentPost.value?.image && currentPost.value?.image.length > 0)
 const jobApplyUrl = useState('jobApplyUrl', () => '')
 
+function getCiphrApplyUrl(jobLink) {
+  const vacancyId = String(jobLink || '').match(/\/vacancy\/(\d+)(?:\/|$)/i)?.[1]
+
+  return vacancyId ? `https://dreams.ciphr-irecruit.com/Applicants/vacancy/apply/${vacancyId}` : ''
+}
+
 // Disable SSR for preview mode
 if (isPreview.value) {
   definePageMeta({ ssr: false })
@@ -38,7 +44,7 @@ const { data, error, refresh } = await useAsyncData(
         })
       }
 
-      jobApplyUrl.value = result.jobListEntries[0]?.jobLink || ''
+      jobApplyUrl.value = getCiphrApplyUrl(result.jobListEntries[0]?.jobLink)
       
       return result
     } catch (err) {
@@ -70,6 +76,7 @@ const retail = computed(() => data.value?.retail || null)
 const bedquarters = computed(() => data.value?.bedquarters || null)
 const distribution = computed(() => data.value?.distribution || null)
 const bedfactory = computed(() => data.value?.bedfactory || null)
+const currentApplyUrl = computed(() => getCiphrApplyUrl(currentPost.value?.jobLink))
 
 const syncHeaderApplyLink = async (url) => {
   if (!import.meta.client || !url) return
@@ -84,14 +91,15 @@ const syncHeaderApplyLink = async (url) => {
 watch(
   currentPost,
   post => {
-    jobApplyUrl.value = post?.jobLink || ''
-    syncHeaderApplyLink(post?.jobLink || '')
+    const applyUrl = getCiphrApplyUrl(post?.jobLink)
+    jobApplyUrl.value = applyUrl
+    syncHeaderApplyLink(applyUrl)
   },
   { immediate: true }
 )
 
 onMounted(() => {
-  syncHeaderApplyLink(currentPost.value?.jobLink || '')
+  syncHeaderApplyLink(currentApplyUrl.value)
 })
 
 onBeforeRouteLeave(() => {
@@ -217,7 +225,7 @@ const jobPostingSchema = computed(() => {
     datePosted: toISODate(post.postDate),
     employmentType,
     url: fullUrl,
-    directApply: Boolean(post.jobLink),
+    directApply: Boolean(currentApplyUrl.value),
     industry: post.sector?.[0]?.title,
     hiringOrganization: {
       '@type': 'Organization',
@@ -425,7 +433,7 @@ const selectedFeatures = computed(() => {
       :postCode="currentPost.postCode"
       :salary="currentPost.salary"
       :jobDescription="currentPost.jobDescription"
-      :jobLink="currentPost.jobLink"
+      :jobLink="currentApplyUrl"
       />
   </div>
 </template>

@@ -71,6 +71,12 @@ const selectedHeroImage = computed(() => {
 //Optional: image count
 const heroImageCount = computed(() => props.heroImage?.length || 0)
 
+const hasSalary = value => {
+    if (value === null || value === undefined) return false
+
+    return String(value).trim() !== ''
+}
+
 // Print all data to console
 // console.log('=== HERO COMPONENT - ALL PROPS ===')
 // console.log('title:', props.title)
@@ -100,7 +106,7 @@ const heroImageCount = computed(() => props.heroImage?.length || 0)
                 <div class="button button--gray">{{ contractType[0]?.title || 'N/A' }}</div>
                 <div class="button button--gray">{{ contractHours[0]?.title || 'N/A' }}</div>
                 <div class="button button--gray">{{ location }}</div>
-                <div class="button button--gray">{{ salary }}</div>
+                <div v-if="hasSalary(salary)" class="button button--gray">{{ salary }}</div>
             </div>
         </div>
     </section>

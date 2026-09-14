@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '~/assets/css/main.css?v=1.0.10696', '~/assets/css/custom.css?v=1.0.10696'
+    '~/assets/css/main.css?v=1.0.10697', '~/assets/css/custom.css?v=1.0.10697'
   ],
 
   app: {
@@ -31,12 +31,12 @@ export default defineNuxtConfig({
           ]
         : [],
       script: [
-        { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js?v=1.0.10696', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js?v=1.0.10696', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js?v=1.0.10696', defer: true },
-        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js?v=1.0.10696', defer: true},
-        { src: '/js/main.js?v=1.0.10696', type:'module', defer: true },  
-        { src: '/js/vendor.js?v=1.0.10696', type:'module', defer: true }
+        { src: 'https://cdn.jsdelivr.net/gh/mdbassit/FancySelect@latest/dist/fancyselect.min.js?v=1.0.10697', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js?v=1.0.10697', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js?v=1.0.10697', defer: true },
+        { src: 'https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js?v=1.0.10697', defer: true},
+        { src: '/js/main.js?v=1.0.10697', type:'module', defer: true },  
+        { src: '/js/vendor.js?v=1.0.10697', type:'module', defer: true }
       ],
       link: [
         { rel: "icon", type: "image/png", href: "/favicon-96x96.png", sizes: "96x96" },

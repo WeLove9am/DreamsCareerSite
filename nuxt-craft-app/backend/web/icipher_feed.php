@@ -38,7 +38,7 @@ function parseDateToTimestamp(string $dateString): ?int
         return strlen($dateString) > 10 ? (int) floor(((int) $dateString) / 1000) : (int) $dateString;
     }
 
-    $timezone = new DateTimeZone('UTC');
+    $timezone = new DateTimeZone('Europe/London');
     $formats = [
         'd/m/Y',
         'd/m/y',
@@ -53,6 +53,7 @@ function parseDateToTimestamp(string $dateString): ?int
         'Y-m-d\TH:i:s.vP',
         'Y-m-d\TH:i:s.uP',
         'D, d M Y H:i:s O',
+        'D, d M Y H:i:s',
         'd M Y',
         'd M y',
     ];
@@ -97,6 +98,23 @@ function splitEmploymentType(string $employmentType): array
         $parts[0] ?? '',
         $parts[1] ?? '',
     ];
+}
+
+function extractUkPostcode(string $value): ?string
+{
+    $value = strtoupper(trim(preg_replace('/\s+/', ' ', $value)));
+
+    if ($value === '') {
+        return null;
+    }
+
+    if (!preg_match('/\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b/', $value, $matches)) {
+        return null;
+    }
+
+    $postcode = preg_replace('/\s+/', '', $matches[1]);
+
+    return substr($postcode, 0, -3) . ' ' . substr($postcode, -3);
 }
 
 // --- STEP 1: Fetch the raw content using cURL (Secure method) ---
@@ -183,23 +201,44 @@ foreach ($xpath->query('//*') as $dateNode) {
 
 // Rename each job's 1st, 2nd and 3rd textDescription fields.
 $descriptionNames = ['jobDescription', 'thePerson', 'aboutDreams'];
-$descriptionGroups = [];
-foreach ($xpath->query('//*[translate(local-name(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz") = "textdescription"]') as $textDescription) {
-    $parent = $textDescription->parentNode;
-    $parentKey = spl_object_hash($parent);
-
-    if (!isset($descriptionGroups[$parentKey])) {
-        $descriptionGroups[$parentKey] = [];
+$descriptionParents = $xpath->query('//*[translate(local-name(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz") = "textdescription"]/..');
+foreach ($descriptionParents as $descriptionParent) {
+    if (!$descriptionParent instanceof DOMElement) {
+        continue;
     }
 
-    $descriptionGroups[$parentKey][] = $textDescription;
-}
+    $textDescriptions = $xpath->query('./*[translate(local-name(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz") = "textdescription"]', $descriptionParent);
 
-foreach ($descriptionGroups as $textDescriptions) {
     foreach ($textDescriptions as $index => $textDescription) {
-        if (isset($descriptionNames[$index])) {
+        if ($textDescription instanceof DOMElement && isset($descriptionNames[$index])) {
             replaceNodeName($document, $textDescription, $descriptionNames[$index]);
         }
+    }
+}
+
+// Add postcode nodes from Distribution address text.
+foreach ($xpath->query('//*[translate(local-name(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz") = "distribution"]') as $distribution) {
+    if (!$distribution instanceof DOMElement) {
+        continue;
+    }
+
+    $postcode = extractUkPostcode($distribution->textContent);
+
+    if ($distribution->parentNode instanceof DOMNode) {
+        $postcodeNode = $document->createElement('postcode');
+        $postcodeNode->appendChild($document->createTextNode($postcode ?? ''));
+        $distribution->parentNode->insertBefore($postcodeNode, $distribution->nextSibling);
+    }
+}
+
+// Remove empty Reference nodes.
+foreach ($xpath->query('//*[translate(local-name(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz") = "reference"]') as $reference) {
+    if (!$reference instanceof DOMElement || trim($reference->textContent) !== '') {
+        continue;
+    }
+
+    if ($reference->parentNode instanceof DOMNode) {
+        $reference->parentNode->removeChild($reference);
     }
 }
 

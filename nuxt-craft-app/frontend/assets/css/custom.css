@@ -67,6 +67,9 @@ p.copy_text{ max-width: 600px; line-height: 25px;}
 }
 .job-item__buttons{margin-top: 20px; }
 .job-item__buttons .button--primary{margin-right: 10px; }
+.jobs--no-pagination {
+  padding-bottom: 40px;
+}
 .hero__motto #openVideoBtn{
   background-image: url("../../images/play-button.svg");
   background-repeat: no-repeat;

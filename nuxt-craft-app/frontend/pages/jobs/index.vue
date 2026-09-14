@@ -213,9 +213,19 @@ const allContractTypes = computed(() => {
 //const content = computed(() => data.value?.content || {})
 //useHead(() => ({ title: content.value?.title || 'Jobs' }))
 
-const truncate = (text, len) => (text ? text.slice(0, len) + '...' : '')
+const stripHtmlTags = text => text ? text.replace(/<[^>]*>/g, ' ') : ''
+const truncate = (text, len) => {
+  const cleanText = stripHtmlTags(text)
+
+  return cleanText ? cleanText.slice(0, len) + '...' : ''
+}
 const openApply = (link, target = '_self') => {
   if (typeof window !== 'undefined' && link) window.open(link, target)
+}
+const getCiphrApplyUrl = jobLink => {
+  const vacancyId = String(jobLink || '').match(/\/vacancy\/(\d+)(?:\/|$)/i)?.[1]
+
+  return vacancyId ? `https://dreams.ciphr-irecruit.com/Applicants/vacancy/apply/${vacancyId}` : ''
 }
 const isUnavailable = value => {
   if (value === null || value === undefined) return true
@@ -361,7 +371,7 @@ useHead(() => {
       :reset="heroReset"
     />
 
-    <section class="jobs">
+    <section class="jobs" :class="{ 'jobs--no-pagination': filteredTotalPages <= 1 }">
       <div class="container">
         <div class="job-form">
           <h3>{{ filteredJobs.length }} jobs found</h3>
@@ -490,9 +500,9 @@ useHead(() => {
                     Read more
                   </button>
                   <button
-                    v-if="entry.jobLink"
+                    v-if="getCiphrApplyUrl(entry.jobLink)"
                     class="button text-uppercase"
-                    @click="openApply(entry.jobLink, '_blank')"
+                    @click="openApply(getCiphrApplyUrl(entry.jobLink), '_blank')"
                   >
                     Apply
                   </button>
