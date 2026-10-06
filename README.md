@@ -24,3 +24,18 @@ User flow:
 Craft assets are loaded into the canvas through the same-origin `/api/social-graphic-image` endpoint. This avoids browser canvas/CORS failures while restricting requests to the origin configured by `CRAFT_URL`, accepting image responses only, and rejecting declared files larger than 20 MB.
 
 The page and server endpoint pass the Nuxt production build. The repository still reports unrelated pre-existing asset/CSS build warnings.
+
+### Homepage scroll video iOS fallback
+
+- Homepage route: `/`
+- Homepage markup: `nuxt-craft-app/frontend/pages/index.vue`
+- Source JS: `frontend-design/src/js/main.js`
+- Built static JS: `frontend-design/build/js/main.js`
+- Nuxt-served JS: `nuxt-craft-app/frontend/public/js/main.js`
+- Cache-busting config: `nuxt-craft-app/frontend/nuxt.config.js`
+
+The homepage scroll experience injects muted `<video>` elements into each `.pin-section` and scrubs `currentTime` with GSAP/ScrollTrigger. For iPhone/Safari versions before iOS 17, the setup now adds iOS-safe inline playback attributes (`muted`, `playsinline`, `webkit-playsinline`), primes the first video with a guarded muted play/pause, waits on metadata as well as loaded data, and catches transient seek errors while Safari prepares the media.
+
+The page markup references mobile MP4 paths, but this checkout currently only includes tablet and desktop MP4 files in `nuxt-craft-app/frontend/public/video`. The loader now falls back from mobile to tablet/desktop sources so missing mobile files do not leave a blank scroll section. After changing the source JS, run `npx gulp js` from `frontend-design`, then copy `frontend-design/build/js/main.js` to `nuxt-craft-app/frontend/public/js/main.js`.
+
+Script query strings were bumped to `1.0.10698` in `nuxt.config.js` so mobile browsers fetch the updated bundle. Verification used `npx gulp js`, `npm run build` from `nuxt-craft-app/frontend`, `node --check nuxt-craft-app/frontend/public/js/main.js`, and `git diff --check`.

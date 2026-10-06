@@ -65,16 +65,31 @@ window.addEventListener(
       let lastScrollTop = window.scrollY;
       let isSnapping = false;
       let isLastSectionGlobal = false;
-      let progressAbortController = null;
+      let removeProgressListeners = null;
 
-      function getVideoSrc(section) {
+      function getVideoSources(section) {
         const width = window.innerWidth;
+        let sources;
+
         if (width < 768) {
-          return section.dataset.videoTablet || section.dataset.videoDesktop || "";
+          sources = [
+            section.dataset.videoMobile ||
+              section.dataset.videoTablet ||
+              section.dataset.videoDesktop,
+            section.dataset.videoTablet,
+            section.dataset.videoDesktop,
+          ];
         } else if (width < 1200) {
-          return section.dataset.videoTablet || section.dataset.videoDesktop || "";
+          sources = [section.dataset.videoTablet, section.dataset.videoDesktop];
+        } else {
+          sources = [section.dataset.videoDesktop];
         }
-        return section.dataset.videoDesktop || "";
+
+        return sources.filter(Boolean).map(normaliseVideoSrc);
+      }
+
+      function normaliseVideoSrc(src) {
+        return src.startsWith("/") ? src : `/${src}`;
       }
 
       function buildSectionData() {
@@ -85,9 +100,15 @@ window.addEventListener(
             video = document.createElement("video");
             video.className = "scroll-video";
             video.muted = true;
+            video.defaultMuted = true;
             video.playsInline = true;
             video.preload = "none";
+            video.setAttribute("muted", "");
             video.setAttribute("playsinline", "");
+            video.setAttribute("webkit-playsinline", "");
+            video.setAttribute("x5-playsinline", "");
+            video.setAttribute("disablepictureinpicture", "");
+            video.disableRemotePlayback = true;
 
             Object.assign(video.style, {
               position: "absolute",
@@ -110,14 +131,43 @@ window.addEventListener(
 
       function activateVideo(data) {
         const { video, section } = data;
-        const src = getVideoSrc(section);
-        if (!src) return;
+        const sources = getVideoSources(section);
+        if (sources.length === 0) return;
 
-        if (video.dataset.loadedSrc === src) return;
+        const loadSource = (sourceIndex) => {
+          const src = sources[sourceIndex];
+          if (!src || video.dataset.loadedSrc === src) return;
 
-        video.dataset.loadedSrc = src;
-        video.preload = "auto";
-        video.src = src;
+          video.dataset.loadedSrc = src;
+          video.dataset.sourceIndex = `${sourceIndex}`;
+          video.preload = "auto";
+          video.src = src;
+          video.load();
+        };
+
+        video.onerror = () => {
+          const nextSourceIndex = Number(video.dataset.sourceIndex || 0) + 1;
+          if (nextSourceIndex < sources.length) {
+            loadSource(nextSourceIndex);
+          }
+        };
+
+        loadSource(0);
+      }
+
+      async function primeVideo(video) {
+        try {
+          video.muted = true;
+          video.defaultMuted = true;
+          video.currentTime = Math.max(0.01, video.currentTime || 0);
+          const playAttempt = video.play();
+          if (playAttempt && typeof playAttempt.then === "function") {
+            await playAttempt;
+          }
+          video.pause();
+        } catch (error) {
+          // Older iOS may reject autoplay until user interaction; scroll scrubbing still works after metadata loads.
+        }
       }
 
       function createScrollVideo({ data, onComplete }) {
@@ -131,7 +181,15 @@ window.addEventListener(
           lastT = scrubber.t;
 
           if (video.readyState >= 1 && video.duration) {
-            video.currentTime = scrubber.t * video.duration;
+            try {
+              const targetTime = Math.min(
+                video.duration - 0.01,
+                Math.max(0.01, scrubber.t * video.duration),
+              );
+              video.currentTime = targetTime;
+            } catch (error) {
+              // Ignore transient iOS seek errors while the browser is still preparing the media.
+            }
           }
 
           if (!nextActivated && scrubber.t > 0.05 && index + 1 < sectionData.length) {
@@ -176,11 +234,9 @@ window.addEventListener(
       function trackFirstVideoProgress(video) {
         if (!percentDisplay) return;
 
-        if (progressAbortController) {
-          progressAbortController.abort();
+        if (removeProgressListeners) {
+          removeProgressListeners();
         }
-        progressAbortController = new AbortController();
-        const { signal } = progressAbortController;
 
         const update = () => {
           if (!video.duration) return;
@@ -195,14 +251,19 @@ window.addEventListener(
           percentDisplay.textContent = `${pct}`;
         };
 
-        video.addEventListener("progress", update, { signal });
-        video.addEventListener(
-          "canplaythrough",
-          () => {
-            if (percentDisplay) percentDisplay.textContent = "100";
-          },
-          { signal },
-        );
+        const complete = () => {
+          if (percentDisplay) percentDisplay.textContent = "100";
+        };
+
+        video.addEventListener("progress", update);
+        video.addEventListener("loadeddata", update);
+        video.addEventListener("canplaythrough", complete);
+
+        removeProgressListeners = () => {
+          video.removeEventListener("progress", update);
+          video.removeEventListener("loadeddata", update);
+          video.removeEventListener("canplaythrough", complete);
+        };
       }
 
       function hideLoader() {
@@ -229,9 +290,13 @@ window.addEventListener(
             resolve();
             return;
           }
+          v.addEventListener("loadedmetadata", resolve, { once: true });
           v.addEventListener("loadeddata", resolve, { once: true });
+          v.addEventListener("error", resolve, { once: true });
           setTimeout(resolve, 5000);
         });
+
+        await primeVideo(sectionData[0].video);
 
         sectionData.forEach((data) => {
           const { index } = data;
