@@ -398,11 +398,11 @@ const selectedFeatures = computed(() => {
     <div class="container container-sm">
         <article class="card">
             <h4>{{ content.subTitle }}</h4>
-            <div v-html="nl2brList(currentPost.jobDescription)"></div>
+            <div v-html="currentPost.jobDescription"></div>
             <h4>{{ content.subTitle2 }}</h4>
-            <div v-html="nl2brList(currentPost.person)"></div>
+            <div v-html="currentPost.person"></div>
             <h4>{{ content.subTitle3 }}</h4>
-            <div v-html="nl2brList(currentPost.about)"></div>
+            <div v-html="currentPost.about"></div>
         </article>
     </div>
 </section>

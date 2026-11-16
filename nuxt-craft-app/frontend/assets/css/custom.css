@@ -503,3 +503,7 @@ h1.title{
   -webkit-backdrop-filter: blur(30px) brightness(90%);
   backdrop-filter: blur(30px) brightness(90%);
 }
+.hero.hero--jobs__listing .hero__tags .button{ 
+  border: 1px solid #fff;
+  background-color: #251163;
+}
