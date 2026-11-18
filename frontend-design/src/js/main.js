@@ -198,7 +198,7 @@ window.addEventListener(
           }
         };
 
-        const scrollDistance = index === sections.length - 1 ? "+=200%" : "+=300%";
+        const scrollDistance = index === sections.length - 1 ? "+=100%" : "+=150%";
 
         gsap.to(scrubber, {
           t: 1,
@@ -212,7 +212,7 @@ window.addEventListener(
             scrub: true,
             snap: {
               snapTo: 1,
-              duration: 0.3,
+              duration: 0.2,
               ease: "power1.inOut",
             },
             onToggle: (self) => {
@@ -309,7 +309,7 @@ window.addEventListener(
             nextSection.classList.add("pin-section-in-transition");
 
             gsap.to(window, {
-              duration: 1,
+              duration: 0.5,
               scrollTo: nextSection,
               overwrite: "auto",
               onStart: () => {
